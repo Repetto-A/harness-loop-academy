@@ -1,0 +1,20 @@
+{
+  "name": "taskflow-api-broken",
+  "version": "1.0.0",
+  "description": "API mínima SIN harness — contraste pedagógico Clase 1",
+  "type": "module",
+  "scripts": {
+    "dev": "node src/server.js",
+    "start": "node src/server.js",
+    "test": "vitest run src/users.test.js",
+    "test:all": "vitest run",
+    "lint": "node --check src/server.js && node --check src/users.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "supertest": "^7.0.0",
+    "vitest": "^3.0.5"
+  }
+}

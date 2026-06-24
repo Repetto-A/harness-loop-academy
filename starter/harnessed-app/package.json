@@ -1,0 +1,23 @@
+{
+  "name": "taskflow-api-harnessed",
+  "version": "1.0.0",
+  "description": "Misma API que broken-app, con harness completo para Clase 1–3",
+  "type": "module",
+  "scripts": {
+    "dev": "node src/server.js",
+    "start": "node src/server.js",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "node --check src/server.js && node --check src/users.js",
+    "validate:quick": "npm run lint && npm test",
+    "validate:full": "npm run lint && npm test",
+    "validate:closeout": "node scripts/validate-closeout.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "supertest": "^7.0.0",
+    "vitest": "^3.0.5"
+  }
+}

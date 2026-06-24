@@ -1,0 +1,47 @@
+# Plantilla: Automation Sentry → Fix → PR
+#
+# Uso: copiar valores a Cursor Automations (Agents Window).
+# Autenticar MCP Sentry y GitHub en chat ANTES de abrir el editor.
+# Reemplazar <PLACEHOLDERS>.
+
+name: "Sentry: auto-fix TaskFlow"
+description: "Cuando se crea un issue en Sentry, el agente investiga, arregla y abre PR."
+
+workflow:
+  triggers:
+    - sentry:
+        issueCreated: {}
+
+  actions:
+    - mcp:
+        server:
+          name: "Sentry"   # serverName exacto de SERVER_METADATA.json
+    - prComment: {}
+    - manageCheckRun: {}
+
+  prompts:
+    - |
+      Se creó un issue en Sentry para el repo taskflow-api-harnessed.
+
+      1. Lee el issue con MCP Sentry (stack trace, URL, frecuencia).
+      2. Lee AGENTS.md y docs/current-state.md del repo.
+      3. Reproduce mentalmente el bug; explora src/ antes de editar.
+      4. Implementa el fix mínimo que haga pasar los tests.
+      5. Corre `npm run validate:quick` y reporta evidencia.
+      6. Abre PR con título "fix(sentry): <resumen>" y en el body:
+         - Link al issue Sentry
+         - Causa raíz
+         - Qué validaste
+
+  model: ""
+  agentOptions:
+    skipInstall: false
+  memoryEnabled: true
+
+  gitConfig:
+    repo: "<owner>/taskflow-api-harnessed"
+    branch: "main"
+
+# Notas instructor:
+# - Disparar bug: curl http://localhost:3000/api/users/999/display-name
+# - Ver demo-sentry-loop.md para script completo

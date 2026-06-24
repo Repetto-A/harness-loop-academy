@@ -1,0 +1,23 @@
+- generic [ref=e2]:
+  - generic [ref=e3]:
+    - generic [ref=e9]:
+      - generic [ref=e10]: copia editorial · version 30 min
+      - generic [ref=e11]:
+        - generic [ref=e12]: IA bien usada
+        - heading "De prompts sueltos a workflows inteligentes." [level=1] [ref=e13]:
+          - text: De prompts sueltos
+          - text: a workflows inteligentes.
+        - paragraph [ref=e14]: Un buen input logra un buen output. Como dar contexto, pedir mejor y despues escalar eso a rules, memory, skills, plugins y crons.
+      - generic [ref=e15]: "objetivo: charla clara, practica y rapida"
+    - button "anterior" [ref=e16]
+    - button "siguiente" [ref=e17]
+  - generic:
+    - generic [ref=e18]:
+      - text: "01"
+      - generic [ref=e19]: / 20
+      - text: Cover 30
+    - generic [ref=e20]:
+      - button "G grid" [ref=e21]
+      - button "P presenter" [ref=e22]
+      - button "F fullscreen" [ref=e23]
+      - button "? ayuda" [ref=e24]

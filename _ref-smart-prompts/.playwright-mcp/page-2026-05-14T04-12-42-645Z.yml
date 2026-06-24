@@ -1,0 +1,17 @@
+- generic [ref=e2]:
+  - generic [ref=e3]:
+    - heading "De prompts sueltos a workflows inteligentes." [level=1] [ref=e11]:
+      - text: De prompts sueltos
+      - text: a workflows inteligentes.
+    - button "anterior" [ref=e12]
+    - button "siguiente" [ref=e13]
+  - generic:
+    - generic [ref=e14]:
+      - text: "01"
+      - generic [ref=e15]: / 18
+      - text: Portada
+    - generic [ref=e16]:
+      - button "G grid" [ref=e17]
+      - button "P presenter" [ref=e18]
+      - button "F fullscreen" [ref=e19]
+      - button "? ayuda" [ref=e20]

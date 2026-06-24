@@ -1,0 +1,24 @@
+- generic [ref=e2]:
+  - generic [ref=e3]:
+    - generic [ref=e8]:
+      - generic:
+        - generic: Alejandro Repetto
+      - generic [ref=e10]:
+        - heading "De prompts sueltos a workflows inteligentes." [level=1] [ref=e11]:
+          - text: De prompts sueltos
+          - text: a workflows inteligentes.
+        - generic [ref=e12]:
+          - paragraph [ref=e13]: Alejandro Repetto
+          - paragraph [ref=e14]: Software Engineer · AI Engineer
+    - button "anterior" [ref=e15]
+    - button "siguiente" [ref=e16]
+  - generic:
+    - generic [ref=e17]:
+      - text: "01"
+      - generic [ref=e18]: / 18
+      - text: Portada
+    - generic [ref=e19]:
+      - button "G grid" [ref=e20]
+      - button "P presenter" [ref=e21]
+      - button "F fullscreen" [ref=e22]
+      - button "? ayuda" [ref=e23]

@@ -1,0 +1,49 @@
+# AGENTS.md — Plantilla
+
+> Copiar a la raíz del repo. Mantener bajo ~120 líneas.
+
+## Misión
+
+[Una oración: qué valora este repo en cambios de código]
+
+## Contexto del proyecto
+
+- Stack: [framework, runtime, DB]
+- Leer: `README.md`, `docs/current-state.md`, `docs/architecture.md`
+
+## Reglas de planificación
+
+- Explorar antes de proponer cambios.
+- Identificar archivos, riesgo, supuestos y comandos de validación.
+- Spec corta antes de cambios no triviales (>3 archivos, API, auth, datos).
+- Preguntar solo ante ambigüedad de producto o acciones destructivas.
+
+## Reglas de código
+
+- Preferir patrones existentes.
+- Edits acotados; sin dependencias nuevas sin justificación.
+- Errores explícitos; no tragar excepciones.
+- [Reglas de seguridad específicas del proyecto]
+
+## Reglas de testing
+
+| Cambio | Validación mínima |
+|--------|-------------------|
+| [tipo] | [comando] |
+
+Ver `docs/validation-matrix.md` para tiers completos.
+
+## Reglas de review
+
+- Correr validación relevante.
+- Revisar `git diff`.
+- Buscar regresiones, tests faltantes, drift de docs.
+
+## Reglas de contexto
+
+- Resumir; citar archivos.
+- Actualizar `current-state.md` solo si cambia estado durable.
+
+## Skills del proyecto
+
+- `[skill-name]`: [cuándo usar]

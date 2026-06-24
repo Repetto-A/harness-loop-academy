@@ -1,0 +1,8 @@
+node_modules/
+_ref-smart-prompts/dist/
+_ref-smart-prompts/node_modules/
+starter/.atl/
+.DS_Store
+*.log
+.env
+.agents/

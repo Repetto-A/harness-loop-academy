@@ -1,0 +1,16 @@
+---
+description: Contrato HTTP para rutas API — errores y status codes
+globs: src/**/*.js
+alwaysApply: false
+---
+
+# API error handling
+
+Fuente de verdad: `docs/api-contract.md`.
+
+- Usuario inexistente en `/api/users/:id/display-name` → **404** + `{ "error": "User not found" }`
+- Nunca 200 con body vacío para missing user
+- Nunca dejar TypeError llegar a 500
+- Domain: `getUserDisplayName` retorna `null`; route traduce a HTTP
+
+Antes de cerrar un fix en rutas: correr `npm run validate:closeout`, no solo `npm test`.
