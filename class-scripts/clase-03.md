@@ -1,5 +1,9 @@
 # Guion Clase 3 — Loop Engineering + Hackathon Prep
 
+> **Material bonus / opcional** — fuera del programa núcleo de 2 clases Copilot-first.
+> Ver framing, requisitos extra y herramientas opcionales en
+> [`apendice-clase-03.md`](apendice-clase-03.md).
+
 **Duración total:** 2h 30m – 3h | **Elevator pitch:** "Dejá de ser el webhook."
 
 ## Materiales
