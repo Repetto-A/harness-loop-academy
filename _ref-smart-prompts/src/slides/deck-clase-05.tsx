@@ -808,8 +808,6 @@ const GraphProsCons = () => (
   </Shell>
 );
 
-const ENGRAM_IMAGE = "/harness-05/engram-memory.png";
-
 const EngramIntro = () => (
   <Shell>
     <RevealStack className="flex h-full min-h-0 flex-1 flex-col justify-center gap-8">
@@ -881,16 +879,18 @@ const EngramWhat = () => (
   </Shell>
 );
 
+const ENGRAM_IMAGE = "/harness-05/engram-memory.png";
+
 const EngramVisual = () => (
   <Shell flush>
-    <RevealStack className="flex h-full min-h-0 w-full flex-1 items-center justify-center px-6 py-4">
-      <RevealItem className="flex h-full w-full max-w-[min(100%,1920px)] items-center justify-center">
+    <RevealStack className="flex h-full min-h-0 w-full flex-1 items-center justify-center px-5 py-4">
+      <RevealItem className="flex h-full w-full max-w-[min(100%,1680px)] items-center justify-center">
         <img
           src={ENGRAM_IMAGE}
-          alt="Diagrama de Engram: tres sesiones de IA (1, 2 y 3) guardan decisiones, convenciones, bugs resueltos y resúmenes en una memoria persistente central, y una sesión nueva recupera ese contexto; sobrevive entre sesiones y compactaciones"
+          alt="Diagrama de Engram: tres sesiones de IA guardan decisiones, convenciones, bugs resueltos y resúmenes en una memoria persistente central, y una sesión nueva recupera ese contexto"
           width={1536}
           height={1024}
-          className="h-full w-full object-contain"
+          className="max-h-[94%] max-w-[98%] object-contain"
         />
       </RevealItem>
     </RevealStack>
@@ -911,168 +911,179 @@ const HarnessDef = () => (
   </Shell>
 );
 
-const HarnessComponentsCore = () => (
+const HarnessComponents = () => (
   <Shell>
     <ContentSlide>
       <RevealItem>
-        <SlideTitle>Qué compone un harness (1/2)</SlideTitle>
+        <SlideTitle>Qué compone un harness</SlideTitle>
       </RevealItem>
-      <CardGrid
-        cols={3}
-        items={HARNESS_CORE}
-        render={(t) => <DeckCard className="font-display text-lg leading-snug">{t as string}</DeckCard>}
-      />
-      <RevealItem>
-        <SlideLead>La base del flujo, qué querés, con qué, bajo qué reglas y cómo se chequea solo.</SlideLead>
-      </RevealItem>
-    </ContentSlide>
-  </Shell>
-);
-
-const HarnessComponentsGuard = () => (
-  <Shell>
-    <ContentSlide>
-      <RevealItem>
-        <SlideTitle>Qué compone un harness (2/2)</SlideTitle>
-      </RevealItem>
-      <CardGrid
-        cols={3}
-        items={HARNESS_GUARD}
-        render={(t) => <DeckCard className="font-display text-lg leading-snug">{t as string}</DeckCard>}
-      />
+      <RevealStack className="grid grid-cols-2 gap-6">
+        <RevealItem className="h-full">
+          <DeckCard accent className="flex h-full flex-col p-8">
+            <div className="font-mono text-sm text-ember mb-4 uppercase tracking-widest">La base</div>
+            <ul className="space-y-2.5 text-xl text-muted-foreground leading-snug">
+              {HARNESS_CORE.map((t) => (
+                <li key={t} className="flex gap-3">
+                  <span className="shrink-0 text-ember" aria-hidden>
+                    →
+                  </span>
+                  <span>{t}</span>
+                </li>
+              ))}
+            </ul>
+            <p className="mt-4 text-base text-muted-foreground/90">
+              Qué querés, con qué, bajo qué reglas y cómo se chequea solo.
+            </p>
+          </DeckCard>
+        </RevealItem>
+        <RevealItem className="h-full">
+          <DeckCard className="flex h-full flex-col p-8">
+            <div className="font-mono text-sm text-ember mb-4 uppercase tracking-widest">El control</div>
+            <ul className="space-y-2.5 text-xl text-muted-foreground leading-snug">
+              {HARNESS_GUARD.map((t) => (
+                <li key={t} className="flex gap-3">
+                  <span className="shrink-0 text-ember" aria-hidden>
+                    →
+                  </span>
+                  <span>{t}</span>
+                </li>
+              ))}
+            </ul>
+            <p className="mt-4 text-base text-muted-foreground/90">
+              Que no sea magia ni un agente tocando producción solo.
+            </p>
+          </DeckCard>
+        </RevealItem>
+      </RevealStack>
       <RevealItem>
         <SlideLead>
-          Nada de magia. Tampoco un agente tocando producción solo. Es{" "}
-          <span className="text-foreground font-bold">tener el control</span>.
+          No es una herramienta, es <span className="text-foreground font-bold">tener el control</span> de lo
+          que produce la IA.
         </SlideLead>
       </RevealItem>
     </ContentSlide>
   </Shell>
 );
 
-const MINI_HARNESS_STEPS = [
-  "1. Escribile una spec clara",
-  "2. Pasale los archivos que tocan",
-  "3. Pedile el plan antes del código",
-  "4. Pedile riesgos y supuestos",
-  "5. Pedile los tests",
-  "6. Chequealo contra las reglas internas",
-  "7. Revisalo vos",
-  "8. Volvé con el error concreto",
-] as const;
-
 const MiniHarnessCopilot = () => (
   <Shell>
     <ContentSlide>
       <RevealItem>
-        <SlideTitle>Mini-harness manual con Copilot</SlideTitle>
+        <SlideTitle>Con Copilot ya tenés un harness</SlideTitle>
       </RevealItem>
       <RevealItem>
-        <SlideLead>No hace falta una herramienta nueva, con Copilot ya lo armás a mano.</SlideLead>
+        <SlideLead className="max-w-[1400px]">
+          No le pegás al modelo crudo. Copilot envuelve cada pedido: arma contexto, llama herramientas,
+          aplica tus reglas y valida. Al modelo pelado solo llegás por API.
+        </SlideLead>
       </RevealItem>
-      <CardGrid
-        cols={2}
-        items={MINI_HARNESS_STEPS}
-        render={(t) => {
-          const step = t as string;
-          return (
-            <DeckCard className="flex items-center gap-4 p-5">
-              <span className="text-ember font-mono text-lg">{step.split(".")[0]}</span>
-              <span className="font-display text-lg">{step.replace(/^\d+\.\s/, "")}</span>
+      <RevealStack className="grid grid-cols-2 gap-6">
+        <RevealItem className="h-full">
+          <DeckCard accent className="flex h-full flex-col p-8">
+            <div className="font-mono text-sm text-ember mb-4 uppercase tracking-widest">
+              Lo que ya hace la plataforma
+            </div>
+            <ul className="space-y-2.5 text-lg text-muted-foreground leading-snug">
+              <li>Arma contexto del repo</li>
+              <li>Llama herramientas: buscar, editar, ejecutar</li>
+              <li>Aplica tus copilot-instructions / AGENTS.md</li>
+              <li>Itera en un loop con vos</li>
+            </ul>
+          </DeckCard>
+        </RevealItem>
+        <RevealItem className="h-full">
+          <DeckCard className="flex h-full flex-col p-8">
+            <div className="font-mono text-sm text-ember mb-4 uppercase tracking-widest">
+              Lo que sumás vos para confiar
+            </div>
+            <ul className="space-y-2.5 text-lg text-muted-foreground leading-snug">
+              <li>Reglas y skills propias</li>
+              <li>Specs y tests como contrato</li>
+              <li>Validación, review y límites</li>
+              <li>Trazabilidad para auditoría</li>
+            </ul>
+          </DeckCard>
+        </RevealItem>
+      </RevealStack>
+      <RevealItem>
+        <SlideLead>
+          El prompt es lo que le decís.{" "}
+          <span className="text-foreground font-bold">
+            El harness es lo que el sistema hace con eso.
+          </span>
+        </SlideLead>
+      </RevealItem>
+    </ContentSlide>
+  </Shell>
+);
+
+const FLOWS: [string, string, string[]][] = [
+  [
+    "A",
+    "Entender legacy",
+    ["Identificar archivos", "Pedir resumen + diagrama textual", "Marcar puntos de riesgo", "Validar contra el código real"],
+  ],
+  [
+    "B",
+    "Cambiar regla de negocio",
+    ["Escribir la spec", "Recuperar contexto e impacto", "Proponer cambios, frenar ahí", "Generar tests + edge cases"],
+  ],
+  [
+    "C",
+    "Tests sobre código existente",
+    ["Pedir matriz de casos", "Detectar ramas sin cubrir", "Generar y ejecutar", "Corregir con errores reales"],
+  ],
+  [
+    "D",
+    "Refactor seguro",
+    ["Congelar comportamiento (tests antes)", "Cambios chicos", "Validación incremental", "Plan de rollback"],
+  ],
+];
+
+const FlowsConcrete = () => (
+  <Shell>
+    <ContentSlide>
+      <RevealItem>
+        <SlideTitle>Flujos concretos</SlideTitle>
+      </RevealItem>
+      <RevealStack className="grid grid-cols-2 gap-5">
+        {FLOWS.map(([tag, title, steps]) => (
+          <RevealItem key={tag} className="h-full">
+            <DeckCard className="flex h-full flex-col p-6">
+              <div className="mb-3 flex items-center gap-3">
+                <span
+                  aria-hidden
+                  className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-ember/15 font-mono text-lg font-bold text-ember"
+                >
+                  {tag}
+                </span>
+                <span className="font-display text-xl font-bold leading-tight">{title}</span>
+              </div>
+              <ul className="space-y-1.5 text-base text-muted-foreground leading-snug md:text-lg">
+                {steps.map((s) => (
+                  <li key={s} className="flex gap-2.5">
+                    <span aria-hidden className="shrink-0 text-ember/70">
+                      →
+                    </span>
+                    <span>{s}</span>
+                  </li>
+                ))}
+              </ul>
             </DeckCard>
-          );
-        }}
-      />
-    </ContentSlide>
-  </Shell>
-);
-
-function FlowPanel({ label, steps }: { label: string; steps: string[] }) {
-  return (
-    <DeckCard className="p-8">
-      <div className="font-mono text-ember mb-3 uppercase tracking-widest">{label}</div>
-      <ul className="space-y-1.5 text-lg text-muted-foreground">
-        {steps.map((s) => (
-          <li key={s}>{s}</li>
+          </RevealItem>
         ))}
-      </ul>
-    </DeckCard>
-  );
-}
-
-const FlowsLegacyChange = () => (
-  <Shell>
-    <ContentSlide>
-      <RevealItem>
-        <SlideTitle>Flujos concretos (1/2)</SlideTitle>
-      </RevealItem>
-      <RevealStack className="grid grid-cols-2 gap-8">
-        <RevealItem>
-          <FlowPanel
-            label="A · Entender legacy"
-            steps={[
-              "Identificar archivos",
-              "Pedir resumen",
-              "Pedir diagrama textual",
-              "Pedir puntos de riesgo",
-              "Pedir tests faltantes",
-              "Validar con código real",
-            ]}
-          />
-        </RevealItem>
-        <RevealItem>
-          <FlowPanel
-            label="B · Cambiar regla de negocio"
-            steps={[
-              "Escribir spec",
-              "Recuperar contexto",
-              "Identificar impacto",
-              "Proponer cambios",
-              "Generar tests",
-              "Revisar seguridad y edge cases",
-            ]}
-          />
-        </RevealItem>
       </RevealStack>
     </ContentSlide>
   </Shell>
 );
 
-const FlowsTestRefactor = () => (
-  <Shell>
-    <ContentSlide>
-      <RevealItem>
-        <SlideTitle>Flujos concretos (2/2)</SlideTitle>
-      </RevealItem>
-      <RevealStack className="grid grid-cols-2 gap-8">
-        <RevealItem>
-          <FlowPanel
-            label="C · Tests sobre código existente"
-            steps={[
-              "Pedir matriz de casos",
-              "Detectar ramas no cubiertas",
-              "Generar tests",
-              "Ejecutar",
-              "Corregir con errores reales",
-            ]}
-          />
-        </RevealItem>
-        <RevealItem>
-          <FlowPanel
-            label="D · Refactor seguro"
-            steps={[
-              "Definir objetivo",
-              "Congelar comportamiento (tests antes)",
-              "Cambios pequeños",
-              "Validación incremental",
-              "Rollback mental",
-            ]}
-          />
-        </RevealItem>
-      </RevealStack>
-    </ContentSlide>
-  </Shell>
-);
+const DO_DONT_PAIRS: [string, string][] = [
+  ["Pedir el plan antes de implementar", "Pedir cambios enormes de una vez"],
+  ["Usar specs y tests como contrato", "Aceptar código que no entendés"],
+  ["Pasar contexto seleccionado", "Pegar datos sensibles o PII"],
+  ["Validar lo que propone", "Confiar sin chequear"],
+  ["Documentar la decisión", "Saltarte permisos, compliance o review"],
+];
 
 const DoDont = () => (
   <Shell>
@@ -1080,34 +1091,41 @@ const DoDont = () => (
       <RevealItem>
         <SlideTitle>Qué sí y qué no</SlideTitle>
       </RevealItem>
-      <RevealStack className="grid grid-cols-2 gap-8">
+      <RevealStack className="space-y-3">
         <RevealItem>
-          <DeckCard accent className="p-8">
-            <div className="font-mono text-ember mb-4 uppercase tracking-widest">Sí</div>
-            <ul className="space-y-2 text-lg text-muted-foreground">
-              <li>Usar IA para entender código</li>
-              <li>Pedir plan antes de implementar</li>
-              <li>Pedir riesgos y supuestos</li>
-              <li>Usar specs y tests como contrato</li>
-              <li>Usar contexto seleccionado</li>
-              <li>Documentar decisiones</li>
-            </ul>
-          </DeckCard>
+          <div className="grid grid-cols-2 gap-5">
+            <div className="flex items-center gap-2 font-mono text-sm uppercase tracking-widest text-ember">
+              <span aria-hidden>✓</span> Hacé
+            </div>
+            <div className="flex items-center gap-2 font-mono text-sm uppercase tracking-widest text-[oklch(0.75_0.2_25)]">
+              <span aria-hidden>✕</span> Evitá
+            </div>
+          </div>
         </RevealItem>
-        <RevealItem>
-          <DeckCard className="border-2 border-[oklch(0.6_0.22_25)] bg-[oklch(0.6_0.22_25)]/10 p-8">
-            <div className="font-mono text-[oklch(0.7_0.2_25)] mb-4 uppercase tracking-widest">No</div>
-            <ul className="space-y-2 text-lg text-muted-foreground">
-              <li>Pegar datos sensibles</li>
-              <li>Confiar sin validar</li>
-              <li>Pedir cambios enormes de una vez</li>
-              <li>Aceptar código que no entendés</li>
-              <li>Saltarse permisos / compliance / review</li>
-              <li>Confundir “parece” con “está” correcto</li>
-            </ul>
-          </DeckCard>
-        </RevealItem>
+        {DO_DONT_PAIRS.map(([yes, no]) => (
+          <RevealItem key={yes}>
+            <div className="grid grid-cols-2 gap-5">
+              <DeckCard accent className="flex items-center gap-3 px-5 py-3.5">
+                <span aria-hidden className="shrink-0 text-ember">
+                  ✓
+                </span>
+                <span className="font-display text-lg leading-snug">{yes}</span>
+              </DeckCard>
+              <DeckCard className="flex items-center gap-3 border-2 border-[oklch(0.6_0.22_25)] bg-[oklch(0.6_0.22_25)]/10 px-5 py-3.5">
+                <span aria-hidden className="shrink-0 text-[oklch(0.75_0.2_25)]">
+                  ✕
+                </span>
+                <span className="font-display text-lg leading-snug">{no}</span>
+              </DeckCard>
+            </div>
+          </RevealItem>
+        ))}
       </RevealStack>
+      <RevealItem>
+        <SlideLead>
+          La regla madre, <span className="text-foreground font-bold">“parece correcto” no es “está correcto”</span>.
+        </SlideLead>
+      </RevealItem>
     </ContentSlide>
   </Shell>
 );
@@ -1116,64 +1134,83 @@ const LoopsAgents = () => (
   <Shell bg="panel">
     <ContentSlide>
       <RevealItem>
-        <SlideTitle>
-          Loops y agentes{" "}
-          <span className="text-muted-foreground text-[clamp(1.25rem,2vw,1.75rem)]">
-            (tendencia, no recomendación de prod)
-          </span>
-        </SlideTitle>
+        <SlideTitle>Loops y agentes</SlideTitle>
       </RevealItem>
-      <CardGrid
-        cols={3}
-        gap="gap-5"
-        items={[
-          ["Loop", "Iteración controlada, planear, ejecutar, observar, corregir"],
-          ["Agente", "Modelo + herramientas + límites + feedback"],
-          ["Sin harness", "Solo una forma más rápida de equivocarse con confianza"],
-        ]}
-        render={(item) => {
-          const [title, body] = item as [string, string];
-          return (
-            <DeckCard className="p-7">
-              <div className="font-display text-2xl font-bold text-ember mb-2">{title}</div>
-              <div className="text-lg text-muted-foreground leading-snug">{body}</div>
-            </DeckCard>
-          );
-        }}
-      />
+      <RevealItem>
+        <SlideLead className="max-w-[1400px]">
+          El paso siguiente, cuando ya tenés el harness. La IA itera sola dentro de límites que vos ponés.
+        </SlideLead>
+      </RevealItem>
+      <RevealStack className="grid grid-cols-3 gap-5">
+        <RevealItem className="h-full">
+          <DeckCard accent className="flex h-full flex-col p-7">
+            <div className="font-display text-2xl font-bold text-ember mb-2">Loop</div>
+            <div className="text-lg text-muted-foreground leading-snug">
+              Iteración controlada: planear, ejecutar, observar, corregir.
+            </div>
+          </DeckCard>
+        </RevealItem>
+        <RevealItem className="h-full">
+          <DeckCard accent className="flex h-full flex-col p-7">
+            <div className="font-display text-2xl font-bold text-ember mb-2">Agente</div>
+            <div className="text-lg text-muted-foreground leading-snug">
+              Modelo + herramientas + límites + feedback para avanzar solo.
+            </div>
+          </DeckCard>
+        </RevealItem>
+        <RevealItem className="h-full">
+          <DeckCard className="flex h-full flex-col border-2 border-[oklch(0.6_0.22_25)] bg-[oklch(0.6_0.22_25)]/10 p-7">
+            <div className="font-display text-2xl font-bold text-[oklch(0.75_0.2_25)] mb-2">
+              Sin harness
+            </div>
+            <div className="text-lg text-muted-foreground leading-snug">
+              Una forma más rápida de equivocarse con confianza.
+            </div>
+          </DeckCard>
+        </RevealItem>
+      </RevealStack>
     </ContentSlide>
   </Shell>
 );
+
+const ACTIVITY_STEPS = [
+  "El cambio, en una oración",
+  "La spec, qué y por qué",
+  "Qué contexto recuperar (docs, tests, modelos)",
+  "Impacto, qué podría romperse",
+  "Qué NO le pasamos a la IA",
+  "Cómo lo validamos (tests, review, criterios)",
+] as const;
 
 const Activity = () => (
   <Shell>
     <ContentSlide>
       <RevealItem>
-        <SlideTitle>Actividad · 15 min</SlideTitle>
+        <SlideTitle>Lo armamos juntos · 15 min</SlideTitle>
       </RevealItem>
       <RevealItem>
-        <SlideLead>
-          En salas breakout (3-4 personas): elijan un cambio real y armen el mini-harness antes de tocar código.
+        <SlideLead className="max-w-[1400px]">
+          Elegimos <span className="text-foreground font-medium">un cambio real de ustedes</span> y armamos
+          el harness en vivo, acá en pantalla. Ustedes ponen las piezas, yo las escribo.
         </SlideLead>
       </RevealItem>
-      <CardGrid
-        cols={2}
-        items={[
-          "Cambio elegido (1 oración)",
-          "Spec, qué y por qué",
-          "Contexto a recuperar (docs, tests, modelos)",
-          "Impacto, qué podría romperse",
-          "Qué NO compartir con la IA",
-          "Cómo se valida (tests, review, criterios)",
-          "Qué se registra para auditoría",
-        ]}
-        render={(t) => (
-          <DeckCard className="flex items-center gap-4 p-5">
-            <span aria-hidden className="text-ember font-mono text-lg">□</span>
-            <span className="font-display text-lg">{t as string}</span>
-          </DeckCard>
-        )}
-      />
+      <RevealStack className="grid grid-cols-2 gap-4">
+        {ACTIVITY_STEPS.map((t, i) => (
+          <RevealItem key={t}>
+            <DeckCard className="flex items-center gap-4 p-5">
+              <span aria-hidden className="font-mono text-lg font-bold text-ember">
+                {i + 1}
+              </span>
+              <span className="font-display text-lg leading-snug">{t}</span>
+            </DeckCard>
+          </RevealItem>
+        ))}
+      </RevealStack>
+      <RevealItem>
+        <SlideLead>
+          Al final queda un harness <span className="text-foreground font-bold">reusable para el próximo ticket</span>.
+        </SlideLead>
+      </RevealItem>
     </ContentSlide>
   </Shell>
 );
@@ -1374,7 +1411,7 @@ export const slidesClase05: SlideDefBase[] = [
     title: "Engram diagrama",
     Component: EngramVisual,
     notes:
-      "Diagrama a pantalla completa. Sesiones guardan en la memoria central; sesión nueva recupera contexto. Sobrevive entre sesiones y compactaciones. No leer texto, narrar el flujo.",
+      "Imagen centrada con margen (no fullscreen). Narrar: sesiones guardan → memoria central → sesión nueva recupera. Sobrevive entre sesiones y compactaciones.",
   },
   {
     id: "c5-harness-def",
@@ -1383,55 +1420,46 @@ export const slidesClase05: SlideDefBase[] = [
     notes: "12 min. Definición: contexto + reglas + herramientas + validaciones + límites alrededor de la IA. Producir cambios útiles y verificables.",
   },
   {
-    id: "c5-harness-core",
-    title: "Harness: base",
-    Component: HarnessComponentsCore,
-    notes: "Specs, contexto, reglas, tests, linters, CI/CD. La base operativa del harness.",
-  },
-  {
-    id: "c5-harness-guard",
-    title: "Harness: control",
-    Component: HarnessComponentsGuard,
+    id: "c5-harness-components",
+    title: "Harness: componentes",
+    Component: HarnessComponents,
     notes:
-      "Seguridad, review, checklists, ambientes, logs, límites. Aclarar: no es magia, no es agente en prod solo. Es madurez y control.",
+      "Dos grupos en una slide. La base: specs, contexto, reglas, tests, linters, CI/CD. El control: seguridad, review, checklists, ambientes, logs, límites. Cierre: no es herramienta, es tener el control.",
   },
   {
     id: "c5-mini-harness",
-    title: "Mini-harness con Copilot",
+    title: "Copilot ya es un harness",
     Component: MiniHarnessCopilot,
-    notes: "Aunque solo tengamos Copilot: spec → archivos → plan → riesgos → tests → validar reglas → review → iterar con errores concretos. Esto es harness manual, hoy, sin instalar nada.",
+    notes:
+      "Corrección clave: no le hablás al modelo crudo (eso es solo por API). Copilot ya envuelve cada pedido en un harness: contexto, herramientas, instrucciones, loop. El prompt es lo que entra; el harness es lo que el sistema HACE con eso. Tu trabajo: reforzarlo con reglas, tests, validación y trazabilidad.",
   },
   {
-    id: "c5-flows-1",
-    title: "Flujos A y B",
-    Component: FlowsLegacyChange,
-    notes: "8 min. A: entender módulo legacy. B: cambiar regla de negocio. Recorrer pasos, anclar en su día a día.",
-  },
-  {
-    id: "c5-flows-2",
-    title: "Flujos C y D",
-    Component: FlowsTestRefactor,
-    notes: "C: tests sobre código existente (matriz de casos, ramas no cubiertas, ejecutar, corregir). D: refactor seguro (congelar comportamiento con tests antes, cambios chicos, rollback mental).",
+    id: "c5-flows",
+    title: "Flujos concretos",
+    Component: FlowsConcrete,
+    notes:
+      "8 min. Cuatro flujos en una slide: A entender legacy, B cambiar regla de negocio, C tests sobre código existente, D refactor seguro. Recorrer rápido, anclar en su día a día.",
   },
   {
     id: "c5-do-dont",
     title: "Sí y no",
     Component: DoDont,
-    notes: "4 min. Lista clara de sí/no. El no más importante: datos sensibles y confiar sin validar. 'Parece correcto' ≠ 'está correcto'.",
+    notes:
+      "4 min. Pares hacé/evitá enfrentados. El no más importante: datos sensibles y confiar sin validar. Cerrar con 'parece correcto' no es 'está correcto'.",
   },
   {
     id: "c5-loops-agents",
     title: "Loops y agentes",
     Component: LoopsAgents,
     notes:
-      "5 min (RECORTABLE si falta tiempo). Loop = iteración controlada. Agente = modelo + herramientas + límites + feedback. Sin harness, un agente es una forma más rápida de equivocarse con confianza. Tendencia, no recomendación para prod bancaria.",
+      "5 min (RECORTABLE si falta tiempo). El paso siguiente cuando ya hay harness. Loop = iteración controlada. Agente = modelo + herramientas + límites + feedback. Sin harness, una forma más rápida de equivocarse con confianza.",
   },
   {
     id: "c5-activity",
     title: "Actividad",
     Component: Activity,
     notes:
-      "15 min. Salas breakout: arman el mini-harness de un cambio real antes de tocar código (cambio, spec, contexto, impacto, qué no compartir, validación, auditoría). Al volver, 1-2 equipos comparten en pantalla o por chat.",
+      "15 min. EN CONJUNTO, no breakout. Pedir al grupo un cambio real y armar el harness en vivo en pantalla: cambio, spec, contexto, impacto, qué no compartir, validación. Cerrar: queda reusable para el próximo ticket.",
   },
   {
     id: "c5-closing",
