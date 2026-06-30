@@ -23,7 +23,17 @@ export function PresentationDeck({ slides, storageKey, deckTitle }: Props) {
   const [step, setStep] = useState(0);
   const [mode, setMode] = useState<Mode>("slide");
   const [showHelp, setShowHelp] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const onFullscreenChange = () => {
+      setIsFullscreen(Boolean(document.fullscreenElement));
+    };
+    document.addEventListener("fullscreenchange", onFullscreenChange);
+    onFullscreenChange();
+    return () => document.removeEventListener("fullscreenchange", onFullscreenChange);
+  }, []);
 
   useEffect(() => {
     localStorage.setItem(storageKey, String(index));
@@ -150,18 +160,20 @@ export function PresentationDeck({ slides, storageKey, deckTitle }: Props) {
         />
       </div>
 
-      <div className="absolute bottom-0 left-0 right-0 px-6 py-3 grid grid-cols-[112px_minmax(0,1fr)] items-center gap-3 pointer-events-none">
-        <div className="font-mono text-[11px] text-muted-foreground/70 pointer-events-none whitespace-nowrap overflow-hidden">
-          <span className="text-ember">{String(index + 1).padStart(2, "0")}</span>
-          <span className="opacity-50"> / {String(slides.length).padStart(2, "0")}</span>
+      {!isFullscreen && (
+        <div className="absolute bottom-0 left-0 right-0 px-6 py-3 grid grid-cols-[112px_minmax(0,1fr)] items-center gap-3 pointer-events-none">
+          <div className="font-mono text-[11px] text-muted-foreground/70 pointer-events-none whitespace-nowrap overflow-hidden">
+            <span className="text-ember">{String(index + 1).padStart(2, "0")}</span>
+            <span className="opacity-50"> / {String(slides.length).padStart(2, "0")}</span>
+          </div>
+          <div className="h-[2px] bg-surface/70 overflow-hidden">
+            <div
+              className="h-full bg-ember/85 transition-all duration-300"
+              style={{ width: `${((index + 1) / slides.length) * 100}%` }}
+            />
+          </div>
         </div>
-        <div className="h-[2px] bg-surface/70 overflow-hidden">
-          <div
-            className="h-full bg-ember/85 transition-all duration-300"
-            style={{ width: `${((index + 1) / slides.length) * 100}%` }}
-          />
-        </div>
-      </div>
+      )}
 
       {showHelp && <HelpOverlay onClose={() => setShowHelp(false)} />}
     </div>

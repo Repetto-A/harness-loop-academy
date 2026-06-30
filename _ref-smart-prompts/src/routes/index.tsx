@@ -32,6 +32,18 @@ const CLASSES = [
     title: "Loop engineering (bonus)",
     subtitle: "Material extra · loops y autonomía",
   },
+  {
+    to: "/harness-04" as const,
+    num: "04",
+    title: "Open source vs propietarios",
+    subtitle: "Criterio, riesgos y qué encaja mejor",
+  },
+  {
+    to: "/harness-05" as const,
+    num: "05",
+    title: "Que la IA entienda tu codebase",
+    subtitle: "Codebase intelligence + harness · ~1h30",
+  },
 ];
 
 function Index() {
@@ -45,8 +57,8 @@ function Index() {
           Elegí la clase
         </h1>
         <p className="mt-4 max-w-xl text-lg text-muted-foreground">
-          Presentaciones integradas en smart-prompts. Atajos en cada deck: G grid, P
-          presenter, F fullscreen.
+          Presentaciones integradas en smart-prompts. Atajos en cada deck: G grid, P presenter, F
+          fullscreen.
         </p>
 
         <ul className="mt-12 space-y-4">
