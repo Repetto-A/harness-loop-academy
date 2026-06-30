@@ -60,7 +60,7 @@ const PROBLEM_LEAD =
 
 const HARNESS_CORE = [
   "Specs claras",
-  "Contexto correcto",
+  "Contexto correcto (RAG/CAG/grafo/Engram)",
   "Reglas del proyecto",
   "Tests",
   "Linters",
@@ -660,7 +660,7 @@ const GraphConcept = () => (
       <RevealItem>
         <SlideLead>
           El grafo responde{" "}
-          <span className="text-foreground font-bold">qué se rompe si tocás esto</span>. Los vectores
+          <span className="text-foreground font-bold">qué podría romperse si tocás esto</span>. Los vectores
           responden <span className="text-foreground font-bold">qué se parece</span>.
         </SlideLead>
       </RevealItem>
@@ -726,15 +726,17 @@ const GraphCodebaseMemory = () => (
             codebase-memory-mcp · referencia open source
           </div>
           <ul className="space-y-2 text-lg text-muted-foreground leading-snug">
-            <li>Indexa el repo en un grafo persistente (tree-sitter + LSP híbrido, 158 lenguajes)</li>
-            <li>~120× menos tokens que explorar archivo por archivo (3.400 vs 412.000 en su benchmark)</li>
+            <li>Indexa el repo en un grafo persistente (tree-sitter en 158 lenguajes, LSP híbrido en ~9)</li>
+            <li>
+              Hasta ~120× menos tokens en su micro-benchmark de 5 consultas (3.400 vs 412.000); el paper
+              sobre 31 repos reporta ~10× con algo menos de calidad (83% vs 92%)
+            </li>
             <li>14 herramientas MCP: trace, impacto, arquitectura, Cypher, código muerto</li>
             <li>100% local, binario estático, el código no sale de tu máquina</li>
           </ul>
           <p className="mt-4 text-base text-muted-foreground/90">
             En banco lo tomamos como{" "}
-            <span className="text-foreground font-medium">referencia de arquitectura</span> para el harness,
-            no como algo para instalar mañana en prod.
+            <span className="text-foreground font-medium">referencia de arquitectura</span> para el harness.
           </p>
         </DeckCard>
       </RevealItem>
@@ -760,7 +762,7 @@ const GraphExample = () => (
       </RevealItem>
       <RevealItem>
         <SlideLead>
-          Eso es saber <span className="text-foreground font-bold">qué se va a romper</span> antes de tocar, no
+          Eso es saber <span className="text-foreground font-bold">qué podría romperse</span> antes de tocar, no
           buscar código parecido.
         </SlideLead>
       </RevealItem>
@@ -779,10 +781,10 @@ const GraphProsCons = () => (
           <DeckCard accent className="p-8">
             <div className="font-mono text-ember mb-4 uppercase tracking-widest">Pros</div>
             <ul className="space-y-2 text-xl text-muted-foreground">
-              <li>Costo, hasta 120x menos tokens que leer archivo por archivo</li>
+              <li>Tokens, muchos menos que leer archivo por archivo</li>
               <li>Latencia, consultas en sub-milisegundo</li>
-              <li>Precisión, menos ruido y sin perderse en el medio</li>
-              <li>Trazabilidad de impacto, relaciones explícitas</li>
+              <li>Precisión estructural, relaciones explícitas sin perderse en el medio</li>
+              <li>Trazabilidad de impacto, qué depende de qué</li>
             </ul>
           </DeckCard>
         </RevealItem>
@@ -790,7 +792,7 @@ const GraphProsCons = () => (
           <DeckCard className="p-8">
             <div className="font-mono text-muted-foreground mb-4 uppercase tracking-widest">Contras</div>
             <ul className="space-y-2 text-xl text-muted-foreground">
-              <li>Mantenimiento y costo</li>
+              <li>Costo de mantener el grafo actualizado</li>
               <li>Complejidad de armarlo</li>
               <li>Riesgo de grafo desactualizado</li>
               <li>Falsa sensación de precisión</li>
@@ -879,6 +881,33 @@ const EngramWhat = () => (
   </Shell>
 );
 
+const EngramExample = () => (
+  <Shell>
+    <ContentSlide>
+      <RevealItem>
+        <SlideTitle>Ejemplo: el contexto que no se pierde</SlideTitle>
+      </RevealItem>
+      <RevealItem>
+        <CodeBlock label="lo que queda guardado entre sesiones" tone="good">
+          {`Sesión 1 (lunes):
+- Decisión: el validador de transferencias > 1M aplica la excepción de la norma X
+- Convención: los montos van en centavos, nunca en float
+
+Sesión 4 (jueves, chat nuevo):
+→ "¿cómo manejábamos los montos acá?"
+→ Engram lo recupera: centavos, nunca float. No lo re-explicás.`}
+        </CodeBlock>
+      </RevealItem>
+      <RevealItem>
+        <SlideLead>
+          Lo que el equipo aprendió queda disponible,{" "}
+          <span className="text-foreground font-bold">aunque cambie la persona o se reinicie el chat</span>.
+        </SlideLead>
+      </RevealItem>
+    </ContentSlide>
+  </Shell>
+);
+
 const ENGRAM_IMAGE = "/harness-05/engram-memory.png";
 
 const EngramVisual = () => (
@@ -903,8 +932,9 @@ const HarnessDef = () => (
       <div className="flex flex-col gap-10">
         <h2 className="font-display text-[clamp(3rem,7vw,6rem)] font-bold text-balance">Harness engineering</h2>
         <p className="font-display text-[clamp(1.75rem,3.5vw,2.5rem)] leading-snug max-w-[1500px]">
-          Todo lo que armás alrededor de la IA (contexto, reglas, herramientas, validaciones y límites)
-          para que lo que produzca sea <span className="underline">útil y se pueda verificar</span>.
+          Todo lo que armás alrededor de la IA —el contexto que vimos (RAG, CAG, grafo, Engram), más
+          reglas, herramientas, validaciones y límites— para que lo que produzca sea{" "}
+          <span className="underline">útil y se pueda verificar</span>.
         </p>
       </div>
     </StatementSlide>
@@ -1239,7 +1269,7 @@ const ClosingRecap = () => (
         {[
           ["Prompt engineering", "es la base"],
           ["Context engineering", "es el puente"],
-          ["RAG, grafos y memoria", "dan mejor contexto"],
+          ["RAG, CAG, grafos y memoria", "dan mejor contexto"],
           ["Harness engineering", "lo vuelve un flujo confiable"],
           ["En entornos regulados", "la ventaja es velocidad con trazabilidad"],
         ].map(([a, b]) => (
@@ -1334,7 +1364,7 @@ export const slidesClase05: SlideDefBase[] = [
     title: "¿Qué es un CAG?",
     Component: CagIntro,
     notes:
-      "Pausa 2 seg. Misma estructura que RAG: pregunta + sigla. No explicar aún; la siguiente slide baja a la analogía AGENTS.md vs skills.",
+      "Pausa 2 seg. Misma estructura que RAG: pregunta + sigla. Aclarar que CAG NO es un escalón nuevo del mapa: es el hermano de RAG. En vez de buscar en cada consulta, precarga lo estable. Buscar (RAG) vs precargar (CAG). No explicar más aún; la siguiente slide baja a la analogía AGENTS.md vs skills.",
   },
   {
     id: "c5-cag",
@@ -1342,7 +1372,7 @@ export const slidesClase05: SlideDefBase[] = [
     Component: CagMemory,
     steps: 2,
     notes:
-      "3 clicks. 1) Qué es CAG: precarga estable en la ventana del modelo, sin retrieval en cada consulta. 2) Comparar CAG≈AGENTS.md vs RAG≈skills.md. 3) Se combinan, ojo con apilar capas sin propósito.",
+      "3 clicks. 1) Qué es CAG: precarga estable en la ventana del modelo, sin retrieval en cada consulta. 2) Comparar CAG≈AGENTS.md vs RAG≈skills.md. 3) Se combinan, ojo con apilar capas sin propósito. Aclarar en voz: es analogía de COMPORTAMIENTO (siempre-presente vs on-demand), no el mismo mecanismo por dentro (CAG real = reuso del KV-cache, que en Copilot no controlás).",
   },
   {
     id: "c5-cag-examples",
@@ -1373,31 +1403,32 @@ export const slidesClase05: SlideDefBase[] = [
       "Diagrama a pantalla completa. Izquierda: nodos y aristas. Derecha: 412k vs 3.4k tokens, 120x. Fuente benchmark codebase-memory-mcp. En Copilot hoy adjuntás los 3 archivos del grafo, no 20.",
   },
   {
+    id: "c5-graph-example",
+    title: "Grafo ejemplo",
+    Component: GraphExample,
+    notes:
+      "Conceptual primero (antes de la herramienta concreta). Ejemplo: cambiar validación de clientes corporativos → qué endpoints, jobs, tests, módulos PODRÍAN romperse. Trazabilidad de impacto, no similitud. Aclarar 'podría': el grafo estático no ve dispatch dinámico ni reflexión.",
+  },
+  {
     id: "c5-graph-mcp",
     title: "codebase-memory-mcp",
     Component: GraphCodebaseMemory,
     notes:
-      "GRAN referencia del mix grafo + semántica. MCP local, 14 tools, tree-sitter + LSP, 100% local. Benchmark 120x menos tokens. En banco: arquitectura de referencia, no prod mañana. github.com/DeusData/codebase-memory-mcp",
-  },
-  {
-    id: "c5-graph-example",
-    title: "Grafo ejemplo",
-    Component: GraphExample,
-    notes: "Ejemplo: cambiar validación de clientes corporativos → qué endpoints, jobs, tests, módulos. Trazabilidad de impacto, no similitud.",
+      "Ahora sí, la herramienta concreta que materializa el grafo. Mix grafo + semántica local, 14 tools MCP, 100% local. Honestidad con la cifra: el 120x es su micro-benchmark de 5 consultas; el paper sobre 31 repos da ~10x con menos calidad (83% vs 92%). Adelantarse a eso da credibilidad ante devs que abran el repo. En banco: arquitectura de referencia para el harness, no prod mañana. github.com/DeusData/codebase-memory-mcp",
   },
   {
     id: "c5-graph-pros-cons",
     title: "Grafo pros/contras",
     Component: GraphProsCons,
     notes:
-      "Pros: trazabilidad, navegación, contexto para IA. Contras: mantenimiento, complejidad, costo, grafo desactualizado, falsa precisión. Mencionar Graphify / indexadores / open source como CONCEPTO, no como demo dependiente.",
+      "Pros: menos tokens, latencia, precisión estructural, trazabilidad de impacto. Contras: costo de mantenerlo actualizado, complejidad, grafo desactualizado, falsa precisión. Ojo: el costo de tokens (pro) y el de mantenimiento (contra) son cosas distintas, aclararlo. Mencionar Graphify / indexadores / LSP del IDE como CONCEPTO ya disponible, no como demo dependiente.",
   },
   {
     id: "c5-engram-intro",
     title: "¿Qué es Engram?",
     Component: EngramIntro,
     notes:
-      "Pausa 2 seg. Portada del bloque, misma estructura que RAG, CAG y grafo. Engram = memoria persistente entre sesiones.",
+      "Pausa 2 seg. Portada del bloque, misma estructura que RAG, CAG y grafo. Engram = memoria persistente entre sesiones. El nombre está poblado: hay varios MCP open source de memoria local (engram-mcp.com, github.com/Bryanh9111/Engram, edg-l/engram-mcp). Aclarar que importa el PATRÓN —memoria que sobrevive al chat— más que un producto único.",
   },
   {
     id: "c5-engram-what",
@@ -1407,17 +1438,25 @@ export const slidesClase05: SlideDefBase[] = [
       "Clave: RAG/CAG/grafo describen el sistema; Engram recuerda cómo trabajaste en él. Guarda decisiones, convenciones, bugs, resúmenes y los recupera al arrancar. Banco: conocimiento que no se pierde, corre local, sin PII ni secretos.",
   },
   {
+    id: "c5-engram-example",
+    title: "Engram ejemplo",
+    Component: EngramExample,
+    notes:
+      "Ejemplo concreto, simétrico al de RAG y al del grafo (antes Engram no tenía ejemplo). Una decisión y una convención guardadas el lunes se recuperan el jueves en un chat nuevo, sin re-explicar. Anclar: ¿cuántas veces repiten el mismo contexto cada mañana? Conecta con el diagrama que sigue.",
+  },
+  {
     id: "c5-engram-visual",
     title: "Engram diagrama",
     Component: EngramVisual,
     notes:
-      "Imagen centrada con margen (no fullscreen). Narrar: sesiones guardan → memoria central → sesión nueva recupera. Sobrevive entre sesiones y compactaciones.",
+      "Imagen centrada con margen (no fullscreen). Narrar: sesiones guardan → memoria central → sesión nueva recupera. Sobrevive aunque el chat se reinicie o se resuma el historial (compactación).",
   },
   {
     id: "c5-harness-def",
     title: "Harness: definición",
     Component: HarnessDef,
-    notes: "12 min. Definición: contexto + reglas + herramientas + validaciones + límites alrededor de la IA. Producir cambios útiles y verificables.",
+    notes:
+      "12 min. Cerrar el arco: RAG/CAG/grafo/Engram no son el fin, son el 'contexto correcto' que alimenta el harness. El harness es el andamiaje que vuelve confiable todo eso: contexto + reglas + herramientas + validaciones + límites. Frase puente al entrar: 'todo lo que vimos hasta acá vive adentro de esto'. Producir cambios útiles y verificables.",
   },
   {
     id: "c5-harness-components",
@@ -1472,6 +1511,6 @@ export const slidesClase05: SlideDefBase[] = [
     title: "Para llevarse",
     Component: ClosingRecap,
     notes:
-      "Recap final encadenado: prompting (base) → context engineering (puente) → RAG/grafos/memoria (contexto) → harness (flujo confiable) → en entornos regulados, velocidad con trazabilidad. Pregunta final por chat o micrófono: ¿qué pondrían en su mini-harness mañana?",
+      "Recap final encadenado: prompting (base) → context engineering (puente) → RAG/CAG/grafos/memoria (contexto) → harness (flujo confiable) → en entornos regulados, velocidad con trazabilidad. Pregunta final por chat o micrófono: ¿qué pondrían en su mini-harness mañana?",
   },
 ];
