@@ -3,9 +3,10 @@
  */
 import type React from "react";
 import { SlideShell } from "@/components/SlideShell";
-import { CodeBlock } from "@/components/CodeBlock";
 import { LocalAnonymizerDemo } from "@/components/LocalAnonymizerDemo";
 import { DecisionMatrix } from "@/components/DecisionMatrix";
+import { CostCalculator } from "@/components/CostCalculator";
+import { GoldenSetEvaluator } from "@/components/GoldenSetEvaluator";
 import type { SlideDefBase } from "@/slides/types";
 
 function Shell({
@@ -74,52 +75,24 @@ const DependsThesis = () => (
 
 const ConceptMap = () => (
   <Shell>
-    <div className="flex-1 flex flex-col justify-center gap-7">
-      <h2 className="font-display text-5xl font-bold">Qué es cada cosa</h2>
-      <div className="flex flex-col gap-6 c4-stagger">
+    <div className="flex-1 flex flex-col justify-center gap-8">
+      <div>
+        <h2 className="font-display text-5xl font-bold">Cuatro palabras que se mezclan</h2>
+        <p className="mt-3 text-xl text-muted-foreground max-w-[1200px]">
+          Antes de comparar opciones, alineemos vocabulario. No es lo mismo el modelo, la app que
+          usás, ni cómo lo integrás en código.
+        </p>
+      </div>
+      <div className="grid grid-cols-4 gap-4 c4-stagger">
         {[
-          {
-            group: "Capas de acceso",
-            accent: "text-ember",
-            cols: "grid-cols-4",
-            items: [
-              ["Modelo", "Red entrenada con pesos y arquitectura (GPT, Llama, Claude…)"],
-              ["Plataforma", "Producto listo para usar (ChatGPT, Copilot, Cursor)"],
-              ["API", "Interfaz para invocar el modelo desde código"],
-              ["Herramienta", "Interfaz de usuario sobre el modelo"],
-            ],
-          },
-          {
-            group: "Patrones de sistema",
-            accent: "text-blue-400",
-            cols: "grid-cols-3",
-            items: [
-              ["Harness", "Reglas, validación y orquestación alrededor del modelo"],
-              ["RAG", "Retrieval Augmented Generation: consulta apoyada en contexto recuperado"],
-              ["Agente", "Modelo que elige acciones y usa herramientas en un loop"],
-            ],
-          },
-          {
-            group: "Despliegue",
-            accent: "text-purple-400",
-            cols: "grid-cols-3",
-            items: [["Modelo local", "Corre en tu infraestructura, sin enviar datos a terceros"]],
-          },
-        ].map(({ group, accent, cols, items }) => (
-          <div key={group}>
-            <div
-              className={`font-mono text-xs uppercase tracking-widest mb-3 ${accent} opacity-90`}
-            >
-              {group}
-            </div>
-            <div className={`grid ${cols} gap-4`}>
-              {items.map(([title, body]) => (
-                <div key={title} className="bg-surface border border-border rounded-2xl p-5">
-                  <div className="font-mono text-sm text-ember mb-2">{title}</div>
-                  <div className="font-display text-base leading-snug">{body}</div>
-                </div>
-              ))}
-            </div>
+          ["Modelo", "Red entrenada con pesos y arquitectura (GPT, Llama, Claude…)"],
+          ["Plataforma", "Producto listo para usar (ChatGPT, Copilot, Cursor)"],
+          ["API", "Interfaz para invocar el modelo desde código o sistemas"],
+          ["Herramienta", "Interfaz de usuario sobre el modelo (chat, asistente)"],
+        ].map(([title, body]) => (
+          <div key={title} className="bg-surface border border-border rounded-2xl p-6">
+            <div className="font-mono text-sm text-ember mb-2">{title}</div>
+            <div className="font-display text-base leading-snug">{body}</div>
           </div>
         ))}
       </div>
@@ -144,35 +117,40 @@ const SystemNotModel = () => (
 const FourCategories = () => (
   <Shell>
     <div className="flex-1 flex flex-col justify-center gap-8">
-      <h2 className="font-display text-5xl font-bold">
-        No son dos opciones, son <span className="text-ember">cuatro</span>
-      </h2>
+      <div>
+        <h2 className="font-display text-5xl font-bold">
+          ¿Qué tan <span className="text-ember">abierto</span> es el modelo?
+        </h2>
+        <p className="mt-3 text-xl text-muted-foreground max-w-[1400px]">
+          Sobre licencia y pesos: si podés verlos, descargarlos o adaptarlos.
+        </p>
+      </div>
       <div className="grid grid-cols-4 gap-4 c4-stagger">
         {[
           {
             title: "Propietario cerrado",
-            body: "Pesos privados. Acceso por API o suscripción",
-            ex: "GPT-5.x, Claude, ChatGPT, Copilot",
+            body: "Pesos privados. Solo acceso por API o suscripción",
+            ex: "GPT-5.x, Claude, Gemini",
             titleCls: "text-ember",
             borderCls: "border-ember/50",
           },
           {
             title: "Open weights",
-            body: "Pesos descargables, licencia con condiciones",
+            body: "Pesos descargables, con condiciones de licencia",
             ex: "Llama 4, Mistral, Qwen, DeepSeek",
             titleCls: "text-blue-400",
             borderCls: "border-blue-500/40",
           },
           {
-            title: "Open weights hosteado",
-            body: "Modelo abierto, lo corre un tercero",
-            ex: "Groq, Together, Bedrock, Vertex",
+            title: "Modelo custom",
+            body: "Fine-tuned o entrenado con datos propios. Pesos no públicos",
+            ex: "Adaptación de Llama, modelo interno",
             titleCls: "text-purple-400",
             borderCls: "border-purple-500/40",
           },
           {
             title: "Open source real",
-            body: "Pesos + receta + datos abiertos",
+            body: "Pesos + receta de entrenamiento + datos abiertos",
             ex: "OLMo, modelos de investigación",
             titleCls: "text-green-400",
             borderCls: "border-green-500/40",
@@ -193,12 +171,12 @@ const ModelsForTasks = () => (
   <Shell>
     <div className="flex-1 flex flex-col justify-center gap-4">
       <h2 className="font-display text-5xl font-bold">¿Qué modelo usar para cada tarea?</h2>
-      <div className="grid grid-cols-[1.1fr_1fr_1fr] gap-3 text-center font-mono text-xs uppercase tracking-widest text-muted-foreground">
+      <div className="grid grid-cols-[1.1fr_1fr_1fr] gap-3 text-center font-mono text-sm uppercase tracking-wider text-muted-foreground">
         <div />
         <div className="text-blue-400">En tu máquina / open</div>
         <div className="text-ember">API o suscripción</div>
       </div>
-      <div className="space-y-1.5 c4-stagger">
+      <div className="space-y-2 c4-stagger">
         {[
           [
             "Razonamiento complejo",
@@ -214,11 +192,11 @@ const ModelsForTasks = () => (
         ].map(([task, local, api]) => (
           <div
             key={task}
-            className="grid grid-cols-[1.1fr_1fr_1fr] gap-3 items-center bg-surface border border-border rounded-xl px-4 py-2"
+            className="grid grid-cols-[1.1fr_1fr_1fr] gap-3 items-center bg-surface border border-border rounded-xl px-4 py-2.5"
           >
-            <div className="font-display text-base">{task}</div>
-            <div className="text-center text-sm text-muted-foreground">{local}</div>
-            <div className="text-center text-sm text-muted-foreground">{api}</div>
+            <div className="font-display text-lg">{task}</div>
+            <div className="text-center text-base text-muted-foreground">{local}</div>
+            <div className="text-center text-base text-foreground/90">{api}</div>
           </div>
         ))}
       </div>
@@ -252,6 +230,123 @@ const ModelsForTasks = () => (
   </Shell>
 );
 
+const DeploymentSpectrum = () => {
+  const stops = [
+    {
+      label: "Tu máquina",
+      line: "Laptop o workstation con Ollama / LM Studio. Nada sale del equipo.",
+      control: "Alto",
+      privacy: "Alta",
+      ops: "Bajo",
+      accent: "text-blue-400",
+      border: "border-blue-500/40",
+    },
+    {
+      label: "Servidor on-prem",
+      line: "GPU propia sirviendo al equipo con vLLM, dentro de tu red.",
+      control: "Alto",
+      privacy: "Alta",
+      ops: "Alto",
+      accent: "text-blue-400",
+      border: "border-blue-500/40",
+    },
+    {
+      label: "Hosteado por tercero",
+      line: "Open weights en infra compartida: Groq, Together, Replicate.",
+      control: "Medio",
+      privacy: "Media",
+      ops: "Bajo",
+      accent: "text-purple-400",
+      border: "border-purple-500/40",
+    },
+    {
+      label: "Nube privada",
+      line: "Tu cuenta en la nube, red privada y políticas tuyas.",
+      control: "Medio",
+      privacy: "Alta",
+      ops: "Medio",
+      accent: "text-purple-400",
+      border: "border-purple-500/40",
+    },
+    {
+      label: "API del proveedor",
+      line: "Endpoint con contrato y DPA (GPT-5.x, Claude).",
+      control: "Bajo",
+      privacy: "Variable",
+      ops: "Bajo",
+      accent: "text-ember",
+      border: "border-ember/50",
+    },
+    {
+      label: "App pública (consumer)",
+      line: "ChatGPT free, apps sueltas. Sin garantías de datos.",
+      control: "Mínimo",
+      privacy: "Baja",
+      ops: "Nulo",
+      accent: "text-ember",
+      border: "border-ember/50",
+    },
+  ];
+
+  return (
+    <Shell>
+      <div className="flex-1 flex flex-col justify-center gap-7">
+        <div>
+          <h2 className="font-display text-5xl font-bold">
+            ¿<span className="text-blue-400">Dónde corren</span> tus datos?
+          </h2>
+          <p className="mt-3 text-xl text-muted-foreground max-w-[1500px]">
+            El mismo Llama puede estar en tu laptop o en la nube: la apertura del modelo y el
+            despliegue son decisiones <span className="text-foreground">independientes</span>.
+          </p>
+        </div>
+
+        <div>
+          <div className="flex justify-between font-mono text-xs uppercase tracking-widest mb-2">
+            <span className="text-blue-400">+ control / + privacidad</span>
+            <span className="text-ember">+ conveniencia / + exposición</span>
+          </div>
+          <div className="h-1.5 rounded-full bg-gradient-to-r from-blue-500/70 via-purple-500/60 to-ember/80" />
+        </div>
+
+        <div className="grid grid-cols-6 gap-3 c4-stagger">
+          {stops.map((s) => (
+            <div
+              key={s.label}
+              className={`rounded-2xl border bg-surface p-4 flex flex-col gap-2 ${s.border}`}
+            >
+              <div className={`font-display text-base font-bold leading-tight ${s.accent}`}>
+                {s.label}
+              </div>
+              <div className="text-sm text-muted-foreground leading-snug flex-1">{s.line}</div>
+              <div className="border-t border-border pt-3 grid grid-cols-3 gap-2">
+                <div>
+                  <div className="font-mono text-[11px] uppercase tracking-wide text-muted-foreground">
+                    Control
+                  </div>
+                  <div className="mt-1 text-sm font-semibold text-foreground">{s.control}</div>
+                </div>
+                <div>
+                  <div className="font-mono text-[11px] uppercase tracking-wide text-muted-foreground">
+                    Privacidad
+                  </div>
+                  <div className="mt-1 text-sm font-semibold text-foreground">{s.privacy}</div>
+                </div>
+                <div>
+                  <div className="font-mono text-[11px] uppercase tracking-wide text-muted-foreground">
+                    Esfuerzo
+                  </div>
+                  <div className="mt-1 text-sm font-semibold text-foreground">{s.ops}</div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </Shell>
+  );
+};
+
 const OpenSourceClarify = () => (
   <Shell>
     <div className="flex-1 flex flex-col justify-center gap-8">
@@ -270,7 +365,7 @@ const OpenSourceClarify = () => (
           ],
           [
             "Local sigue costando",
-            "GPU, operación, actualizaciones y ajuste fino: no es cero pesos",
+            "Mantenimiento, actualizaciones, desgaste del hardware, costo de oportunidad… Son costos arraigados al local y hacen que no sea cero.",
           ],
           [
             "Hosteado ≠ tuyo",
@@ -525,34 +620,26 @@ const DemoInteractive = () => (
   </Shell>
 );
 
-const DemoCompare = () => (
-  <Shell>
-    <div className="flex-1 flex flex-col justify-center gap-8">
-      <h2 className="font-display text-5xl font-bold">Mismo análisis, distinto riesgo</h2>
-      <div className="grid grid-cols-2 gap-8 c4-stagger">
-        <CodeBlock label="documento original → API externa" tone="bad">
-          {`Analizá este contrato y decime si la cláusula 3 es favorable.
-
-[Adjuntás el PDF con DNI, CUIT, emails y montos reales…]`}
-        </CodeBlock>
-        <CodeBlock label="documento anonimizado → API externa" tone="good">
-          {`Analizá este contrato y decime si la cláusula 3 es favorable.
-
-[Adjuntás la versión con [NOMBRE_1], [CUIT_1], [MONTO_1]…]`}
-        </CodeBlock>
-      </div>
-      <p className="text-2xl text-muted-foreground text-center">
-        Mismo tipo de análisis.{" "}
-        <span className="text-foreground font-bold">Distinto riesgo de exposición.</span>
-      </p>
-    </div>
-  </Shell>
-);
-
 const MatrixInteractive = () => (
   <Shell>
     <div className="flex-1 flex flex-col min-h-0 pointer-events-auto">
       <DecisionMatrix />
+    </div>
+  </Shell>
+);
+
+const CostInteractive = () => (
+  <Shell>
+    <div className="flex-1 flex flex-col min-h-0 pointer-events-auto">
+      <CostCalculator />
+    </div>
+  </Shell>
+);
+
+const EvalInteractive = () => (
+  <Shell>
+    <div className="flex-1 flex flex-col min-h-0 pointer-events-auto">
+      <GoldenSetEvaluator />
     </div>
   </Shell>
 );
@@ -652,10 +739,10 @@ export const slidesClase04: SlideDefBase[] = [
   },
   {
     id: "c4-concept-map",
-    title: "Mapa conceptual",
+    title: "Vocabulario base",
     Component: ConceptMap,
     notes:
-      "Agrupado en tres capas: acceso (modelo, plataforma, API, herramienta), patrones de sistema (harness, RAG, agente) y despliegue (modelo local). RAG = Retrieval Augmented Generation: no es memoria del modelo, recuperás contexto de tus fuentes y lo inyectás en la consulta.",
+      "Vocabulario mínimo para alinear la charla: modelo vs plataforma vs API vs herramienta. Ejemplo rápido: ChatGPT es plataforma, GPT-5 es el modelo, la API es cómo lo llamás desde código. No adelantar RAG, agentes ni despliegue: eso viene después.",
   },
   {
     id: "c4-system",
@@ -665,17 +752,24 @@ export const slidesClase04: SlideDefBase[] = [
   },
   {
     id: "c4-categories",
-    title: "Cuatro categorías",
+    title: "Apertura del modelo",
     Component: FourCategories,
     notes:
-      "Cuatro opciones: cerrado (API o suscripción), open weights (descargás), hosteado (tercero corre open weights), open source real (pesos+datos+receta). Orden de menos a más control sobre el stack.",
+      "Eje 1 solo: licencia y pesos. Cuatro tipos: cerrado, open weights, custom/fine-tuned, open source real. Dejar claro que NO hablamos de dónde corre todavía. El hosteado (Groq, Together) se fue a la slide de despliegue.",
+  },
+  {
+    id: "c4-deployment-spectrum",
+    title: "Dónde corren los datos",
+    Component: DeploymentSpectrum,
+    notes:
+      "Dónde corren los datos. Ejemplo puente: el mismo Llama puede estar en tu laptop o en la nube. Recorré las 6 paradas. Hosteado por tercero (Groq, Together) es distinto de nube privada (tu cuenta, tus políticas). On-prem tiene más esfuerzo operativo que los extremos — mencionarlo en voz si hace falta.",
   },
   {
     id: "c4-open-clarify",
     title: "Lo que confunde",
     Component: OpenSourceClarify,
     notes:
-      "No repetir la slide anterior: acá van trampas operativas. Free vs enterprise, licencias, costo local, hosteado no es lo mismo que on-prem.",
+      "No repetir los dos ejes anteriores: acá van trampas operativas del día a día. Free vs enterprise, licencias, costo local, hosteado no es lo mismo que on-prem.",
   },
   {
     id: "c4-comparison",
@@ -692,11 +786,25 @@ export const slidesClase04: SlideDefBase[] = [
       "Segunda mitad: mantenimiento, escala, gobernanza, soporte, trazabilidad. Cerrar con curva de costo que se cruza.",
   },
   {
+    id: "c4-cost",
+    title: "Costo: API vs local",
+    Component: CostInteractive,
+    notes:
+      "Demuestra la curva que se cruza. Mové el slider: a bajo volumen gana API, a volumen sostenido gana lo propio. Aclarar que el costo local no incluye el tiempo de operar el modelo.",
+  },
+  {
     id: "c4-models",
     title: "Modelos por tarea",
     Component: ModelsForTasks,
     notes:
       "Tabla = qué modelo según tarea (incluye imágenes). Abajo = cómo correrlo: Ollama/LM Studio para probar en tu PC; vLLM para servir en red/prod. Empresa: suscripción vs API en tu cloud. Son dos capas distintas.",
+  },
+  {
+    id: "c4-eval",
+    title: "Evaluar: golden set",
+    Component: EvalInteractive,
+    notes:
+      "Cómo se decide 'suficientemente bueno'. Ejecutá la evaluación, después mové el umbral: con barra baja alcanza el modelo local más barato; subiéndola, recién ahí necesitás el caro. Mensaje: elegí contra tus casos, no por el leaderboard.",
   },
   {
     id: "c4-when-prop",
@@ -738,12 +846,6 @@ export const slidesClase04: SlideDefBase[] = [
     Component: DemoInteractive,
     notes:
       "Demo en vivo: el documento entra sin resaltar. Pedí que marquen tipos de dato (Nombre, DNI, Email…) y ver cómo aparece el color y baja la exposición. Luego Anonimizar, Enviar (vault + límite de red), Re-hidratar. Truco: marcar solo algunos y pasar a Anonimizar para mostrar lo que queda expuesto en rojo. Honestidad: la detección es por regex, frágil. Aclarar que en producción se usa NER o Microsoft Presidio, y que un nombre en minúscula o sin título se le escapa.",
-  },
-  {
-    id: "c4-demo-compare",
-    title: "Demo comparación",
-    Component: DemoCompare,
-    notes: "Contrastar prompt con documento crudo vs anonimizado. Misma calidad, distinto riesgo.",
   },
   {
     id: "c4-matrix",

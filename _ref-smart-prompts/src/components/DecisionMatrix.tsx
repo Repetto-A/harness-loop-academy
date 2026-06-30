@@ -229,21 +229,21 @@ export function DecisionMatrix() {
         </div>
       </div>
 
-      <div className="grid min-h-0 flex-1 grid-cols-[1.45fr_1fr] gap-6">
+      <div className="grid min-h-0 flex-1 grid-cols-[1.95fr_1fr] gap-6">
         {/* Panel de control: un criterio por fila */}
-        <div className="flex flex-col gap-2 overflow-auto pr-1">
+        <div className="flex flex-col gap-2.5 overflow-auto pr-1">
           <div className="mb-0.5 font-mono text-[11px] uppercase tracking-widest text-muted-foreground/70">
             Ajustá cada criterio de tu caso →
           </div>
           {AXES.map((axis) => (
             <div
               key={axis.id}
-              className="grid grid-cols-[110px_1fr] items-center gap-3 rounded-xl border border-border/60 bg-surface/30 px-3 py-2"
+              className="grid grid-cols-[140px_1fr] items-center gap-4 rounded-xl border border-border/60 bg-surface/30 px-4 py-2.5"
             >
-              <div className="text-right font-mono text-[11px] uppercase leading-tight tracking-wider text-muted-foreground">
+              <div className="text-right font-mono text-xs uppercase leading-tight tracking-wider text-muted-foreground">
                 {axis.label}
               </div>
-              <div className="flex flex-wrap gap-1.5">
+              <div className="flex flex-wrap gap-2">
                 {axis.options.map((opt) => {
                   const selected = selections[axis.id] === opt.value;
                   return (
@@ -251,7 +251,7 @@ export function DecisionMatrix() {
                       key={opt.value}
                       type="button"
                       onClick={() => setSelections((s) => ({ ...s, [axis.id]: opt.value }))}
-                      className={`cursor-pointer rounded-lg px-2.5 py-1 text-xs transition-all pointer-events-auto ${
+                      className={`cursor-pointer rounded-lg px-3 py-1.5 text-sm transition-all pointer-events-auto ${
                         selected
                           ? "bg-ember font-semibold text-[oklch(0.18_0_0)] ring-2 ring-ember/40"
                           : "border border-border bg-surface text-muted-foreground hover:border-ember/50 hover:text-foreground"

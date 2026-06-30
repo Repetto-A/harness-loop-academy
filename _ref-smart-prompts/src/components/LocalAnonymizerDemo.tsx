@@ -2,20 +2,10 @@ import { useMemo, useState, type ReactNode } from "react";
 import { Shield, Eye, Lock, KeyRound, Send, ShieldAlert, ArrowRight, Sparkles } from "lucide-react";
 
 const SAMPLE_CONTRACT = `CONTRATO DE SERVICIOS - CONFIDENCIAL
-
-Entre Acme Corp S.A. (CUIT 30-71234567-8) y el Sr. Juan Carlos Pérez
-(DNI 28.456.789), domiciliado en Av. Corrientes 1234, CABA.
-
+Entre Acme Corp S.A. (CUIT 30-71234567-8) y el Sr. Juan Carlos Pérez (DNI 28.456.789), domiciliado en Av. Corrientes 1234, CABA.
 Contacto: juan.perez@empresa.com.ar · Tel: +54 11 4567-8901
-
-Cláusula 3 - Honorarios: USD 125.000 anuales + bono de USD 45.000
-condicionado a cumplimiento de KPIs comerciales del cliente TechNova SRL.
-
-Datos del cliente final: María González (DNI 35.678.901), email
-maria.gonzalez@cliente.com, tel 011-5555-4321.
-
-Información comercial reservada: margen del 32% sobre contrato base.
-No divulgar a terceros.`;
+Cláusula 3 - Honorarios: USD 125.000 anuales + bono de USD 45.000.
+Cliente final: María González (DNI 35.678.901), maria.gonzalez@cliente.com, tel 011-5555-4321.`;
 
 type PiiKind = "nombre" | "dni" | "cuit" | "email" | "telefono" | "direccion" | "monto";
 
@@ -219,7 +209,7 @@ function MaskedSourceText({
       parts.push(
         <mark
           key={`m-${i}`}
-          className="rounded px-0.5 bg-ember/20 text-ember ring-1 ring-ember/30"
+          className="rounded px-1 bg-ember/20 text-ember ring-1 ring-ember/30"
           title={`${KIND_LABELS[m.kind]} → ${m.token}`}
         >
           {m.text}
@@ -252,7 +242,7 @@ function AnonymizedRenderedText({ text, matches }: { text: string; matches: PiiM
     parts.push(
       <span
         key={`m-${i}`}
-        className="rounded px-1 py-px bg-ember/25 text-ember font-semibold"
+        className="rounded px-1.5 py-0.5 bg-ember/25 text-ember font-semibold text-[0.95em]"
         title={m.text}
       >
         {m.token}
@@ -290,48 +280,43 @@ function BeforeAfterCompare({
   }
 
   return (
-    <div className="flex-1 min-h-0 flex flex-col rounded-xl border border-border overflow-hidden bg-[oklch(0.14_0_0)]">
-      <div className="grid grid-cols-2 border-b border-border bg-surface/60 shrink-0">
-        <div className="px-4 py-2.5 font-mono text-[11px] uppercase tracking-widest text-muted-foreground flex items-center gap-2 border-r border-border">
+    <div className="flex-1 min-h-0 flex flex-col overflow-hidden rounded-2xl border border-border bg-[oklch(0.14_0_0)]">
+      <div className="grid shrink-0 grid-cols-2 border-b border-border bg-surface/50">
+        <div className="px-4 py-2.5 font-mono text-xs uppercase tracking-widest text-muted-foreground flex items-center gap-2 border-r border-border">
           <span className="size-2 rounded-full bg-[oklch(0.6_0.22_25)]" />
-          Original · queda en tu equipo
+          Original · queda local
         </div>
-        <div className="px-4 py-2.5 font-mono text-[11px] uppercase tracking-widest text-ember flex items-center gap-2">
+        <div className="px-4 py-2.5 font-mono text-xs uppercase tracking-widest text-ember flex items-center gap-2">
           <Lock className="size-3.5" />
           Anonimizado · apto para salir
         </div>
       </div>
 
-      <div className="flex-1 min-h-0 overflow-auto divide-y divide-border/40">
+      <div className="flex-1 min-h-0 overflow-hidden divide-y divide-border/40 flex flex-col justify-center">
         {lines.map((line, i) => {
           const lineStart = offset;
           const lineEnd = lineStart + line.length;
           offset = lineEnd + 1;
+          if (line.length === 0) return null;
 
           const lineAll = matches.filter((m) => m.start >= lineStart && m.end <= lineEnd);
           const lineMasked = maskedMatches.filter((m) => m.start >= lineStart && m.end <= lineEnd);
 
           return (
-            <div key={i} className="grid grid-cols-2 min-h-[2rem]">
-              <div className="px-4 py-2 font-mono text-xs leading-relaxed whitespace-pre-wrap border-r border-border/40 text-foreground/90">
-                {line.length === 0 ? (
-                  <span className="opacity-0 select-none">·</span>
-                ) : (
-                  <MaskedSourceText
-                    text={line}
-                    matches={lineAll.map((m) => ({
-                      ...m,
-                      start: m.start - lineStart,
-                      end: m.end - lineStart,
-                    }))}
-                    activeKinds={activeKinds}
-                  />
-                )}
+            <div key={i} className="grid grid-cols-2">
+              <div className="px-5 py-3.5 font-mono text-lg leading-relaxed whitespace-pre-wrap border-r border-border/40 text-foreground/90">
+                <MaskedSourceText
+                  text={line}
+                  matches={lineAll.map((m) => ({
+                    ...m,
+                    start: m.start - lineStart,
+                    end: m.end - lineStart,
+                  }))}
+                  activeKinds={activeKinds}
+                />
               </div>
-              <div className="px-4 py-2 font-mono text-xs leading-relaxed whitespace-pre-wrap">
-                {line.length === 0 ? (
-                  <span className="opacity-0 select-none">·</span>
-                ) : lineMasked.length > 0 ? (
+              <div className="px-5 py-3.5 font-mono text-lg leading-relaxed whitespace-pre-wrap">
+                {lineMasked.length > 0 ? (
                   <AnonymizedRenderedText
                     text={line}
                     matches={lineMasked.map((m) => ({
@@ -366,7 +351,7 @@ function buildModelAnswer(matches: PiiMatch[]): string {
   const montos = matches.filter((m) => m.kind === "monto").map((m) => m.token);
   const m1 = montos[0] ?? "[MONTO_1]";
   const m2 = montos[1] ?? "[MONTO_2]";
-  return `La cláusula 3 fija honorarios de ${m1} anuales para ${nombre}, con un bono de ${m2} atado a KPIs. Sugiero aclarar la moneda y el plazo de pago antes de firmar.`;
+  return `La cláusula 3 fija honorarios de ${m1} anuales para ${nombre}, con un bono de ${m2}. Sugiero aclarar la moneda y el plazo de pago antes de firmar.`;
 }
 
 function rehydrate(answer: string, matches: PiiMatch[]): string {
@@ -378,9 +363,8 @@ function rehydrate(answer: string, matches: PiiMatch[]): string {
 }
 
 export function LocalAnonymizerDemo() {
-  const [text, setText] = useState(SAMPLE_CONTRACT);
+  const text = SAMPLE_CONTRACT;
   const [step, setStep] = useState<StepId>("detect");
-  const [editing, setEditing] = useState(false);
   const [activeKinds, setActiveKinds] = useState<Set<PiiKind>>(() => new Set());
 
   const matches = useMemo(() => detectPii(text), [text]);
@@ -432,11 +416,10 @@ export function LocalAnonymizerDemo() {
   }
 
   return (
-    <div className="flex flex-col gap-4 h-full pointer-events-auto">
-      <h2 className="font-display text-4xl font-bold">Anonimización local</h2>
+    <div className="flex flex-col gap-3 h-full pointer-events-auto">
+      <h2 className="font-display text-3xl font-bold shrink-0">Anonimización local</h2>
 
-      {/* Stepper + medidor de exposición compacto */}
-      <div className="flex items-center justify-between gap-4 pointer-events-auto">
+      <div className="flex items-center justify-between gap-4 pointer-events-auto shrink-0">
         <div className="flex items-center gap-2">
           {STEPS.map((s, i) => {
             const Icon = s.icon;
@@ -446,7 +429,7 @@ export function LocalAnonymizerDemo() {
                 <button
                   type="button"
                   onClick={() => setStep(s.id)}
-                  className={`flex items-center gap-2 rounded-lg px-3.5 py-2 font-mono text-sm uppercase tracking-wider transition-colors pointer-events-auto ${
+                  className={`flex items-center gap-2 rounded-lg px-3 py-1.5 font-mono text-xs uppercase tracking-wider transition-colors pointer-events-auto ${
                     active
                       ? "bg-ember text-[oklch(0.18_0_0)]"
                       : "border border-border bg-surface hover:border-ember/40"
@@ -521,37 +504,21 @@ export function LocalAnonymizerDemo() {
 
       {/* STEP: detectar */}
       {step === "detect" && (
-        <div className="flex-1 min-h-0 flex flex-col">
-          <div className="flex items-center justify-between mb-2">
-            <div className="flex items-center gap-2 text-muted-foreground text-xs uppercase tracking-widest">
+        <div className="flex flex-1 min-h-0 flex-col overflow-hidden rounded-2xl border border-border bg-[oklch(0.14_0_0)]">
+          <div className="shrink-0 border-b border-border bg-surface/40 px-4 py-3">
+            <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-muted-foreground">
               <Eye className="size-3.5" />
-              Datos que NO deberían salir del perímetro
+              Datos que no deberían salir del perímetro
             </div>
-            <button
-              type="button"
-              onClick={() => setEditing((v) => !v)}
-              className="rounded-lg border border-border bg-surface px-3 py-1 font-mono text-xs uppercase tracking-wider hover:border-ember/40 pointer-events-auto"
-            >
-              {editing ? "Ver resaltado" : "Editar texto"}
-            </button>
           </div>
-          {editing ? (
-            <textarea
-              value={text}
-              onChange={(e) => setText(e.target.value)}
-              className="flex-1 min-h-[280px] w-full rounded-xl border border-border bg-[oklch(0.14_0_0)] p-5 font-mono text-sm leading-relaxed resize-none focus:outline-none focus:ring-2 focus:ring-ember/50 pointer-events-auto"
-              spellCheck={false}
+          <div className="flex-1 overflow-auto p-5 font-mono text-base leading-relaxed whitespace-pre-wrap">
+            <HighlightedText
+              text={text}
+              matches={matches}
+              activeKinds={activeKinds}
+              variant="discover"
             />
-          ) : (
-            <div className="flex-1 min-h-[280px] overflow-auto rounded-xl border border-border bg-[oklch(0.14_0_0)] p-5 font-mono text-sm leading-relaxed whitespace-pre-wrap">
-              <HighlightedText
-                text={text}
-                matches={matches}
-                activeKinds={activeKinds}
-                variant="discover"
-              />
-            </div>
-          )}
+          </div>
         </div>
       )}
 
@@ -565,59 +532,55 @@ export function LocalAnonymizerDemo() {
         />
       )}
 
-      {/* STEP: enviar (boundary) */}
+      {/* STEP: enviar */}
       {step === "send" && (
-        <div className="grid grid-cols-[1fr_auto_1fr] gap-4 flex-1 min-h-0 items-stretch">
-          <div className="flex flex-col min-h-0">
-            <div className="font-mono text-xs uppercase tracking-widest mb-2 flex items-center gap-2 text-[oklch(0.72_0.18_150)]">
-              <Shield className="size-3.5" />
-              Tu equipo / tu red
+        <div className="grid grid-cols-[1fr_auto_1fr] gap-5 flex-1 min-h-0 items-stretch">
+          <div className="flex flex-col min-h-0 rounded-2xl border border-[oklch(0.72_0.18_150)]/35 bg-[oklch(0.72_0.18_150)]/5 overflow-hidden">
+            <div className="shrink-0 border-b border-[oklch(0.72_0.18_150)]/20 bg-surface/30 px-4 py-3">
+              <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-[oklch(0.72_0.18_150)]">
+                <KeyRound className="size-3.5" />
+                Mapa local · token ↔ original
+              </div>
             </div>
-            <div className="flex-1 overflow-auto rounded-xl border border-[oklch(0.72_0.18_150)]/40 bg-[oklch(0.72_0.18_150)]/5 p-4">
-              <div className="font-mono text-[11px] uppercase tracking-widest text-muted-foreground mb-2 flex items-center gap-2">
-                <KeyRound className="size-3.5" /> Vault local · token ↔ original
-              </div>
-              <div className="flex flex-col gap-1 font-mono text-xs">
-                {maskedMatches.length === 0 && (
-                  <span className="text-muted-foreground">Sin enmascarar nada aún.</span>
-                )}
-                {maskedMatches.map((m, i) => (
-                  <div key={`${m.token}-${i}`} className="flex items-center gap-2">
-                    <span className="text-ember">{m.token}</span>
-                    <ArrowRight className="size-3 text-muted-foreground" />
-                    <span className="text-foreground/80 truncate">{m.text}</span>
-                  </div>
-                ))}
-              </div>
-              <p className="mt-3 text-[11px] text-[oklch(0.72_0.18_150)]">
-                Este mapa nunca sale de tu equipo.
-              </p>
+            <div className="flex flex-1 flex-col gap-2 overflow-auto p-4">
+              {maskedMatches.length === 0 && (
+                <span className="font-mono text-sm text-muted-foreground">Sin enmascarar nada aún.</span>
+              )}
+              {maskedMatches.map((m, i) => (
+                <div
+                  key={`${m.token}-${i}`}
+                  className="flex items-center gap-3 rounded-xl border border-border/50 bg-[oklch(0.14_0_0)]/90 px-3 py-2.5"
+                >
+                  <span className="shrink-0 rounded-md bg-ember/20 px-2 py-0.5 font-mono text-sm font-semibold text-ember">
+                    {m.token}
+                  </span>
+                  <ArrowRight className="size-3.5 shrink-0 text-muted-foreground" />
+                  <span className="truncate font-mono text-sm text-foreground/85">{m.text}</span>
+                </div>
+              ))}
             </div>
           </div>
 
-          {/* Boundary */}
-          <div className="relative flex flex-col items-center justify-center px-1">
-            <div className="h-full w-px border-l-2 border-dashed border-ember/50" />
-            <div className="absolute top-1/2 -translate-y-1/2 flex flex-col items-center gap-1 rounded-lg border border-ember/40 bg-ember/10 px-3 py-2">
-              <Send className="size-4 text-ember" />
-              <span className="font-mono text-[10px] uppercase tracking-widest text-ember">
-                límite de red
-              </span>
+          <div className="flex items-center self-center">
+            <div className="rounded-full border border-ember/25 bg-ember/10 p-2.5">
+              <Send className="size-5 text-ember" />
             </div>
           </div>
 
-          <div className="flex flex-col min-h-0">
-            <div className="font-mono text-xs uppercase tracking-widest mb-2 flex items-center gap-2 text-ember">
-              <Send className="size-3.5" />
-              Lo que cruza a la API externa
+          <div className="flex flex-col min-h-0 rounded-2xl border-2 border-ember/35 bg-ember/5 overflow-hidden">
+            <div className="shrink-0 border-b border-ember/20 bg-surface/30 px-4 py-3">
+              <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-ember">
+                <Send className="size-3.5" />
+                Al modelo externo
+              </div>
             </div>
-            <div className="flex-1 overflow-auto rounded-xl border-2 border-ember/40 bg-ember/5 p-4 font-mono text-xs leading-relaxed whitespace-pre-wrap">
+            <div className="flex-1 overflow-auto p-4 font-mono text-base leading-relaxed whitespace-pre-wrap text-foreground/90">
               {anonymized}
             </div>
             {exposedMatches.length > 0 && (
-              <div className="mt-2 flex items-center gap-2 rounded-lg border border-red-500/50 bg-red-500/10 px-3 py-2 text-xs text-red-200">
+              <div className="mx-4 mb-4 flex items-center gap-2 rounded-xl border border-red-500/40 bg-red-500/10 px-3 py-2.5 text-sm text-red-200">
                 <ShieldAlert className="size-4 shrink-0" />
-                {exposedMatches.length} dato(s) sin enmascarar todavía cruzan la red.
+                {exposedMatches.length} dato(s) sin enmascarar en el envío.
               </div>
             )}
           </div>
@@ -626,48 +589,39 @@ export function LocalAnonymizerDemo() {
 
       {/* STEP: re-hidratar */}
       {step === "rehydrate" && (
-        <div className="grid grid-cols-2 gap-4 flex-1 min-h-0">
-          <div className="flex flex-col min-h-0">
-            <div className="font-mono text-xs text-ember uppercase tracking-widest mb-2 flex items-center gap-2">
-              <Sparkles className="size-3.5" />
-              Respuesta del modelo (con tokens)
+        <div className="grid grid-cols-2 gap-5 flex-1 min-h-0">
+          <div className="flex flex-col min-h-0 rounded-2xl border border-ember/35 bg-ember/5 overflow-hidden">
+            <div className="shrink-0 border-b border-ember/20 bg-surface/30 px-4 py-3">
+              <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-ember">
+                <Sparkles className="size-3.5" />
+                Respuesta del modelo
+              </div>
             </div>
-            <div className="flex-1 overflow-auto rounded-xl border border-ember/40 bg-ember/5 p-4 font-mono text-xs leading-relaxed whitespace-pre-wrap">
+            <div className="flex-1 overflow-auto p-5 font-mono text-lg leading-relaxed whitespace-pre-wrap text-foreground/90">
               {modelAnswer}
             </div>
-            <p className="mt-2 text-[11px] text-muted-foreground">
-              El modelo nunca vio los datos reales, responde sobre los tokens.
-            </p>
           </div>
-          <div className="flex flex-col min-h-0">
-            <div className="font-mono text-xs uppercase tracking-widest mb-2 flex items-center gap-2 text-[oklch(0.72_0.18_150)]">
-              <KeyRound className="size-3.5" />
-              Re-hidratada en tu equipo
+          <div className="flex flex-col min-h-0 rounded-2xl border-2 border-[oklch(0.72_0.18_150)]/35 bg-[oklch(0.72_0.18_150)]/5 overflow-hidden">
+            <div className="shrink-0 border-b border-[oklch(0.72_0.18_150)]/20 bg-surface/30 px-4 py-3">
+              <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-[oklch(0.72_0.18_150)]">
+                <KeyRound className="size-3.5" />
+                Re-hidratada en tu equipo
+              </div>
             </div>
-            <div className="flex-1 overflow-auto rounded-xl border-2 border-[oklch(0.72_0.18_150)]/40 bg-[oklch(0.72_0.18_150)]/5 p-4 text-sm leading-relaxed whitespace-pre-wrap">
+            <div className="flex-1 overflow-auto p-5 text-lg leading-relaxed whitespace-pre-wrap text-foreground/95">
               {rehydrated}
             </div>
-            <p className="mt-2 text-[11px] text-[oklch(0.72_0.18_150)]">
-              El vault local reemplaza los tokens por los valores reales.
-            </p>
           </div>
         </div>
       )}
 
-      <div className="flex items-start justify-between gap-5">
-        <p className="text-base text-muted-foreground">
+      {step === "detect" && (
+        <p className="text-sm text-muted-foreground shrink-0">
           El riesgo no es usar IA, sino enviar{" "}
           <span className="text-foreground font-semibold">datos sensibles sin anonimizar</span>. El
           mapa para revertir vive solo en tu equipo.
         </p>
-        <div className="flex items-start gap-2 shrink-0 max-w-[44%] rounded-lg border border-border bg-surface/60 px-3 py-2">
-          <ShieldAlert className="size-4 text-ember shrink-0 mt-0.5" />
-          <p className="font-mono text-[11px] leading-relaxed text-muted-foreground">
-            Demo educativa: detecta PII con regex y se le escapa un nombre en minúscula o sin
-            título. En producción: NER, Microsoft Presidio o modelos de PII.
-          </p>
-        </div>
-      </div>
+      )}
     </div>
   );
 }
