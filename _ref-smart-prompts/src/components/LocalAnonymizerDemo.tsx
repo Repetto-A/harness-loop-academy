@@ -21,7 +21,7 @@ const PII_PATTERNS: { kind: PiiKind; regex: RegExp }[] = [
   { kind: "email", regex: /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g },
   { kind: "cuit", regex: /\b\d{2}-\d{8}-\d\b/g },
   { kind: "dni", regex: /\b(?:DNI\s*)?\d{1,2}\.\d{3}\.\d{3}\b/gi },
-  { kind: "telefono", regex: /(?:\+54\s?)?(?:0?11[\s-]?)?\d{4}[\s-]?\d{4}|Tel:\s*[\d\s+-]+/gi },
+  { kind: "telefono", regex: /(?:Tel\.?\s*:\s*|tel\s+)(?:\+54[\s-]?)?(?:\(?(?:0?11)\)?[\s-]?)?\d{4}[\s-]?\d{4}/gi },
   {
     kind: "direccion",
     regex:

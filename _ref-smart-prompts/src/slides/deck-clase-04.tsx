@@ -319,25 +319,23 @@ const DeploymentSpectrum = () => {
                 {s.label}
               </div>
               <div className="text-sm text-muted-foreground leading-snug flex-1">{s.line}</div>
-              <div className="border-t border-border pt-3 grid grid-cols-3 gap-2">
-                <div>
-                  <div className="font-mono text-[11px] uppercase tracking-wide text-muted-foreground">
-                    Control
+              <div className="border-t border-border pt-3 space-y-1.5 min-w-0">
+                {(
+                  [
+                    ["Control", s.control],
+                    ["Privacidad", s.privacy],
+                    ["Esfuerzo", s.ops],
+                  ] as const
+                ).map(([label, value]) => (
+                  <div key={label} className="flex items-baseline justify-between gap-2 min-w-0">
+                    <span className="shrink-0 font-mono text-[10px] uppercase tracking-wide text-muted-foreground">
+                      {label}
+                    </span>
+                    <span className="min-w-0 truncate text-right text-xs font-semibold text-foreground">
+                      {value}
+                    </span>
                   </div>
-                  <div className="mt-1 text-sm font-semibold text-foreground">{s.control}</div>
-                </div>
-                <div>
-                  <div className="font-mono text-[11px] uppercase tracking-wide text-muted-foreground">
-                    Privacidad
-                  </div>
-                  <div className="mt-1 text-sm font-semibold text-foreground">{s.privacy}</div>
-                </div>
-                <div>
-                  <div className="font-mono text-[11px] uppercase tracking-wide text-muted-foreground">
-                    Esfuerzo
-                  </div>
-                  <div className="mt-1 text-sm font-semibold text-foreground">{s.ops}</div>
-                </div>
+                ))}
               </div>
             </div>
           ))}
