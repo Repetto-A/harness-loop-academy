@@ -16,9 +16,9 @@ El servidor usa puerto **8080** (default de Lovable/smart-prompts — es normal)
 
 Rutas:
 - `/` — índice con links a las 3 clases
-- `/harness-01` — Clase 1 (13 slides)
+- `/harness-01` — Clase 1 (17 slides)
 - `/harness-02` — Clase 2 (13 slides)
-- `/harness-03` — Clase 3 (14 slides)
+- `/harness-03` — Clase 3 (14 slides, bonus)
 - `/ia-bien-usada` — deck original smart-prompts (deck-30)
 
 Usa `PresentationDeck` genérico (grid `G`, presenter `P`, fullscreen `F`).
@@ -44,9 +44,9 @@ Usa `PresentationDeck` genérico (grid `G`, presenter `P`, fullscreen `F`).
 | Archivo | Clase | Slides |
 |---------|-------|--------|
 | [DISEÑO-MAESTRO.md](DISEÑO-MAESTRO.md) | Las 3 | Spec completa + tiempos |
-| [decks/deck-clase-01.tsx](decks/deck-clase-01.tsx) | Harness base | 13 slides |
-| [decks/deck-clase-02.tsx](decks/deck-clase-02.tsx) | Proyecto real + SDD | 14 slides |
-| [decks/deck-clase-03.tsx](decks/deck-clase-03.tsx) | Loop engineering | 15 slides |
+| [decks/deck-clase-01.tsx](decks/deck-clase-01.tsx) | Harness base | 17 slides |
+| [decks/deck-clase-02.tsx](decks/deck-clase-02.tsx) | Proyecto real + SDD | 13 slides |
+| [decks/deck-clase-03.tsx](decks/deck-clase-03.tsx) | Loop engineering (bonus) | 14 slides |
 
 ## Atajos presentación
 

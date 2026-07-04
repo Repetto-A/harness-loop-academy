@@ -12,7 +12,7 @@ Material de capacitación: **Context Engineering** + **Spec Driven Development**
 | **Clase 1** | ~2.5h | Context engineering + harness mínimo | Misión en `AGENTS.md` o `copilot-instructions.md` + 1 regla de validación |
 | **Clase 2** | ~2.5h | SDD con artefactos persistentes | 1 change SDD completo (explore → verify → archive) |
 
-**Material extra (opcional):** Clase 3 loops + hackathon en [`class-scripts/clase-03.md`](class-scripts/clase-03.md) y [`hackathon/`](hackathon/).
+**Material extra (opcional):** Clase 3 loops + hackathon — framing y requisitos en [`class-scripts/apendice-clase-03.md`](class-scripts/apendice-clase-03.md); guion en [`class-scripts/clase-03.md`](class-scripts/clase-03.md) y [`hackathon/`](hackathon/).
 
 ## Estructura del repo
 
