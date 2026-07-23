@@ -6,7 +6,8 @@ export const Route = createFileRoute("/")({
       { title: "Harness & Loop Engineering — Capacitación" },
       {
         name: "description",
-        content: "Presentaciones Clase 1–2 (+ bonus Clase 3): context engineering y SDD.",
+        content:
+          "Presentaciones: IA bien usada, open source vs propietarios, y codebase intelligence.",
       },
     ],
   }),
@@ -15,32 +16,20 @@ export const Route = createFileRoute("/")({
 
 const CLASSES = [
   {
-    to: "/harness-01" as const,
+    to: "/ia-bien-usada" as const,
     num: "01",
-    title: "El repo enseña al agente",
-    subtitle: "Context engineering · ~2.5h · Copilot-first",
-  },
-  {
-    to: "/harness-02" as const,
-    num: "02",
-    title: "Spec antes de código",
-    subtitle: "SDD con artefactos · ~2.5h",
-  },
-  {
-    to: "/harness-03" as const,
-    num: "03",
-    title: "Loop engineering (bonus)",
-    subtitle: "Material extra · loops y autonomía",
+    title: "IA bien usada",
+    subtitle: "Referencia original smart-prompts · deck-30",
   },
   {
     to: "/harness-04" as const,
-    num: "04",
+    num: "02",
     title: "Open source vs propietarios",
     subtitle: "Criterio, riesgos y qué encaja mejor",
   },
   {
     to: "/harness-05" as const,
-    num: "05",
+    num: "03",
     title: "Que la IA entienda tu codebase",
     subtitle: "Codebase intelligence + harness · ~1h30",
   },
@@ -50,16 +39,9 @@ function Index() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <div className="mx-auto flex min-h-screen max-w-5xl flex-col justify-center px-8 py-16">
-        <p className="font-mono text-sm uppercase tracking-[0.28em] text-ember">
-          Harness & Loop Academy
-        </p>
-        <h1 className="mt-6 font-display text-5xl font-bold leading-tight md:text-6xl">
+        <h1 className="font-display text-5xl font-bold leading-tight md:text-6xl">
           Elegí la clase
         </h1>
-        <p className="mt-4 max-w-xl text-lg text-muted-foreground">
-          Presentaciones integradas en smart-prompts. Atajos en cada deck: G grid, P presenter, F
-          fullscreen.
-        </p>
 
         <ul className="mt-12 space-y-4">
           {CLASSES.map((c) => (
@@ -80,11 +62,8 @@ function Index() {
           ))}
         </ul>
 
-        <p className="mt-12 text-sm text-muted-foreground/70">
-          Referencia original smart-prompts:{" "}
-          <Link to="/ia-bien-usada" className="text-ember underline-offset-2 hover:underline">
-            IA bien usada (deck-30)
-          </Link>
+        <p className="mt-8 text-sm text-muted-foreground">
+          Atajos en cada deck: G grid, P presenter, F fullscreen.
         </p>
       </div>
     </div>
