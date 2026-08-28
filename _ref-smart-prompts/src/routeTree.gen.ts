@@ -10,6 +10,9 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as VonNeumannRouteImport } from './routes/von-neumann'
+import { Route as Sesion05RouteImport } from './routes/sesion-05'
+import { Route as Sesion03RouteImport } from './routes/sesion-03'
+import { Route as Sesion02RouteImport } from './routes/sesion-02'
 import { Route as IaBienUsadaRouteImport } from './routes/ia-bien-usada'
 import { Route as Harness05RouteImport } from './routes/harness-05'
 import { Route as Harness04RouteImport } from './routes/harness-04'
@@ -18,6 +21,21 @@ import { Route as IndexRouteImport } from './routes/index'
 const VonNeumannRoute = VonNeumannRouteImport.update({
   id: '/von-neumann',
   path: '/von-neumann',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Sesion05Route = Sesion05RouteImport.update({
+  id: '/sesion-05',
+  path: '/sesion-05',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Sesion03Route = Sesion03RouteImport.update({
+  id: '/sesion-03',
+  path: '/sesion-03',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Sesion02Route = Sesion02RouteImport.update({
+  id: '/sesion-02',
+  path: '/sesion-02',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IaBienUsadaRoute = IaBienUsadaRouteImport.update({
@@ -46,6 +64,9 @@ export interface FileRoutesByFullPath {
   '/harness-04': typeof Harness04Route
   '/harness-05': typeof Harness05Route
   '/ia-bien-usada': typeof IaBienUsadaRoute
+  '/sesion-02': typeof Sesion02Route
+  '/sesion-03': typeof Sesion03Route
+  '/sesion-05': typeof Sesion05Route
   '/von-neumann': typeof VonNeumannRoute
 }
 export interface FileRoutesByTo {
@@ -53,6 +74,9 @@ export interface FileRoutesByTo {
   '/harness-04': typeof Harness04Route
   '/harness-05': typeof Harness05Route
   '/ia-bien-usada': typeof IaBienUsadaRoute
+  '/sesion-02': typeof Sesion02Route
+  '/sesion-03': typeof Sesion03Route
+  '/sesion-05': typeof Sesion05Route
   '/von-neumann': typeof VonNeumannRoute
 }
 export interface FileRoutesById {
@@ -61,6 +85,9 @@ export interface FileRoutesById {
   '/harness-04': typeof Harness04Route
   '/harness-05': typeof Harness05Route
   '/ia-bien-usada': typeof IaBienUsadaRoute
+  '/sesion-02': typeof Sesion02Route
+  '/sesion-03': typeof Sesion03Route
+  '/sesion-05': typeof Sesion05Route
   '/von-neumann': typeof VonNeumannRoute
 }
 export interface FileRouteTypes {
@@ -70,15 +97,29 @@ export interface FileRouteTypes {
     | '/harness-04'
     | '/harness-05'
     | '/ia-bien-usada'
+    | '/sesion-02'
+    | '/sesion-03'
+    | '/sesion-05'
     | '/von-neumann'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/harness-04' | '/harness-05' | '/ia-bien-usada' | '/von-neumann'
+  to:
+    | '/'
+    | '/harness-04'
+    | '/harness-05'
+    | '/ia-bien-usada'
+    | '/sesion-02'
+    | '/sesion-03'
+    | '/sesion-05'
+    | '/von-neumann'
   id:
     | '__root__'
     | '/'
     | '/harness-04'
     | '/harness-05'
     | '/ia-bien-usada'
+    | '/sesion-02'
+    | '/sesion-03'
+    | '/sesion-05'
     | '/von-neumann'
   fileRoutesById: FileRoutesById
 }
@@ -87,6 +128,9 @@ export interface RootRouteChildren {
   Harness04Route: typeof Harness04Route
   Harness05Route: typeof Harness05Route
   IaBienUsadaRoute: typeof IaBienUsadaRoute
+  Sesion02Route: typeof Sesion02Route
+  Sesion03Route: typeof Sesion03Route
+  Sesion05Route: typeof Sesion05Route
   VonNeumannRoute: typeof VonNeumannRoute
 }
 
@@ -97,6 +141,27 @@ declare module '@tanstack/react-router' {
       path: '/von-neumann'
       fullPath: '/von-neumann'
       preLoaderRoute: typeof VonNeumannRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sesion-05': {
+      id: '/sesion-05'
+      path: '/sesion-05'
+      fullPath: '/sesion-05'
+      preLoaderRoute: typeof Sesion05RouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sesion-03': {
+      id: '/sesion-03'
+      path: '/sesion-03'
+      fullPath: '/sesion-03'
+      preLoaderRoute: typeof Sesion03RouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sesion-02': {
+      id: '/sesion-02'
+      path: '/sesion-02'
+      fullPath: '/sesion-02'
+      preLoaderRoute: typeof Sesion02RouteImport
       parentRoute: typeof rootRouteImport
     }
     '/ia-bien-usada': {
@@ -135,6 +200,9 @@ const rootRouteChildren: RootRouteChildren = {
   Harness04Route: Harness04Route,
   Harness05Route: Harness05Route,
   IaBienUsadaRoute: IaBienUsadaRoute,
+  Sesion02Route: Sesion02Route,
+  Sesion03Route: Sesion03Route,
+  Sesion05Route: Sesion05Route,
   VonNeumannRoute: VonNeumannRoute,
 }
 export const routeTree = rootRouteImport

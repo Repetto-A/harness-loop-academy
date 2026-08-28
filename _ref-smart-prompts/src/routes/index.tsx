@@ -33,6 +33,24 @@ const CLASSES = [
     title: "Que la IA entienda tu codebase",
     subtitle: "Codebase intelligence + harness · ~1h30",
   },
+  {
+    to: "/sesion-02" as const,
+    num: "04",
+    title: "Multi-agent, Agentic RAG y sesiones",
+    subtitle: "Claude Architect · Sesión 2",
+  },
+  {
+    to: "/sesion-03" as const,
+    num: "05",
+    title: "Diseño de ruta técnica MCP",
+    subtitle: "Claude Architect · Sesión 3",
+  },
+  {
+    to: "/sesion-05" as const,
+    num: "06",
+    title: "Context management, reliability y simulacro final",
+    subtitle: "Claude Architect · Sesión 5",
+  },
 ];
 
 function Index() {
