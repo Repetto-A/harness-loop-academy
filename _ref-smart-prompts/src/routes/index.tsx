@@ -51,6 +51,12 @@ const CLASSES = [
     title: "Context management, reliability y simulacro final",
     subtitle: "Claude Architect · Sesión 5",
   },
+  {
+    to: "/frisvy-03" as const,
+    num: "07",
+    title: "IA Generativa para aplicaciones técnicas",
+    subtitle: "Formación en IA · Encuentro 3",
+  },
 ];
 
 function Index() {

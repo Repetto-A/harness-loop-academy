@@ -16,6 +16,7 @@ import { Route as Sesion02RouteImport } from './routes/sesion-02'
 import { Route as IaBienUsadaRouteImport } from './routes/ia-bien-usada'
 import { Route as Harness05RouteImport } from './routes/harness-05'
 import { Route as Harness04RouteImport } from './routes/harness-04'
+import { Route as Frisvy03RouteImport } from './routes/frisvy-03'
 import { Route as IndexRouteImport } from './routes/index'
 
 const VonNeumannRoute = VonNeumannRouteImport.update({
@@ -53,6 +54,11 @@ const Harness04Route = Harness04RouteImport.update({
   path: '/harness-04',
   getParentRoute: () => rootRouteImport,
 } as any)
+const Frisvy03Route = Frisvy03RouteImport.update({
+  id: '/frisvy-03',
+  path: '/frisvy-03',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -61,6 +67,7 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/frisvy-03': typeof Frisvy03Route
   '/harness-04': typeof Harness04Route
   '/harness-05': typeof Harness05Route
   '/ia-bien-usada': typeof IaBienUsadaRoute
@@ -71,6 +78,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/frisvy-03': typeof Frisvy03Route
   '/harness-04': typeof Harness04Route
   '/harness-05': typeof Harness05Route
   '/ia-bien-usada': typeof IaBienUsadaRoute
@@ -82,6 +90,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/frisvy-03': typeof Frisvy03Route
   '/harness-04': typeof Harness04Route
   '/harness-05': typeof Harness05Route
   '/ia-bien-usada': typeof IaBienUsadaRoute
@@ -94,6 +103,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/frisvy-03'
     | '/harness-04'
     | '/harness-05'
     | '/ia-bien-usada'
@@ -104,6 +114,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/frisvy-03'
     | '/harness-04'
     | '/harness-05'
     | '/ia-bien-usada'
@@ -114,6 +125,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/frisvy-03'
     | '/harness-04'
     | '/harness-05'
     | '/ia-bien-usada'
@@ -125,6 +137,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  Frisvy03Route: typeof Frisvy03Route
   Harness04Route: typeof Harness04Route
   Harness05Route: typeof Harness05Route
   IaBienUsadaRoute: typeof IaBienUsadaRoute
@@ -185,6 +198,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Harness04RouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/frisvy-03': {
+      id: '/frisvy-03'
+      path: '/frisvy-03'
+      fullPath: '/frisvy-03'
+      preLoaderRoute: typeof Frisvy03RouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -197,6 +217,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  Frisvy03Route: Frisvy03Route,
   Harness04Route: Harness04Route,
   Harness05Route: Harness05Route,
   IaBienUsadaRoute: IaBienUsadaRoute,
