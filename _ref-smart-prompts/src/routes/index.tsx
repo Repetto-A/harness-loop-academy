@@ -143,16 +143,9 @@ function Index() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <div className="mx-auto min-h-screen max-w-5xl px-8 py-10">
-        <p className="font-mono text-sm uppercase tracking-[0.28em] text-ember">
-          Harness & Loop Academy
-        </p>
-        <h1 className="mt-6 font-display text-5xl font-bold leading-tight md:text-6xl">
+        <h1 className="font-display text-5xl font-bold leading-tight md:text-6xl">
           Elegí la clase
         </h1>
-        <p className="mt-4 max-w-xl text-lg text-muted-foreground">
-          Presentaciones integradas en smart-prompts. Atajos en cada deck: G grid, P presenter, F
-          fullscreen.
-        </p>
 
         <h2 className="mt-12 font-display text-2xl font-bold">Harness & Loop (Copilot)</h2>
         <DeckList items={CLASSES} />
