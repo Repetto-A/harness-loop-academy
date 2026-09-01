@@ -1,0 +1,10 @@
+{
+  "name": "harness-loop-academy",
+  "private": true,
+  "description": "Monorepo raíz — la app de slides vive en _ref-smart-prompts/",
+  "scripts": {
+    "dev": "npm run dev --prefix _ref-smart-prompts",
+    "build": "npm run build --prefix _ref-smart-prompts",
+    "vercel-build": "npm run build --prefix _ref-smart-prompts"
+  }
+}

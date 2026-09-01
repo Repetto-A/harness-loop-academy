@@ -1,0 +1,21 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "installCommand": "npm install --prefix _ref-smart-prompts",
+  "buildCommand": "npm run build --prefix _ref-smart-prompts",
+  "outputDirectory": "_ref-smart-prompts/dist/client",
+  "functions": {
+    "api/index.js": {
+      "includeFiles": "_ref-smart-prompts/dist/server/**"
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/assets/(.*)",
+      "destination": "/assets/$1"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/api/index"
+    }
+  ]
+}
