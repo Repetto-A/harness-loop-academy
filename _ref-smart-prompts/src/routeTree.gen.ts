@@ -10,6 +10,9 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as VonNeumannRouteImport } from './routes/von-neumann'
+import { Route as Mod09RouteImport } from './routes/mod-09'
+import { Route as Mod08RouteImport } from './routes/mod-08'
+import { Route as Mod06RouteImport } from './routes/mod-06'
 import { Route as IaBienUsadaRouteImport } from './routes/ia-bien-usada'
 import { Route as Harness05RouteImport } from './routes/harness-05'
 import { Route as Harness04RouteImport } from './routes/harness-04'
@@ -21,6 +24,21 @@ import { Route as IndexRouteImport } from './routes/index'
 const VonNeumannRoute = VonNeumannRouteImport.update({
   id: '/von-neumann',
   path: '/von-neumann',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Mod09Route = Mod09RouteImport.update({
+  id: '/mod-09',
+  path: '/mod-09',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Mod08Route = Mod08RouteImport.update({
+  id: '/mod-08',
+  path: '/mod-08',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Mod06Route = Mod06RouteImport.update({
+  id: '/mod-06',
+  path: '/mod-06',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IaBienUsadaRoute = IaBienUsadaRouteImport.update({
@@ -67,6 +85,9 @@ export interface FileRoutesByFullPath {
   '/harness-04': typeof Harness04Route
   '/harness-05': typeof Harness05Route
   '/ia-bien-usada': typeof IaBienUsadaRoute
+  '/mod-06': typeof Mod06Route
+  '/mod-08': typeof Mod08Route
+  '/mod-09': typeof Mod09Route
   '/von-neumann': typeof VonNeumannRoute
 }
 export interface FileRoutesByTo {
@@ -77,6 +98,9 @@ export interface FileRoutesByTo {
   '/harness-04': typeof Harness04Route
   '/harness-05': typeof Harness05Route
   '/ia-bien-usada': typeof IaBienUsadaRoute
+  '/mod-06': typeof Mod06Route
+  '/mod-08': typeof Mod08Route
+  '/mod-09': typeof Mod09Route
   '/von-neumann': typeof VonNeumannRoute
 }
 export interface FileRoutesById {
@@ -88,6 +112,9 @@ export interface FileRoutesById {
   '/harness-04': typeof Harness04Route
   '/harness-05': typeof Harness05Route
   '/ia-bien-usada': typeof IaBienUsadaRoute
+  '/mod-06': typeof Mod06Route
+  '/mod-08': typeof Mod08Route
+  '/mod-09': typeof Mod09Route
   '/von-neumann': typeof VonNeumannRoute
 }
 export interface FileRouteTypes {
@@ -100,6 +127,9 @@ export interface FileRouteTypes {
     | '/harness-04'
     | '/harness-05'
     | '/ia-bien-usada'
+    | '/mod-06'
+    | '/mod-08'
+    | '/mod-09'
     | '/von-neumann'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -110,6 +140,9 @@ export interface FileRouteTypes {
     | '/harness-04'
     | '/harness-05'
     | '/ia-bien-usada'
+    | '/mod-06'
+    | '/mod-08'
+    | '/mod-09'
     | '/von-neumann'
   id:
     | '__root__'
@@ -120,6 +153,9 @@ export interface FileRouteTypes {
     | '/harness-04'
     | '/harness-05'
     | '/ia-bien-usada'
+    | '/mod-06'
+    | '/mod-08'
+    | '/mod-09'
     | '/von-neumann'
   fileRoutesById: FileRoutesById
 }
@@ -131,6 +167,9 @@ export interface RootRouteChildren {
   Harness04Route: typeof Harness04Route
   Harness05Route: typeof Harness05Route
   IaBienUsadaRoute: typeof IaBienUsadaRoute
+  Mod06Route: typeof Mod06Route
+  Mod08Route: typeof Mod08Route
+  Mod09Route: typeof Mod09Route
   VonNeumannRoute: typeof VonNeumannRoute
 }
 
@@ -141,6 +180,27 @@ declare module '@tanstack/react-router' {
       path: '/von-neumann'
       fullPath: '/von-neumann'
       preLoaderRoute: typeof VonNeumannRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mod-09': {
+      id: '/mod-09'
+      path: '/mod-09'
+      fullPath: '/mod-09'
+      preLoaderRoute: typeof Mod09RouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mod-08': {
+      id: '/mod-08'
+      path: '/mod-08'
+      fullPath: '/mod-08'
+      preLoaderRoute: typeof Mod08RouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mod-06': {
+      id: '/mod-06'
+      path: '/mod-06'
+      fullPath: '/mod-06'
+      preLoaderRoute: typeof Mod06RouteImport
       parentRoute: typeof rootRouteImport
     }
     '/ia-bien-usada': {
@@ -203,6 +263,9 @@ const rootRouteChildren: RootRouteChildren = {
   Harness04Route: Harness04Route,
   Harness05Route: Harness05Route,
   IaBienUsadaRoute: IaBienUsadaRoute,
+  Mod06Route: Mod06Route,
+  Mod08Route: Mod08Route,
+  Mod09Route: Mod09Route,
   VonNeumannRoute: VonNeumannRoute,
 }
 export const routeTree = rootRouteImport

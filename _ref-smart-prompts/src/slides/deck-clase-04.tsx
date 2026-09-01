@@ -77,7 +77,7 @@ const ConceptMap = () => (
   <Shell>
     <div className="flex-1 flex flex-col justify-center gap-8">
       <div>
-        <h2 className="font-display text-5xl font-bold">Cuatro palabras que se mezclan</h2>
+        <h2 className="font-display text-5xl font-bold">Glosario</h2>
         <p className="mt-3 text-xl text-muted-foreground max-w-[1200px]">
           Antes de comparar opciones, alineemos vocabulario. No es lo mismo el modelo, la app que
           usás, ni cómo lo integrás en código.
@@ -86,9 +86,9 @@ const ConceptMap = () => (
       <div className="grid grid-cols-4 gap-4 c4-stagger">
         {[
           ["Modelo", "Red entrenada con pesos y arquitectura (GPT, Llama, Claude…)"],
-          ["Plataforma", "Producto listo para usar (ChatGPT, Copilot, Cursor)"],
           ["API", "Interfaz para invocar el modelo desde código o sistemas"],
           ["Herramienta", "Interfaz de usuario sobre el modelo (chat, asistente)"],
+          ["Plataforma", "Producto listo para usar (ChatGPT, Copilot, Cursor)"],
         ].map(([title, body]) => (
           <div key={title} className="bg-surface border border-border rounded-2xl p-6">
             <div className="font-mono text-sm text-ember mb-2">{title}</div>
@@ -117,14 +117,9 @@ const SystemNotModel = () => (
 const FourCategories = () => (
   <Shell>
     <div className="flex-1 flex flex-col justify-center gap-8">
-      <div>
-        <h2 className="font-display text-5xl font-bold">
-          ¿Qué tan <span className="text-ember">abierto</span> es el modelo?
-        </h2>
-        <p className="mt-3 text-xl text-muted-foreground max-w-[1400px]">
-          Sobre licencia y pesos: si podés verlos, descargarlos o adaptarlos.
-        </p>
-      </div>
+      <h2 className="font-display text-5xl font-bold">
+        ¿Qué tan <span className="text-ember">abierto</span> es el modelo?
+      </h2>
       <div className="grid grid-cols-4 gap-4 c4-stagger">
         {[
           {
@@ -169,14 +164,14 @@ const FourCategories = () => (
 
 const ModelsForTasks = () => (
   <Shell>
-    <div className="flex-1 flex flex-col justify-center gap-4">
-      <h2 className="font-display text-5xl font-bold">¿Qué modelo usar para cada tarea?</h2>
-      <div className="grid grid-cols-[1.1fr_1fr_1fr] gap-3 text-center font-mono text-sm uppercase tracking-wider text-muted-foreground">
+    <div className="flex-1 flex flex-col justify-center gap-3 min-h-0">
+      <h2 className="font-display text-4xl font-bold leading-tight">Sugerencias de modelos por tarea</h2>
+      <div className="grid grid-cols-[1.05fr_1fr_1fr] gap-2 text-center font-mono text-xs uppercase tracking-wider text-muted-foreground">
         <div />
-        <div className="text-blue-400">En tu máquina / open</div>
-        <div className="text-ember">API o suscripción</div>
+        <div className="text-blue-400">Local / open</div>
+        <div className="text-ember">API / suscripción</div>
       </div>
-      <div className="space-y-2 c4-stagger">
+      <div className="space-y-1.5 c4-stagger">
         {[
           [
             "Razonamiento complejo",
@@ -192,39 +187,13 @@ const ModelsForTasks = () => (
         ].map(([task, local, api]) => (
           <div
             key={task}
-            className="grid grid-cols-[1.1fr_1fr_1fr] gap-3 items-center bg-surface border border-border rounded-xl px-4 py-2.5"
+            className="grid grid-cols-[1.05fr_1fr_1fr] gap-2 items-center bg-surface border border-border rounded-lg px-3 py-1.5"
           >
-            <div className="font-display text-lg">{task}</div>
-            <div className="text-center text-base text-muted-foreground">{local}</div>
-            <div className="text-center text-base text-foreground/90">{api}</div>
+            <div className="font-display text-base leading-snug">{task}</div>
+            <div className="text-center text-sm text-muted-foreground leading-snug">{local}</div>
+            <div className="text-center text-sm text-foreground/90 leading-snug">{api}</div>
           </div>
         ))}
-      </div>
-      <div className="grid grid-cols-2 gap-4 mt-2">
-        <div className="rounded-xl border border-blue-500/30 bg-blue-500/5 p-4">
-          <div className="font-mono text-xs text-blue-400 uppercase tracking-widest mb-2">
-            Cómo correrlo en tu máquina
-          </div>
-          <div className="text-sm text-muted-foreground leading-snug">
-            <span className="text-foreground">Ollama / LM Studio:</span> probar y usar en tu PC, sin
-            montar servidor.
-            <br />
-            <span className="text-foreground">vLLM:</span> servir el modelo en red para tu equipo o
-            producción (más setup, más escala).
-          </div>
-        </div>
-        <div className="rounded-xl border border-ember/30 bg-ember/5 p-4">
-          <div className="font-mono text-xs text-ember uppercase tracking-widest mb-2">
-            Cómo usarlo en la empresa
-          </div>
-          <div className="text-sm text-muted-foreground leading-snug">
-            <span className="text-foreground">Suscripción:</span> ChatGPT, Copilot, Claude (app o
-            plan de equipo).
-            <br />
-            <span className="text-foreground">API en tu cloud:</span> Azure OpenAI, Bedrock, Vertex
-            (mismo modelo, tus políticas de datos).
-          </div>
-        </div>
       </div>
     </div>
   </Shell>
@@ -345,41 +314,6 @@ const DeploymentSpectrum = () => {
   );
 };
 
-const OpenSourceClarify = () => (
-  <Shell>
-    <div className="flex-1 flex flex-col justify-center gap-8">
-      <h2 className="font-display text-5xl font-bold">
-        Lo que suele <span className="text-ember">confundir</span>
-      </h2>
-      <div className="grid grid-cols-2 gap-6 c4-stagger">
-        {[
-          [
-            "Free ≠ enterprise",
-            "ChatGPT free y ChatGPT Enterprise no tienen las mismas reglas de datos ni retención",
-          ],
-          [
-            "Licencia con letra chica",
-            "Podés descargar Llama o Mistral y aun así tener restricciones comerciales",
-          ],
-          [
-            "Local sigue costando",
-            "Mantenimiento, actualizaciones, desgaste del hardware, costo de oportunidad… Son costos arraigados al local y hacen que no sea cero.",
-          ],
-          [
-            "Hosteado ≠ tuyo",
-            "Groq o Together corren open weights, pero tus datos pasan por su infra",
-          ],
-        ].map(([title, body]) => (
-          <div key={title} className="bg-surface border border-border rounded-2xl p-8">
-            <div className="font-display text-2xl font-bold text-ember mb-3">{title}</div>
-            <div className="text-xl text-muted-foreground leading-snug">{body}</div>
-          </div>
-        ))}
-      </div>
-    </div>
-  </Shell>
-);
-
 function ComparisonRows({
   rows,
   footer,
@@ -452,7 +386,6 @@ const ComparisonGrid = () => (
           ],
           ["Tiempo de implementación", "Rápido", "Lento", "Medio"],
         ]}
-        footer="La curva de costo se cruza: la API arranca barata y se encarece a escala; lo propio arranca caro y se amortiza a volumen sostenido."
       />
     </div>
   </Shell>
@@ -470,7 +403,6 @@ const ComparisonGridOps = () => (
           ["Soporte", "Contrato comercial (SLA)", "Comunidad o consultoría"],
           ["Trazabilidad", "Logs del proveedor", "Logs propios"],
         ]}
-        footer="A volumen alto y sostenido, lo propio puede salir más barato que la API."
       />
     </div>
   </Shell>
@@ -737,10 +669,10 @@ export const slidesClase04: SlideDefBase[] = [
   },
   {
     id: "c4-concept-map",
-    title: "Vocabulario base",
+    title: "Glosario",
     Component: ConceptMap,
     notes:
-      "Vocabulario mínimo para alinear la charla: modelo vs plataforma vs API vs herramienta. Ejemplo rápido: ChatGPT es plataforma, GPT-5 es el modelo, la API es cómo lo llamás desde código. No adelantar RAG, agentes ni despliegue: eso viene después.",
+      "Glosario mínimo: modelo, API, herramienta, plataforma. Ejemplo rápido: GPT-5 es el modelo, la API es cómo lo llamás desde código, el chat es herramienta, ChatGPT es plataforma. No adelantar RAG, agentes ni despliegue: eso viene después.",
   },
   {
     id: "c4-system",
@@ -763,25 +695,18 @@ export const slidesClase04: SlideDefBase[] = [
       "Dónde corren los datos. Ejemplo puente: el mismo Llama puede estar en tu laptop o en la nube. Recorré las 6 paradas. Hosteado por tercero (Groq, Together) es distinto de nube privada (tu cuenta, tus políticas). On-prem tiene más esfuerzo operativo que los extremos — mencionarlo en voz si hace falta.",
   },
   {
-    id: "c4-open-clarify",
-    title: "Lo que confunde",
-    Component: OpenSourceClarify,
-    notes:
-      "No repetir los dos ejes anteriores: acá van trampas operativas del día a día. Free vs enterprise, licencias, costo local, hosteado no es lo mismo que on-prem.",
-  },
-  {
     id: "c4-comparison",
     title: "Comparativa calidad",
     Component: ComparisonGrid,
     notes:
-      "Tres columnas para no caer en falsa dicotomía: propietario, local/open e híbrido. Remarcar dos cosas: en 2026 la brecha de calidad open vs propietario se achicó (Llama, Qwen, DeepSeek competitivos), y la curva de costo se cruza (API barata al inicio y cara a escala; self-hosting al revés).",
+      "Tres columnas para no caer en falsa dicotomía: propietario, local/open e híbrido. Calidad, privacidad y barrera de entrada vs costo a escala. Sin explicar la curva que se cruza: eso no va en esta charla.",
   },
   {
     id: "c4-comparison-ops",
     title: "Comparativa operación",
     Component: ComparisonGridOps,
     notes:
-      "Segunda mitad: mantenimiento, escala, gobernanza, soporte, trazabilidad. Cerrar con curva de costo que se cruza.",
+      "Segunda mitad: mantenimiento, escala, gobernanza, soporte, trazabilidad.",
   },
   {
     id: "c4-cost",
@@ -792,10 +717,10 @@ export const slidesClase04: SlideDefBase[] = [
   },
   {
     id: "c4-models",
-    title: "Modelos por tarea",
+    title: "Sugerencias de modelos",
     Component: ModelsForTasks,
     notes:
-      "Tabla = qué modelo según tarea (incluye imágenes). Abajo = cómo correrlo: Ollama/LM Studio para probar en tu PC; vLLM para servir en red/prod. Empresa: suscripción vs API en tu cloud. Son dos capas distintas.",
+      "Qué modelo según tarea, incluyendo imágenes y embeddings. Mantener el foco en la elección por caso de uso; el despliegue ya se explicó y Ollama se ve en la demo.",
   },
   {
     id: "c4-eval",

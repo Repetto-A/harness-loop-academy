@@ -46,10 +46,31 @@ const CLASSES = [
   },
 ];
 
+const ONLINE_MODULES = [
+  {
+    to: "/mod-06" as const,
+    num: "06",
+    title: "Modelos open source en tu IDE",
+    subtitle: "Curso online · Ollama + extensión oficial en VS Code",
+  },
+  {
+    to: "/mod-08" as const,
+    num: "08",
+    title: "Cursor AI",
+    subtitle: "Curso online · harness y Agent mode",
+  },
+  {
+    to: "/mod-09" as const,
+    num: "09",
+    title: "Arquitecturas modernas IA",
+    subtitle: "Curso online · MCP + Git + docs",
+  },
+];
+
 function Index() {
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <div className="mx-auto flex min-h-screen max-w-5xl flex-col justify-center px-8 py-16">
+      <div className="mx-auto min-h-screen max-w-5xl px-8 py-10">
         <p className="font-mono text-sm uppercase tracking-[0.28em] text-ember">
           Harness & Loop Academy
         </p>
@@ -80,7 +101,30 @@ function Index() {
           ))}
         </ul>
 
-        <p className="mt-12 text-sm text-muted-foreground/70">
+        <h2 className="mt-14 font-display text-3xl font-bold">Curso online (grabación)</h2>
+        <p className="mt-2 text-muted-foreground">
+          Orden de grabación: OSS en IDE → Cursor AI → Arquitecturas modernas IA
+        </p>
+        <ul className="mt-6 space-y-3">
+          {ONLINE_MODULES.map((c) => (
+            <li key={c.to}>
+              <Link
+                to={c.to}
+                className="group flex items-center gap-5 rounded-xl border border-ember/30 bg-ember/5 px-5 py-4 transition-colors hover:border-ember/50 hover:bg-ember/10"
+              >
+                <span className="font-mono text-xl font-bold text-ember/80 group-hover:text-ember">
+                  {c.num}
+                </span>
+                <div className="min-w-0">
+                  <div className="text-lg font-semibold">{c.title}</div>
+                  <div className="text-sm text-muted-foreground">{c.subtitle}</div>
+                </div>
+              </Link>
+            </li>
+          ))}
+        </ul>
+
+        <p className="mt-10 pb-8 text-sm text-muted-foreground/70">
           Referencia original smart-prompts:{" "}
           <Link to="/ia-bien-usada" className="text-ember underline-offset-2 hover:underline">
             IA bien usada (deck-30)
