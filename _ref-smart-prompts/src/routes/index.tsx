@@ -143,7 +143,7 @@ function Index() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <div className="mx-auto min-h-screen max-w-5xl px-8 py-10">
-        <h1 className="font-display text-5xl font-bold leading-tight md:text-6xl">
+        <h1 className="font-display text-2xl font-bold leading-tight md:text-3xl">
           Elegí la clase
         </h1>
 
