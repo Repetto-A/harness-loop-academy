@@ -3,19 +3,22 @@
   "installCommand": "npm install --prefix _ref-smart-prompts",
   "buildCommand": "npm run build --prefix _ref-smart-prompts && node scripts/prepare-vercel.mjs",
   "outputDirectory": "dist/client",
-  "functions": {
-    "api/index.js": {
-      "includeFiles": "dist/server/**"
-    }
-  },
   "rewrites": [
     {
-      "source": "/assets/(.*)",
-      "destination": "/assets/$1"
+      "source": "/assets/:path*",
+      "destination": "/assets/:path*"
     },
     {
-      "source": "/(.*)",
-      "destination": "/api/index"
+      "source": "/harness-05/:path*",
+      "destination": "/harness-05/:path*"
+    },
+    {
+      "source": "/von-neumann/:path*",
+      "destination": "/von-neumann/:path*"
+    },
+    {
+      "source": "/:path*",
+      "destination": "/index.html"
     }
   ]
 }

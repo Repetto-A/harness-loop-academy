@@ -137,11 +137,15 @@ Los PDFs quedan en `_ref-smart-prompts/exports/` (y en `online-course/exports/` 
 
 ## Deploy en Vercel
 
-El proyecto Vercel apunta al **repo root**. Tras el build, `scripts/prepare-vercel.mjs` copia `_ref-smart-prompts/dist` → `dist/` para que el handler SSR resuelva imports relativos.
+El proyecto Vercel apunta al **repo root**. Tras el build, `scripts/prepare-vercel.mjs`:
 
-- `npm install` y `npm run build` corren en `_ref-smart-prompts/`
-- Salida estática: `dist/client`
-- Fallback SSR: [`api/index.js`](api/index.js) → `dist/server/server.js`
+1. Copia `_ref-smart-prompts/dist` → `dist/`
+2. Genera `dist/client/index.html` vía SSR en **build time** (sin serverless en runtime)
+
+Deploy **estático SPA**: rutas de decks resuelven a `index.html` y TanStack Router hidrata en el cliente.
+
+- Salida: `dist/client`
+- No requiere `api/index.js` en producción
 
 Si en el dashboard tenés **Root Directory** distinto de `.`, dejalo en la raíz del repo.
 
