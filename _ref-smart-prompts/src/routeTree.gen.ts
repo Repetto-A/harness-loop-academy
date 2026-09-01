@@ -10,6 +10,9 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as VonNeumannRouteImport } from './routes/von-neumann'
+import { Route as Sesion05RouteImport } from './routes/sesion-05'
+import { Route as Sesion03RouteImport } from './routes/sesion-03'
+import { Route as Sesion02RouteImport } from './routes/sesion-02'
 import { Route as Mod09RouteImport } from './routes/mod-09'
 import { Route as Mod08RouteImport } from './routes/mod-08'
 import { Route as Mod06RouteImport } from './routes/mod-06'
@@ -19,11 +22,27 @@ import { Route as Harness04RouteImport } from './routes/harness-04'
 import { Route as Harness03RouteImport } from './routes/harness-03'
 import { Route as Harness02RouteImport } from './routes/harness-02'
 import { Route as Harness01RouteImport } from './routes/harness-01'
+import { Route as Frisvy03RouteImport } from './routes/frisvy-03'
 import { Route as IndexRouteImport } from './routes/index'
 
 const VonNeumannRoute = VonNeumannRouteImport.update({
   id: '/von-neumann',
   path: '/von-neumann',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Sesion05Route = Sesion05RouteImport.update({
+  id: '/sesion-05',
+  path: '/sesion-05',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Sesion03Route = Sesion03RouteImport.update({
+  id: '/sesion-03',
+  path: '/sesion-03',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Sesion02Route = Sesion02RouteImport.update({
+  id: '/sesion-02',
+  path: '/sesion-02',
   getParentRoute: () => rootRouteImport,
 } as any)
 const Mod09Route = Mod09RouteImport.update({
@@ -71,6 +90,11 @@ const Harness01Route = Harness01RouteImport.update({
   path: '/harness-01',
   getParentRoute: () => rootRouteImport,
 } as any)
+const Frisvy03Route = Frisvy03RouteImport.update({
+  id: '/frisvy-03',
+  path: '/frisvy-03',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -79,6 +103,7 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/frisvy-03': typeof Frisvy03Route
   '/harness-01': typeof Harness01Route
   '/harness-02': typeof Harness02Route
   '/harness-03': typeof Harness03Route
@@ -88,10 +113,14 @@ export interface FileRoutesByFullPath {
   '/mod-06': typeof Mod06Route
   '/mod-08': typeof Mod08Route
   '/mod-09': typeof Mod09Route
+  '/sesion-02': typeof Sesion02Route
+  '/sesion-03': typeof Sesion03Route
+  '/sesion-05': typeof Sesion05Route
   '/von-neumann': typeof VonNeumannRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/frisvy-03': typeof Frisvy03Route
   '/harness-01': typeof Harness01Route
   '/harness-02': typeof Harness02Route
   '/harness-03': typeof Harness03Route
@@ -101,11 +130,15 @@ export interface FileRoutesByTo {
   '/mod-06': typeof Mod06Route
   '/mod-08': typeof Mod08Route
   '/mod-09': typeof Mod09Route
+  '/sesion-02': typeof Sesion02Route
+  '/sesion-03': typeof Sesion03Route
+  '/sesion-05': typeof Sesion05Route
   '/von-neumann': typeof VonNeumannRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/frisvy-03': typeof Frisvy03Route
   '/harness-01': typeof Harness01Route
   '/harness-02': typeof Harness02Route
   '/harness-03': typeof Harness03Route
@@ -115,12 +148,16 @@ export interface FileRoutesById {
   '/mod-06': typeof Mod06Route
   '/mod-08': typeof Mod08Route
   '/mod-09': typeof Mod09Route
+  '/sesion-02': typeof Sesion02Route
+  '/sesion-03': typeof Sesion03Route
+  '/sesion-05': typeof Sesion05Route
   '/von-neumann': typeof VonNeumannRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/frisvy-03'
     | '/harness-01'
     | '/harness-02'
     | '/harness-03'
@@ -130,10 +167,14 @@ export interface FileRouteTypes {
     | '/mod-06'
     | '/mod-08'
     | '/mod-09'
+    | '/sesion-02'
+    | '/sesion-03'
+    | '/sesion-05'
     | '/von-neumann'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/frisvy-03'
     | '/harness-01'
     | '/harness-02'
     | '/harness-03'
@@ -143,10 +184,14 @@ export interface FileRouteTypes {
     | '/mod-06'
     | '/mod-08'
     | '/mod-09'
+    | '/sesion-02'
+    | '/sesion-03'
+    | '/sesion-05'
     | '/von-neumann'
   id:
     | '__root__'
     | '/'
+    | '/frisvy-03'
     | '/harness-01'
     | '/harness-02'
     | '/harness-03'
@@ -156,11 +201,15 @@ export interface FileRouteTypes {
     | '/mod-06'
     | '/mod-08'
     | '/mod-09'
+    | '/sesion-02'
+    | '/sesion-03'
+    | '/sesion-05'
     | '/von-neumann'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  Frisvy03Route: typeof Frisvy03Route
   Harness01Route: typeof Harness01Route
   Harness02Route: typeof Harness02Route
   Harness03Route: typeof Harness03Route
@@ -170,6 +219,9 @@ export interface RootRouteChildren {
   Mod06Route: typeof Mod06Route
   Mod08Route: typeof Mod08Route
   Mod09Route: typeof Mod09Route
+  Sesion02Route: typeof Sesion02Route
+  Sesion03Route: typeof Sesion03Route
+  Sesion05Route: typeof Sesion05Route
   VonNeumannRoute: typeof VonNeumannRoute
 }
 
@@ -180,6 +232,27 @@ declare module '@tanstack/react-router' {
       path: '/von-neumann'
       fullPath: '/von-neumann'
       preLoaderRoute: typeof VonNeumannRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sesion-05': {
+      id: '/sesion-05'
+      path: '/sesion-05'
+      fullPath: '/sesion-05'
+      preLoaderRoute: typeof Sesion05RouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sesion-03': {
+      id: '/sesion-03'
+      path: '/sesion-03'
+      fullPath: '/sesion-03'
+      preLoaderRoute: typeof Sesion03RouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sesion-02': {
+      id: '/sesion-02'
+      path: '/sesion-02'
+      fullPath: '/sesion-02'
+      preLoaderRoute: typeof Sesion02RouteImport
       parentRoute: typeof rootRouteImport
     }
     '/mod-09': {
@@ -245,6 +318,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Harness01RouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/frisvy-03': {
+      id: '/frisvy-03'
+      path: '/frisvy-03'
+      fullPath: '/frisvy-03'
+      preLoaderRoute: typeof Frisvy03RouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -257,6 +337,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  Frisvy03Route: Frisvy03Route,
   Harness01Route: Harness01Route,
   Harness02Route: Harness02Route,
   Harness03Route: Harness03Route,
@@ -266,6 +347,9 @@ const rootRouteChildren: RootRouteChildren = {
   Mod06Route: Mod06Route,
   Mod08Route: Mod08Route,
   Mod09Route: Mod09Route,
+  Sesion02Route: Sesion02Route,
+  Sesion03Route: Sesion03Route,
+  Sesion05Route: Sesion05Route,
   VonNeumannRoute: VonNeumannRoute,
 }
 export const routeTree = rootRouteImport

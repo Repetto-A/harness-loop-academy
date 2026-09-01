@@ -6,7 +6,8 @@ export const Route = createFileRoute("/")({
       { title: "Harness & Loop Engineering — Capacitación" },
       {
         name: "description",
-        content: "Presentaciones Clase 1–2 (+ bonus Clase 3): context engineering y SDD.",
+        content:
+          "Presentaciones: harness Copilot, sesiones Claude Architect, Frisvy y curso online.",
       },
     ],
   }),
@@ -46,6 +47,36 @@ const CLASSES = [
   },
 ];
 
+const ARCHITECT_SESSIONS = [
+  {
+    to: "/sesion-02" as const,
+    num: "02",
+    title: "Multi-agent, Agentic RAG y sesiones",
+    subtitle: "Claude Architect · Sesión 2",
+  },
+  {
+    to: "/sesion-03" as const,
+    num: "03",
+    title: "Diseño de ruta técnica MCP",
+    subtitle: "Claude Architect · Sesión 3",
+  },
+  {
+    to: "/sesion-05" as const,
+    num: "05",
+    title: "Context management, reliability y simulacro final",
+    subtitle: "Claude Architect · Sesión 5",
+  },
+];
+
+const FRISVY = [
+  {
+    to: "/frisvy-03" as const,
+    num: "03",
+    title: "IA para el trabajo técnico",
+    subtitle: "Brief, Linear, SDD; RAG, grafo, Engram",
+  },
+];
+
 const ONLINE_MODULES = [
   {
     to: "/mod-06" as const,
@@ -67,6 +98,47 @@ const ONLINE_MODULES = [
   },
 ];
 
+function DeckList({
+  items,
+  accent = false,
+}: {
+  items: typeof CLASSES;
+  accent?: boolean;
+}) {
+  return (
+    <ul className="mt-6 space-y-4">
+      {items.map((c) => (
+        <li key={c.to}>
+          <Link
+            to={c.to}
+            className={
+              accent
+                ? "group flex items-center gap-5 rounded-xl border border-ember/30 bg-ember/5 px-5 py-4 transition-colors hover:border-ember/50 hover:bg-ember/10"
+                : "group flex items-center gap-6 rounded-xl border border-border/60 bg-card/40 px-6 py-5 transition-colors hover:border-ember/40 hover:bg-card/80"
+            }
+          >
+            <span
+              className={
+                accent
+                  ? "font-mono text-xl font-bold text-ember/80 group-hover:text-ember"
+                  : "font-mono text-2xl font-bold text-ember/80 group-hover:text-ember"
+              }
+            >
+              {c.num}
+            </span>
+            <div className="min-w-0">
+              <div className={accent ? "text-lg font-semibold" : "text-xl font-semibold"}>
+                {c.title}
+              </div>
+              <div className="text-sm text-muted-foreground">{c.subtitle}</div>
+            </div>
+          </Link>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 function Index() {
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -82,47 +154,20 @@ function Index() {
           fullscreen.
         </p>
 
-        <ul className="mt-12 space-y-4">
-          {CLASSES.map((c) => (
-            <li key={c.to}>
-              <Link
-                to={c.to}
-                className="group flex items-center gap-6 rounded-xl border border-border/60 bg-card/40 px-6 py-5 transition-colors hover:border-ember/40 hover:bg-card/80"
-              >
-                <span className="font-mono text-2xl font-bold text-ember/80 group-hover:text-ember">
-                  {c.num}
-                </span>
-                <div>
-                  <div className="text-xl font-semibold">{c.title}</div>
-                  <div className="text-sm text-muted-foreground">{c.subtitle}</div>
-                </div>
-              </Link>
-            </li>
-          ))}
-        </ul>
+        <h2 className="mt-12 font-display text-2xl font-bold">Harness & Loop (Copilot)</h2>
+        <DeckList items={CLASSES} />
+
+        <h2 className="mt-14 font-display text-2xl font-bold">Claude Architect</h2>
+        <DeckList items={ARCHITECT_SESSIONS} />
+
+        <h2 className="mt-14 font-display text-2xl font-bold">Frisvy</h2>
+        <DeckList items={FRISVY} />
 
         <h2 className="mt-14 font-display text-3xl font-bold">Curso online (grabación)</h2>
         <p className="mt-2 text-muted-foreground">
           Orden de grabación: OSS en IDE → Cursor AI → Arquitecturas modernas IA
         </p>
-        <ul className="mt-6 space-y-3">
-          {ONLINE_MODULES.map((c) => (
-            <li key={c.to}>
-              <Link
-                to={c.to}
-                className="group flex items-center gap-5 rounded-xl border border-ember/30 bg-ember/5 px-5 py-4 transition-colors hover:border-ember/50 hover:bg-ember/10"
-              >
-                <span className="font-mono text-xl font-bold text-ember/80 group-hover:text-ember">
-                  {c.num}
-                </span>
-                <div className="min-w-0">
-                  <div className="text-lg font-semibold">{c.title}</div>
-                  <div className="text-sm text-muted-foreground">{c.subtitle}</div>
-                </div>
-              </Link>
-            </li>
-          ))}
-        </ul>
+        <DeckList items={ONLINE_MODULES} accent />
 
         <p className="mt-10 pb-8 text-sm text-muted-foreground/70">
           Referencia original smart-prompts:{" "}

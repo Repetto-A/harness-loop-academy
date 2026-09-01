@@ -3,9 +3,10 @@ interface Props {
   label?: string;
   tone?: "default" | "bad" | "good";
   className?: string;
+  nowrap?: boolean;
 }
 
-export function CodeBlock({ children, label, tone = "default", className }: Props) {
+export function CodeBlock({ children, label, tone = "default", className, nowrap = false }: Props) {
   const accent =
     tone === "bad"
       ? "border-l-[oklch(0.6_0.22_25)]"
@@ -22,7 +23,11 @@ export function CodeBlock({ children, label, tone = "default", className }: Prop
           {label}
         </div>
       )}
-      <pre className={`font-mono text-base leading-relaxed p-8 overflow-auto border-l-4 ${accent} text-foreground/90 whitespace-pre-wrap`}>
+      <pre
+        className={`font-mono text-base leading-relaxed p-8 overflow-auto border-l-4 ${accent} text-foreground/90 ${
+          nowrap ? "whitespace-pre" : "whitespace-pre-wrap"
+        }`}
+      >
         {children}
       </pre>
     </div>
