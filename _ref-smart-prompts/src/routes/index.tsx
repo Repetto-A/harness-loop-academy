@@ -54,8 +54,8 @@ const CLASSES = [
   {
     to: "/frisvy-03" as const,
     num: "07",
-    title: "IA Generativa para aplicaciones técnicas",
-    subtitle: "Formación en IA · Encuentro 3",
+    title: "IA para el trabajo técnico",
+    subtitle: "Brief, Linear, SDD; RAG, grafo, Engram",
   },
 ];
 

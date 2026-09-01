@@ -5,11 +5,11 @@ import { slidesFrisvy03 } from "@/slides/deck-frisvy-03";
 export const Route = createFileRoute("/frisvy-03")({
   head: () => ({
     meta: [
-      { title: "Formación en IA · Encuentro 3: IA Generativa para aplicaciones técnicas" },
+      { title: "IA para el trabajo técnico" },
       {
         name: "description",
         content:
-          "IA generativa aplicada al trabajo técnico: análisis de información, código, documentación y flujos de trabajo.",
+          "Brief en el repo, Linear vía MCP, validar la spec. Cuando no alcanza: RAG, grafo de conocimientos y Engram.",
       },
     ],
   }),
@@ -21,7 +21,7 @@ function Frisvy03() {
     <PresentationDeck
       slides={slidesFrisvy03}
       storageKey="slide-index-frisvy-03"
-      deckTitle="Encuentro 3 · IA Generativa para aplicaciones técnicas"
+      deckTitle="IA para el trabajo técnico"
     />
   );
 }

@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "export:pdf:05": "node scripts/export-deck-pdf-harness-05.mjs"
+    "export:pdf:05": "node scripts/export-deck-pdf-harness-05.mjs",
+    "export:pdf:frisvy-03": "node scripts/export-deck-pdf-frisvy-03.mjs"
   },
   "dependencies": {
     "@cloudflare/vite-plugin": "^1.25.5",
