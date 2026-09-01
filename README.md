@@ -137,11 +137,13 @@ Los PDFs quedan en `_ref-smart-prompts/exports/` (y en `online-course/exports/` 
 
 ## Deploy en Vercel
 
-El proyecto Vercel debe apuntar al **repo root** (no a `_ref-smart-prompts/`). La configuración está en [`vercel.json`](vercel.json):
+El proyecto Vercel apunta al **repo root**. Tras el build, `scripts/prepare-vercel.mjs` copia `_ref-smart-prompts/dist` → `dist/` para que el handler SSR resuelva imports relativos.
 
-- `npm install` y `npm run build` corren dentro de `_ref-smart-prompts/`
-- Salida estática: `_ref-smart-prompts/dist/client`
-- Fallback SSR: [`api/index.js`](api/index.js)
+- `npm install` y `npm run build` corren en `_ref-smart-prompts/`
+- Salida estática: `dist/client`
+- Fallback SSR: [`api/index.js`](api/index.js) → `dist/server/server.js`
+
+Si en el dashboard tenés **Root Directory** distinto de `.`, dejalo en la raíz del repo.
 
 ---
 

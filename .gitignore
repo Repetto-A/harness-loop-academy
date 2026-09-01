@@ -1,4 +1,5 @@
 node_modules/
+dist/
 _ref-smart-prompts/dist/
 _ref-smart-prompts/node_modules/
 starter/.atl/
