@@ -147,6 +147,19 @@ function Index() {
           Elegí la clase
         </h1>
 
+        <a
+          href="/sesion-02.pdf"
+          className="mt-8 flex w-full items-center justify-between gap-4 rounded-xl border-2 border-ember bg-ember/15 px-5 py-5 text-left transition-colors hover:bg-ember/25"
+        >
+          <div className="min-w-0">
+            <div className="font-display text-lg font-bold">Sesión 2 — material previo</div>
+            <div className="text-sm text-muted-foreground">
+              PDF con transiciones ya reveladas · 32 slides · ~9 MB
+            </div>
+          </div>
+          <span className="shrink-0 font-mono text-sm font-bold text-ember">Descargar</span>
+        </a>
+
         <h2 className="mt-12 font-display text-2xl font-bold">Harness & Loop (Copilot)</h2>
         <DeckList items={CLASSES} />
 

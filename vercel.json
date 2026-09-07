@@ -3,7 +3,23 @@
   "installCommand": "npm install --prefix _ref-smart-prompts",
   "buildCommand": "npm run build --prefix _ref-smart-prompts && node scripts/prepare-vercel.mjs",
   "outputDirectory": "dist/client",
+  "headers": [
+    {
+      "source": "/sesion-02.pdf",
+      "headers": [
+        { "key": "Content-Type", "value": "application/pdf" },
+        {
+          "key": "Content-Disposition",
+          "value": "inline; filename=\"sesion-02-multi-agent-agentic-rag.pdf\""
+        }
+      ]
+    }
+  ],
   "rewrites": [
+    {
+      "source": "/sesion-02.pdf",
+      "destination": "/sesion-02.pdf"
+    },
     {
       "source": "/assets/:path*",
       "destination": "/assets/:path*"
