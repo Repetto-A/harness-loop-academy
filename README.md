@@ -59,7 +59,8 @@ Material extra: Clase 3 loops + hackathon en [`class-scripts/clase-03.md`](class
 | `/sesion-03` | Diseño de ruta técnica MCP |
 | `/sesion-05` | Context management, reliability y simulacro final |
 
-Fuente editable: `_ref-smart-prompts/src/slides/deck-sesion-*.tsx`
+Fuente editable: `_ref-smart-prompts/src/slides/deck-sesion-*.tsx`  
+Material previo sesión 2 (PDF con transiciones ya reveladas): [`_ref-smart-prompts/exports/sesion-02-multi-agent-agentic-rag.pdf`](_ref-smart-prompts/exports/sesion-02-multi-agent-agentic-rag.pdf)
 
 ### Frisvy
 
@@ -125,6 +126,7 @@ Desde `_ref-smart-prompts/` (requiere Playwright instalado vía `npm install`):
 
 ```powershell
 npm run export:pdf:05          # harness-05
+npm run export:pdf:sesion-02   # Claude Architect sesión 2 (reveals finales, material previo)
 npm run export:pdf:frisvy-03   # Frisvy encuentro 3
 npm run export:pdf:mod06       # módulo online 06
 npm run export:pdf:mod08       # módulo online 08
