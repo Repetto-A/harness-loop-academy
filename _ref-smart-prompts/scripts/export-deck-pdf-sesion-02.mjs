@@ -143,9 +143,14 @@ async function main() {
     throw err;
   }
 
+  const publicPath = path.resolve(root, "public/sesion-02.pdf");
+  await mkdir(path.dirname(publicPath), { recursive: true });
+  await writeFile(publicPath, pdfBytes);
+
   await rm(tmpDir, { recursive: true, force: true });
 
   console.log(`\nPDF listo (${pngPaths.length} páginas): ${outPath}`);
+  console.log(`Copia pública: ${publicPath}`);
 }
 
 main().catch((err) => {

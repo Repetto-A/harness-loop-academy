@@ -60,7 +60,7 @@ Material extra: Clase 3 loops + hackathon en [`class-scripts/clase-03.md`](class
 | `/sesion-05` | Context management, reliability y simulacro final |
 
 Fuente editable: `_ref-smart-prompts/src/slides/deck-sesion-*.tsx`  
-Material previo sesión 2 (PDF con transiciones ya reveladas): [`_ref-smart-prompts/exports/sesion-02-multi-agent-agentic-rag.pdf`](_ref-smart-prompts/exports/sesion-02-multi-agent-agentic-rag.pdf)
+Material previo sesión 2 (PDF con transiciones ya reveladas): [`/sesion-02.pdf`](https://charla-ia-alejandrorepetto.vercel.app/sesion-02.pdf) — también en [`_ref-smart-prompts/exports/sesion-02-multi-agent-agentic-rag.pdf`](_ref-smart-prompts/exports/sesion-02-multi-agent-agentic-rag.pdf)
 
 ### Frisvy
 
