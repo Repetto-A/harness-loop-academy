@@ -1,4 +1,4 @@
-import { Link, createFileRoute } from "@tanstack/react-router";
+import { Link, createFileRoute, type LinkProps } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -44,6 +44,15 @@ const CLASSES = [
     num: "05",
     title: "Que la IA entienda tu codebase",
     subtitle: "Codebase intelligence + harness · ~1h30",
+  },
+];
+
+const HACKATHON = [
+  {
+    to: "/hackathon" as const,
+    num: "101",
+    title: "Cómo competir en una hackathon (y sobrevivir en el intento)",
+    subtitle: "Crash course 101 · charla + demo · ~80 min",
   },
 ];
 
@@ -102,7 +111,7 @@ function DeckList({
   items,
   accent = false,
 }: {
-  items: typeof CLASSES;
+  items: readonly { to: LinkProps["to"]; num: string; title: string; subtitle: string }[];
   accent?: boolean;
 }) {
   return (
@@ -149,6 +158,9 @@ function Index() {
 
         <h2 className="mt-12 font-display text-2xl font-bold">Harness & Loop (Copilot)</h2>
         <DeckList items={CLASSES} />
+
+        <h2 className="mt-14 font-display text-2xl font-bold">Hackathon</h2>
+        <DeckList items={HACKATHON} />
 
         <h2 className="mt-14 font-display text-2xl font-bold">Claude Architect</h2>
         <DeckList items={ARCHITECT_SESSIONS} />

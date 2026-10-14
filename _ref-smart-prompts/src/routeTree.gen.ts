@@ -22,6 +22,7 @@ import { Route as Harness04RouteImport } from './routes/harness-04'
 import { Route as Harness03RouteImport } from './routes/harness-03'
 import { Route as Harness02RouteImport } from './routes/harness-02'
 import { Route as Harness01RouteImport } from './routes/harness-01'
+import { Route as HackathonRouteImport } from './routes/hackathon'
 import { Route as Frisvy03RouteImport } from './routes/frisvy-03'
 import { Route as IndexRouteImport } from './routes/index'
 
@@ -90,6 +91,11 @@ const Harness01Route = Harness01RouteImport.update({
   path: '/harness-01',
   getParentRoute: () => rootRouteImport,
 } as any)
+const HackathonRoute = HackathonRouteImport.update({
+  id: '/hackathon',
+  path: '/hackathon',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const Frisvy03Route = Frisvy03RouteImport.update({
   id: '/frisvy-03',
   path: '/frisvy-03',
@@ -104,6 +110,7 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/frisvy-03': typeof Frisvy03Route
+  '/hackathon': typeof HackathonRoute
   '/harness-01': typeof Harness01Route
   '/harness-02': typeof Harness02Route
   '/harness-03': typeof Harness03Route
@@ -121,6 +128,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/frisvy-03': typeof Frisvy03Route
+  '/hackathon': typeof HackathonRoute
   '/harness-01': typeof Harness01Route
   '/harness-02': typeof Harness02Route
   '/harness-03': typeof Harness03Route
@@ -139,6 +147,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/frisvy-03': typeof Frisvy03Route
+  '/hackathon': typeof HackathonRoute
   '/harness-01': typeof Harness01Route
   '/harness-02': typeof Harness02Route
   '/harness-03': typeof Harness03Route
@@ -158,6 +167,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/frisvy-03'
+    | '/hackathon'
     | '/harness-01'
     | '/harness-02'
     | '/harness-03'
@@ -175,6 +185,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/frisvy-03'
+    | '/hackathon'
     | '/harness-01'
     | '/harness-02'
     | '/harness-03'
@@ -192,6 +203,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/frisvy-03'
+    | '/hackathon'
     | '/harness-01'
     | '/harness-02'
     | '/harness-03'
@@ -210,6 +222,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   Frisvy03Route: typeof Frisvy03Route
+  HackathonRoute: typeof HackathonRoute
   Harness01Route: typeof Harness01Route
   Harness02Route: typeof Harness02Route
   Harness03Route: typeof Harness03Route
@@ -318,6 +331,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Harness01RouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/hackathon': {
+      id: '/hackathon'
+      path: '/hackathon'
+      fullPath: '/hackathon'
+      preLoaderRoute: typeof HackathonRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/frisvy-03': {
       id: '/frisvy-03'
       path: '/frisvy-03'
@@ -338,6 +358,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   Frisvy03Route: Frisvy03Route,
+  HackathonRoute: HackathonRoute,
   Harness01Route: Harness01Route,
   Harness02Route: Harness02Route,
   Harness03Route: Harness03Route,

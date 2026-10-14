@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <title>Cómo competir en una hackathon · Crash course 101</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #1a1a1a;
+        --ember: #e85d3a;
+        --fg: #f5f2ee;
+        --muted: #a8a39d;
+      }
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      html, body { width: 1920px; height: 1080px; background: var(--bg); }
+      .cover {
+        position: relative;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        color: var(--fg);
+        font-family: "Space Grotesk", system-ui, sans-serif;
+        background:
+          radial-gradient(ellipse at 80% 15%, rgba(232, 93, 58, 0.28), transparent 52%),
+          radial-gradient(ellipse at 8% 95%, rgba(80, 80, 80, 0.45), transparent 48%),
+          var(--bg);
+      }
+      .grid {
+        position: absolute;
+        inset: 0;
+        opacity: 0.22;
+        background-image:
+          linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+        background-size: 56px 56px;
+      }
+      .content {
+        position: absolute;
+        left: 128px;
+        right: 128px;
+        top: 0;
+        bottom: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 56px;
+      }
+      .eyebrow {
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 34px;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--ember);
+      }
+      h1 {
+        font-size: 176px;
+        line-height: 0.96;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        text-wrap: balance;
+      }
+      h1 .ember { color: var(--ember); }
+      h1 .sub { display: block; margin-top: 24px; font-size: 100px; line-height: 1; }
+      .by {
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 40px;
+        letter-spacing: 0.04em;
+        color: var(--muted);
+      }
+    </style>
+  </head>
+  <body>
+    <main class="cover">
+      <div class="grid" aria-hidden="true"></div>
+      <div class="content">
+        <div class="eyebrow">Crash course 101</div>
+        <h1>
+          Cómo competir<br />en una hackathon
+          <span class="ember sub">(y sobrevivir en el intento)</span>
+        </h1>
+        <div class="by">Alejandro Repetto</div>
+      </div>
+    </main>
+  </body>
+</html>
