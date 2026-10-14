@@ -1,7 +1,7 @@
 # Cómo competir en una hackathon (y sobrevivir en el intento) — Diseño
 
 **Formato:** Crash course 101 · charla + demo · sin hands-on en sala
-**Duración:** versión maestra 75–80 min (70 de contenido + preguntas), modular
+**Duración:** versión maestra ~80 min (75 de contenido + 5 de preguntas), modular
 **Primer destino:** workshop presencial propio → recorte para HackaTwin (Cande)
 **Reutilización:** otros eventos; el bloque Grok Bot alimenta el Grok Bot Meetup
 **Marca:** la charla es de Alejandro Repetto (sin paraguas de serie). NEXA aparece como chivo de pantalla.
