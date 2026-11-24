@@ -110,7 +110,7 @@ function Index() {
   const archivedCount = TALKS.filter((t) => t.status === "archivada").length;
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="h-full overflow-y-auto bg-background text-foreground">
       <div className="mx-auto max-w-6xl px-6 py-10 md:px-8">
         <header className="flex flex-wrap items-end justify-between gap-4">
           <div>
