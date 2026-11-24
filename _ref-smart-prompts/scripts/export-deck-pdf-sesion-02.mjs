@@ -25,7 +25,7 @@ const STORAGE_KEY = "slide-index-sesion-02";
 const ROUTE = "/sesion-02";
 const WIDTH = 1920;
 const HEIGHT = 1080;
-const SLIDE_COUNT = 32;
+const SLIDE_COUNT = 30;
 
 function parseArgs(argv) {
   const args = {
