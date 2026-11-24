@@ -6,6 +6,10 @@
 
 Context engineering — El repo enseña al agente.
 
+## Slide 1b — Requisitos (admin / IT)
+
+Housekeeping ~30 seg o checklist pre-clase. Copilot por alumno (licencia + Chat), acceso al repo, IDE con extensión, Node 20+. Sin esto no hay labs.
+
 ## Slide 2 — Tesis
 
 "El chat se olvida. El repo no."

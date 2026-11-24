@@ -55,6 +55,32 @@ const Cover = () => (
   </Shell>
 );
 
+const Requisitos = () => (
+  <Shell>
+    <div className="flex-1 flex flex-col justify-center gap-10">
+      <h2 className="font-display text-6xl font-bold">
+        Requisitos{" "}
+        <span className="text-muted-foreground text-4xl">(para tu admin / IT)</span>
+      </h2>
+      <div className="grid grid-cols-3 gap-5">
+        {[
+          ["GitHub Copilot", "1 licencia por alumno (Business/Enterprise)"],
+          ["Copilot Chat", "Habilitado en VS Code / Visual Studio"],
+          ["Copilot coding agent", "Según plan corporativo"],
+          ["Acceso al repo", "Permisos + gh auth login"],
+          ["IDE + extensión", "VS Code o Visual Studio con Copilot"],
+          ["Node.js 20+", "Para correr starters y slides"],
+        ].map(([title, body]) => (
+          <div key={title} className="bg-surface border border-border rounded-2xl p-7">
+            <div className="font-mono text-sm text-ember mb-3">{title}</div>
+            <div className="font-display text-xl leading-tight">{body}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </Shell>
+);
+
 const Thesis = () => (
   <Shell bg="ember">
     <div className="flex-1 flex items-center">
@@ -315,6 +341,13 @@ export const slidesClase01: SlideDefClase01[] = [
     Component: Cover,
     notes:
       "~2.5h. Hoy: prompting práctico + context engineering + archivos del repo. Copilot-first.",
+  },
+  {
+    id: "c1-requisitos",
+    title: "Requisitos (admin)",
+    Component: Requisitos,
+    notes:
+      "Housekeeping ~30 seg (o checklist pre-clase). Confirmá que el admin habilitó Copilot por alumno: sin licencia + Chat no pueden hacer los labs. Salteá si ya está provisto.",
   },
   {
     id: "c1-thesis",
