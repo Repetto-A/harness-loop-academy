@@ -1,0 +1,156 @@
+
+> mcp-portales-ar@0.1.0 test
+> node dist/test-client.js
+
+mcp-portales-ar listo (stdio)
+TOOLS: dolar_cotizacion, cotizacion_moneda, riesgo_pais, inflacion_mensual, bcra_buscar_variable, bcra_serie, cripto_precio
+
+### dolar_cotizacion {"casa":"blue"}
+{
+  "fuente": "dolarapi.com",
+  "datos": {
+    "moneda": "USD",
+    "casa": "blue",
+    "nombre": "Blue",
+    "compra": 1545,
+    "venta": 1565,
+    "fechaActualizacion": "2026-10-21T18:57:00.000Z"
+  }
+}
+
+### dolar_cotizacion {}
+{
+  "fuente": "dolarapi.com",
+  "datos": [
+    {
+      "moneda": "USD",
+      "casa": "oficial",
+      "nombre": "Oficial",
+      "compra": 1495,
+      "venta": 1545,
+      "fechaActualizacion": "2026-10-21T16:00:00.000Z"
+    },
+    {
+      "moneda": "USD",
+      "casa": "blue",
+      "nombre": "Blue",
+      "compra": 1545,
+      "venta": 1565,
+      "fechaActualizacion": "2026-10-21T18:57:00.000Z"
+    },
+    {
+      "moneda": "USD",
+      "casa": "bolsa",
+      "nombre": "Bolsa",
+      "compra": 1546.9,
+      "venta": 1548.4,
+      "fechaActualizacion": "2026-10-21T18:57:00.000Z"
+    },
+    {
+      "moneda": "USD",
+      "casa": "contadoconliqui",
+      "nombre": "Contado con liquidación",
+
+
+### cotizacion_moneda {"moneda":"eur"}
+{
+  "fuente": "dolarapi.com",
+  "datos": {
+    "moneda": "EUR",
+    "casa": "oficial",
+    "nombre": "Euro",
+    "compra": 1703.4393,
+    "venta": 1717.3604,
+    "fechaActualizacion": "2026-10-21T15:53:00.000Z"
+  }
+}
+
+### riesgo_pais {}
+{
+  "fuente": "argentinadatos.com",
+  "datos": {
+    "valor": 672,
+    "fecha": "2026-10-20"
+  }
+}
+
+### inflacion_mensual {"meses":3}
+{
+  "fuente": "argentinadatos.com",
+  "datos": [
+    {
+      "fecha": "2026-07-31",
+      "valor": 2.1
+    },
+    {
+      "fecha": "2026-08-31",
+      "valor": 1.7
+    },
+    {
+      "fecha": "2026-09-30",
+      "valor": 1.9
+    }
+  ]
+}
+
+### bcra_buscar_variable {"texto":"reservas","max":2}
+{
+  "fuente": "api.bcra.gob.ar",
+  "datos": [
+    {
+      "id": 1,
+      "descripcion": "Reservas internacionales",
+      "unidad": "En millones de USD",
+      "ultimaFecha": "2026-10-16",
+      "ultimoValor": 50244
+    },
+    {
+      "id": 74,
+      "descripcion": "Reservas internacionales (excluidas asignaciones deg 2009)",
+      "unidad": "En millones de USD",
+      "ultimaFecha": "2026-10-15",
+      "ultimoValor": 50043
+    }
+  ]
+}
+
+### bcra_serie {"id":1,"n":3}
+{
+  "fuente": "api.bcra.gob.ar",
+  "datos": [
+    {
+      "fecha": "2026-10-16",
+      "valor": 50244
+    },
+    {
+      "fecha": "2026-10-15",
+      "valor": 50043
+    },
+    {
+      "fecha": "2026-10-14",
+      "valor": 49723
+    }
+  ]
+}
+
+### cripto_precio {"ids":"bitcoin,ethereum"}
+{
+  "fuente": "coingecko.com",
+  "datos": {
+    "bitcoin": {
+      "usd": 84491,
+      "usd_24h_change": 2.3995624837776894,
+      "ars": 128912591,
+      "ars_24h_change": 2.468272599002089
+    },
+    "ethereum": {
+      "usd": 2495.42,
+      "usd_24h_change": 2.483018780783977,
+      "ars": 3807419,
+      "ars_24h_change": 2.551784895190845
+    }
+  }
+}
+
+### dolar_cotizacion {"casa":"inexistente"} (isError)
+MCP error -32602: Input validation error: Invalid arguments for tool dolar_cotizacion: Invalid enum value. Expected 'oficial' | 'blue' | 'bolsa' | 'contadoconliqui' | 'tarjeta' | 'cripto' | 'mayorista', received 'inexistente' at casa

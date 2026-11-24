@@ -1,0 +1,21 @@
+```mermaid
+graph LR
+  n0["dolar_cotizacion"] -->|consulta| n1["dolarapi.com"]
+  n2["cotizacion_moneda"] -->|consulta| n1["dolarapi.com"]
+  n3["riesgo_pais"] -->|consulta| n4["argentinadatos.com"]
+  n5["inflacion_mensual"] -->|consulta| n4["argentinadatos.com"]
+  n6["bcra_buscar_variable"] -->|consulta| n7["api.bcra.gob.ar"]
+  n8["bcra_serie"] -->|consulta| n7["api.bcra.gob.ar"]
+  n9["cripto_precio"] -->|consulta| n10["coingecko.com"]
+  n0["dolar_cotizacion"] -->|devuelve| n11["dólar oficial, blue, MEP, CCL, tarjeta, cripto"]
+  n2["cotizacion_moneda"] -->|devuelve| n12["EUR, BRL, CLP, UYU"]
+  n3["riesgo_pais"] -->|devuelve| n13["riesgo país"]
+  n5["inflacion_mensual"] -->|devuelve| n14["inflación mensual"]
+  n8["bcra_serie"] -->|devuelve| n15["reservas y otras variables BCRA"]
+  n9["cripto_precio"] -->|devuelve| n16["precio de criptomonedas"]
+  n8["bcra_serie"] -->|necesita id de| n6["bcra_buscar_variable"]
+```
+
+1) Qué tools consultan dolarapi.com? ['dolar_cotizacion', 'cotizacion_moneda']
+2) Si se cae api.bcra.gob.ar, qué se rompe? ['bcra_buscar_variable', 'bcra_serie']
+3) Si se cae bcra_buscar_variable, qué se rompe? ['bcra_serie']

@@ -32,6 +32,20 @@ Abrí **http://localhost:8080/** — el menú lista todo por sección.
 
 **Atajos en cada deck:** **G** grid · **P** presenter · **F** fullscreen
 
+## Catálogo de charlas (home)
+
+El home (`/`) es un grid con todas las charlas, filtrable por programa y buscable por tema o tag.
+Sale de un solo archivo: `_ref-smart-prompts/src/talks/catalog.ts`.
+
+- **Sumar** una charla existente: agregá un objeto a `TALKS` (`to`, `title`, `subtitle`, `track`, `status`).
+- **Sacarla** del grid sin borrarla: `status: "archivada"` (se ve con el chip *Archivadas*).
+- **Crear** una charla nueva desde cero (deck + ruta + entrada en el catálogo con status `idea`):
+
+```bash
+cd _ref-smart-prompts
+npm run new:talk -- mi-charla "Título de la charla" "Evento o programa"
+```
+
 ### Harness & Loop (Copilot)
 
 | Ruta | Contenido | Duración orientativa |
@@ -59,7 +73,8 @@ Material extra: Clase 3 loops + hackathon en [`class-scripts/clase-03.md`](class
 | `/sesion-03` | Diseño de ruta técnica MCP |
 | `/sesion-05` | Context management, reliability y simulacro final |
 
-Fuente editable: `_ref-smart-prompts/src/slides/deck-sesion-*.tsx`
+Fuente editable: `_ref-smart-prompts/src/slides/deck-sesion-*.tsx`  
+Material previo sesión 2 (PDF con transiciones ya reveladas): [`/sesion-02.pdf`](https://charla-ia-alejandrorepetto.vercel.app/sesion-02.pdf) — también en [`_ref-smart-prompts/exports/sesion-02-multi-agent-agentic-rag.pdf`](_ref-smart-prompts/exports/sesion-02-multi-agent-agentic-rag.pdf)
 
 ### Frisvy
 
@@ -125,6 +140,7 @@ Desde `_ref-smart-prompts/` (requiere Playwright instalado vía `npm install`):
 
 ```powershell
 npm run export:pdf:05          # harness-05
+npm run export:pdf:sesion-02   # Claude Architect sesión 2 (reveals finales, material previo)
 npm run export:pdf:frisvy-03   # Frisvy encuentro 3
 npm run export:pdf:mod06       # módulo online 06
 npm run export:pdf:mod08       # módulo online 08

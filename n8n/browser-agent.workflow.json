@@ -1,0 +1,148 @@
+{
+  "name": "Browser Agent (example)",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "chat-trigger",
+      "name": "When chat message received",
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.5,
+      "position": [0, 300],
+      "webhookId": "browser-agent-example"
+    },
+    {
+      "parameters": {
+        "promptType": "auto",
+        "text": "={{ $json.chatInput }}",
+        "options": {
+          "systemMessage": "You are a web research assistant. You can open pages through the browser tools and fetch static pages with the HTTP tool. Only perform the actions the user asks for. Before submitting forms, purchases or any irreversible action, ask the user for confirmation in the chat. Report what you did and what you found, with the URLs you used."
+        }
+      },
+      "id": "ai-agent",
+      "name": "AI Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [260, 300]
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "claude-sonnet-5-5"
+        },
+        "options": {}
+      },
+      "id": "chat-model",
+      "name": "Anthropic Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.6,
+      "position": [200, 540],
+      "credentials": {
+        "anthropicApi": {
+          "id": "REPLACE_WITH_YOUR_CREDENTIAL_ID",
+          "name": "Anthropic account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "contextWindowLength": 10
+      },
+      "id": "memory",
+      "name": "Simple Memory",
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.4,
+      "position": [360, 540]
+    },
+    {
+      "parameters": {
+        "endpointUrl": "REPLACE_WITH_YOUR_BROWSER_MCP_SERVER_URL",
+        "serverTransport": "httpStreamable",
+        "include": "all"
+      },
+      "id": "browser-mcp",
+      "name": "Browser (MCP)",
+      "type": "@n8n/n8n-nodes-langchain.mcpClientTool",
+      "typeVersion": 1.4,
+      "position": [520, 540],
+      "notes": "Point this at a browser MCP server you run (for example a Playwright MCP server). Add a Human review step on this tool before enabling form submissions."
+    },
+    {
+      "parameters": {
+        "toolDescription": "Fetch the raw HTML or text of a public web page when a full browser is not needed. Use the url the user gave or one you found in a previous result.",
+        "method": "GET",
+        "url": "={{ $fromAI('url', 'Full https URL of the page to fetch', 'string') }}",
+        "options": {}
+      },
+      "id": "http-tool",
+      "name": "Fetch page (HTTP)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [700, 540]
+    }
+  ],
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Anthropic Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Browser (MCP)": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch page (HTTP)": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "active": false
+}

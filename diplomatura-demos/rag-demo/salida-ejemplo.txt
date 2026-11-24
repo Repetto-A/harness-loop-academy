@@ -1,0 +1,18 @@
+(Sin OPENAI_API_KEY: modo solo recuperación)
+
+[1] Riesgo_país.md · fragmento 1 · distancia 0.883
+    https://es.wikipedia.org/wiki/Riesgo_pa%C3%ADs
+    # Riesgo país  Fuente: https://es.wikipedia.org/wiki/Riesgo_pa%C3%ADs (Wikipedia, CC BY-SA 4.0, descargado 2026-10-21)  El  riesgo país es todo riesgo inherente a las inversiones y a las financiaciones en un país respecto en contraste con otro. La importancia de tener en cuenta el riesgo país, en la...
+
+[2] Riesgo_país.md · fragmento 2 · distancia 0.884
+    https://es.wikipedia.org/wiki/Riesgo_pa%C3%ADs
+    ado de cumplir con sus obligaciones con algún agente extranjero, por razones fuera de los riesgos usuales que surgen de cualquier relación crediticia.  == Introducción == Cada país, de acuerdo con sus condiciones económicas, sociales, políticas o incluso naturales y geográficas, genera un nivel de r...
+
+[3] Riesgo_país.md · fragmento 0 · distancia 0.896
+    https://es.wikipedia.org/wiki/Riesgo_pa%C3%ADs
+    # Riesgo país  Fuente: https://es.wikipedia.org/wiki/Riesgo_pa%C3%ADs (Wikipedia, CC BY-SA 4.0, descargado 2026-10-21)...
+
+[4] Riesgo_país.md · fragmento 4 · distancia 1.033
+    https://es.wikipedia.org/wiki/Riesgo_pa%C3%ADs
+    uier otro). Si el premio a la espera es igual en todos los países, entonces la diferencia entre tasas será el componente de riesgo del país analizado.  == Agencias de calificación == Las agencias de calificación de riesgos más grandes y reconocidas del mundo son FitchRatings, Moody’s Investor Servic...
+

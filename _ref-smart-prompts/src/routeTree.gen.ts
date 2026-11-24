@@ -10,9 +10,12 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as VonNeumannRouteImport } from './routes/von-neumann'
+import { Route as UcelFlujoRouteImport } from './routes/ucel-flujo'
 import { Route as Sesion05RouteImport } from './routes/sesion-05'
 import { Route as Sesion03RouteImport } from './routes/sesion-03'
+import { Route as Sesion02ItpRouteImport } from './routes/sesion-02-itp'
 import { Route as Sesion02RouteImport } from './routes/sesion-02'
+import { Route as PromptsApis01RouteImport } from './routes/prompts-apis-01'
 import { Route as Mod09RouteImport } from './routes/mod-09'
 import { Route as Mod08RouteImport } from './routes/mod-08'
 import { Route as Mod06RouteImport } from './routes/mod-06'
@@ -22,12 +25,21 @@ import { Route as Harness04RouteImport } from './routes/harness-04'
 import { Route as Harness03RouteImport } from './routes/harness-03'
 import { Route as Harness02RouteImport } from './routes/harness-02'
 import { Route as Harness01RouteImport } from './routes/harness-01'
+import { Route as HackatwinRouteImport } from './routes/hackatwin'
+import { Route as HackathonRouteImport } from './routes/hackathon'
 import { Route as Frisvy03RouteImport } from './routes/frisvy-03'
+import { Route as DiplomaturaRagMcpRouteImport } from './routes/diplomatura-rag-mcp'
+import { Route as AdsClaseInvertidaRouteImport } from './routes/ads-clase-invertida'
 import { Route as IndexRouteImport } from './routes/index'
 
 const VonNeumannRoute = VonNeumannRouteImport.update({
   id: '/von-neumann',
   path: '/von-neumann',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const UcelFlujoRoute = UcelFlujoRouteImport.update({
+  id: '/ucel-flujo',
+  path: '/ucel-flujo',
   getParentRoute: () => rootRouteImport,
 } as any)
 const Sesion05Route = Sesion05RouteImport.update({
@@ -40,9 +52,19 @@ const Sesion03Route = Sesion03RouteImport.update({
   path: '/sesion-03',
   getParentRoute: () => rootRouteImport,
 } as any)
+const Sesion02ItpRoute = Sesion02ItpRouteImport.update({
+  id: '/sesion-02-itp',
+  path: '/sesion-02-itp',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const Sesion02Route = Sesion02RouteImport.update({
   id: '/sesion-02',
   path: '/sesion-02',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PromptsApis01Route = PromptsApis01RouteImport.update({
+  id: '/prompts-apis-01',
+  path: '/prompts-apis-01',
   getParentRoute: () => rootRouteImport,
 } as any)
 const Mod09Route = Mod09RouteImport.update({
@@ -90,9 +112,29 @@ const Harness01Route = Harness01RouteImport.update({
   path: '/harness-01',
   getParentRoute: () => rootRouteImport,
 } as any)
+const HackatwinRoute = HackatwinRouteImport.update({
+  id: '/hackatwin',
+  path: '/hackatwin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HackathonRoute = HackathonRouteImport.update({
+  id: '/hackathon',
+  path: '/hackathon',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const Frisvy03Route = Frisvy03RouteImport.update({
   id: '/frisvy-03',
   path: '/frisvy-03',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DiplomaturaRagMcpRoute = DiplomaturaRagMcpRouteImport.update({
+  id: '/diplomatura-rag-mcp',
+  path: '/diplomatura-rag-mcp',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdsClaseInvertidaRoute = AdsClaseInvertidaRouteImport.update({
+  id: '/ads-clase-invertida',
+  path: '/ads-clase-invertida',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -103,7 +145,11 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/ads-clase-invertida': typeof AdsClaseInvertidaRoute
+  '/diplomatura-rag-mcp': typeof DiplomaturaRagMcpRoute
   '/frisvy-03': typeof Frisvy03Route
+  '/hackathon': typeof HackathonRoute
+  '/hackatwin': typeof HackatwinRoute
   '/harness-01': typeof Harness01Route
   '/harness-02': typeof Harness02Route
   '/harness-03': typeof Harness03Route
@@ -113,14 +159,21 @@ export interface FileRoutesByFullPath {
   '/mod-06': typeof Mod06Route
   '/mod-08': typeof Mod08Route
   '/mod-09': typeof Mod09Route
+  '/prompts-apis-01': typeof PromptsApis01Route
   '/sesion-02': typeof Sesion02Route
+  '/sesion-02-itp': typeof Sesion02ItpRoute
   '/sesion-03': typeof Sesion03Route
   '/sesion-05': typeof Sesion05Route
+  '/ucel-flujo': typeof UcelFlujoRoute
   '/von-neumann': typeof VonNeumannRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/ads-clase-invertida': typeof AdsClaseInvertidaRoute
+  '/diplomatura-rag-mcp': typeof DiplomaturaRagMcpRoute
   '/frisvy-03': typeof Frisvy03Route
+  '/hackathon': typeof HackathonRoute
+  '/hackatwin': typeof HackatwinRoute
   '/harness-01': typeof Harness01Route
   '/harness-02': typeof Harness02Route
   '/harness-03': typeof Harness03Route
@@ -130,15 +183,22 @@ export interface FileRoutesByTo {
   '/mod-06': typeof Mod06Route
   '/mod-08': typeof Mod08Route
   '/mod-09': typeof Mod09Route
+  '/prompts-apis-01': typeof PromptsApis01Route
   '/sesion-02': typeof Sesion02Route
+  '/sesion-02-itp': typeof Sesion02ItpRoute
   '/sesion-03': typeof Sesion03Route
   '/sesion-05': typeof Sesion05Route
+  '/ucel-flujo': typeof UcelFlujoRoute
   '/von-neumann': typeof VonNeumannRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/ads-clase-invertida': typeof AdsClaseInvertidaRoute
+  '/diplomatura-rag-mcp': typeof DiplomaturaRagMcpRoute
   '/frisvy-03': typeof Frisvy03Route
+  '/hackathon': typeof HackathonRoute
+  '/hackatwin': typeof HackatwinRoute
   '/harness-01': typeof Harness01Route
   '/harness-02': typeof Harness02Route
   '/harness-03': typeof Harness03Route
@@ -148,16 +208,23 @@ export interface FileRoutesById {
   '/mod-06': typeof Mod06Route
   '/mod-08': typeof Mod08Route
   '/mod-09': typeof Mod09Route
+  '/prompts-apis-01': typeof PromptsApis01Route
   '/sesion-02': typeof Sesion02Route
+  '/sesion-02-itp': typeof Sesion02ItpRoute
   '/sesion-03': typeof Sesion03Route
   '/sesion-05': typeof Sesion05Route
+  '/ucel-flujo': typeof UcelFlujoRoute
   '/von-neumann': typeof VonNeumannRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/ads-clase-invertida'
+    | '/diplomatura-rag-mcp'
     | '/frisvy-03'
+    | '/hackathon'
+    | '/hackatwin'
     | '/harness-01'
     | '/harness-02'
     | '/harness-03'
@@ -167,14 +234,21 @@ export interface FileRouteTypes {
     | '/mod-06'
     | '/mod-08'
     | '/mod-09'
+    | '/prompts-apis-01'
     | '/sesion-02'
+    | '/sesion-02-itp'
     | '/sesion-03'
     | '/sesion-05'
+    | '/ucel-flujo'
     | '/von-neumann'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/ads-clase-invertida'
+    | '/diplomatura-rag-mcp'
     | '/frisvy-03'
+    | '/hackathon'
+    | '/hackatwin'
     | '/harness-01'
     | '/harness-02'
     | '/harness-03'
@@ -184,14 +258,21 @@ export interface FileRouteTypes {
     | '/mod-06'
     | '/mod-08'
     | '/mod-09'
+    | '/prompts-apis-01'
     | '/sesion-02'
+    | '/sesion-02-itp'
     | '/sesion-03'
     | '/sesion-05'
+    | '/ucel-flujo'
     | '/von-neumann'
   id:
     | '__root__'
     | '/'
+    | '/ads-clase-invertida'
+    | '/diplomatura-rag-mcp'
     | '/frisvy-03'
+    | '/hackathon'
+    | '/hackatwin'
     | '/harness-01'
     | '/harness-02'
     | '/harness-03'
@@ -201,15 +282,22 @@ export interface FileRouteTypes {
     | '/mod-06'
     | '/mod-08'
     | '/mod-09'
+    | '/prompts-apis-01'
     | '/sesion-02'
+    | '/sesion-02-itp'
     | '/sesion-03'
     | '/sesion-05'
+    | '/ucel-flujo'
     | '/von-neumann'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdsClaseInvertidaRoute: typeof AdsClaseInvertidaRoute
+  DiplomaturaRagMcpRoute: typeof DiplomaturaRagMcpRoute
   Frisvy03Route: typeof Frisvy03Route
+  HackathonRoute: typeof HackathonRoute
+  HackatwinRoute: typeof HackatwinRoute
   Harness01Route: typeof Harness01Route
   Harness02Route: typeof Harness02Route
   Harness03Route: typeof Harness03Route
@@ -219,9 +307,12 @@ export interface RootRouteChildren {
   Mod06Route: typeof Mod06Route
   Mod08Route: typeof Mod08Route
   Mod09Route: typeof Mod09Route
+  PromptsApis01Route: typeof PromptsApis01Route
   Sesion02Route: typeof Sesion02Route
+  Sesion02ItpRoute: typeof Sesion02ItpRoute
   Sesion03Route: typeof Sesion03Route
   Sesion05Route: typeof Sesion05Route
+  UcelFlujoRoute: typeof UcelFlujoRoute
   VonNeumannRoute: typeof VonNeumannRoute
 }
 
@@ -232,6 +323,13 @@ declare module '@tanstack/react-router' {
       path: '/von-neumann'
       fullPath: '/von-neumann'
       preLoaderRoute: typeof VonNeumannRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ucel-flujo': {
+      id: '/ucel-flujo'
+      path: '/ucel-flujo'
+      fullPath: '/ucel-flujo'
+      preLoaderRoute: typeof UcelFlujoRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sesion-05': {
@@ -248,11 +346,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Sesion03RouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/sesion-02-itp': {
+      id: '/sesion-02-itp'
+      path: '/sesion-02-itp'
+      fullPath: '/sesion-02-itp'
+      preLoaderRoute: typeof Sesion02ItpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sesion-02': {
       id: '/sesion-02'
       path: '/sesion-02'
       fullPath: '/sesion-02'
       preLoaderRoute: typeof Sesion02RouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/prompts-apis-01': {
+      id: '/prompts-apis-01'
+      path: '/prompts-apis-01'
+      fullPath: '/prompts-apis-01'
+      preLoaderRoute: typeof PromptsApis01RouteImport
       parentRoute: typeof rootRouteImport
     }
     '/mod-09': {
@@ -318,11 +430,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Harness01RouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/hackatwin': {
+      id: '/hackatwin'
+      path: '/hackatwin'
+      fullPath: '/hackatwin'
+      preLoaderRoute: typeof HackatwinRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/hackathon': {
+      id: '/hackathon'
+      path: '/hackathon'
+      fullPath: '/hackathon'
+      preLoaderRoute: typeof HackathonRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/frisvy-03': {
       id: '/frisvy-03'
       path: '/frisvy-03'
       fullPath: '/frisvy-03'
       preLoaderRoute: typeof Frisvy03RouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/diplomatura-rag-mcp': {
+      id: '/diplomatura-rag-mcp'
+      path: '/diplomatura-rag-mcp'
+      fullPath: '/diplomatura-rag-mcp'
+      preLoaderRoute: typeof DiplomaturaRagMcpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ads-clase-invertida': {
+      id: '/ads-clase-invertida'
+      path: '/ads-clase-invertida'
+      fullPath: '/ads-clase-invertida'
+      preLoaderRoute: typeof AdsClaseInvertidaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -337,7 +477,11 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdsClaseInvertidaRoute: AdsClaseInvertidaRoute,
+  DiplomaturaRagMcpRoute: DiplomaturaRagMcpRoute,
   Frisvy03Route: Frisvy03Route,
+  HackathonRoute: HackathonRoute,
+  HackatwinRoute: HackatwinRoute,
   Harness01Route: Harness01Route,
   Harness02Route: Harness02Route,
   Harness03Route: Harness03Route,
@@ -347,9 +491,12 @@ const rootRouteChildren: RootRouteChildren = {
   Mod06Route: Mod06Route,
   Mod08Route: Mod08Route,
   Mod09Route: Mod09Route,
+  PromptsApis01Route: PromptsApis01Route,
   Sesion02Route: Sesion02Route,
+  Sesion02ItpRoute: Sesion02ItpRoute,
   Sesion03Route: Sesion03Route,
   Sesion05Route: Sesion05Route,
+  UcelFlujoRoute: UcelFlujoRoute,
   VonNeumannRoute: VonNeumannRoute,
 }
 export const routeTree = rootRouteImport

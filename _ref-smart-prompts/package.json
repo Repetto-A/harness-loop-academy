@@ -11,10 +11,12 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "export:pdf:05": "node scripts/export-deck-pdf-harness-05.mjs",
+    "export:pdf:sesion-02": "node scripts/export-deck-pdf-sesion-02.mjs",
     "export:pdf:frisvy-03": "node scripts/export-deck-pdf-frisvy-03.mjs",
     "export:pdf:mod06": "node scripts/export-mod-06-pdf.mjs",
     "export:pdf:mod08": "node scripts/export-mod-08-pdf.mjs",
-    "export:pdf:mod09": "node scripts/export-mod-09-pdf.mjs"
+    "export:pdf:mod09": "node scripts/export-mod-09-pdf.mjs",
+    "new:talk": "node scripts/new-talk.mjs"
   },
   "dependencies": {
     "@cloudflare/vite-plugin": "^1.25.5",
@@ -48,7 +50,7 @@
     "@tailwindcss/vite": "^4.2.1",
     "@tanstack/react-query": "^5.83.0",
     "@tanstack/react-router": "^1.168.25",
-    "@tanstack/react-start": "^1.167.50",
+    "@tanstack/react-start": "~1.168.61",
     "@tanstack/router-plugin": "^1.167.28",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
