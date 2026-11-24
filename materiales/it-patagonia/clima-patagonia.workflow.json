@@ -1,0 +1,145 @@
+{
+  "name": "Clima Patagonia · MCP",
+  "nodes": [
+    {
+      "id": "f1ce27bb-1bc4-48d3-a2b2-ea5b71fb1709",
+      "name": "MCP Server Trigger",
+      "type": "@n8n/n8n-nodes-langchain.mcpTrigger",
+      "typeVersion": 2,
+      "position": [
+        0,
+        0
+      ],
+      "webhookId": "8a5a669d-916e-410c-9cdf-2e98414e5cf7",
+      "parameters": {
+        "authentication": "bearerAuth",
+        "path": "clima-patagonia"
+      }
+    },
+    {
+      "id": "9b76d7e6-77be-4ef4-9f38-4c01d9dc793d",
+      "name": "buscar_ciudad",
+      "type": "n8n-nodes-base.httpRequestTool",
+      "typeVersion": 4.2,
+      "position": [
+        -160,
+        240
+      ],
+      "parameters": {
+        "toolDescription": "Busca una ciudad por nombre y devuelve sus coordenadas (latitude, longitude), provincia y país. Usala siempre antes de clima_actual. Puede devolver varias ciudades con el mismo nombre: si el usuario no aclara el país, elegí la de Argentina (country_code AR); si hay más de una en Argentina, preguntá cuál.",
+        "url": "https://geocoding-api.open-meteo.com/v1/search",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "name",
+              "value": "={{ $fromAI('ciudad', 'Nombre de la ciudad, sin provincia ni país. Ej: Bariloche', 'string') }}"
+            },
+            {
+              "name": "count",
+              "value": "5"
+            },
+            {
+              "name": "language",
+              "value": "es"
+            },
+            {
+              "name": "format",
+              "value": "json"
+            }
+          ]
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "04f850a5-2478-44f0-8280-c823ee04add1",
+      "name": "clima_actual",
+      "type": "n8n-nodes-base.httpRequestTool",
+      "typeVersion": 4.2,
+      "position": [
+        160,
+        240
+      ],
+      "parameters": {
+        "toolDescription": "Devuelve el clima actual (temperatura en °C, viento en km/h, precipitación en mm) y el pronóstico de los próximos 3 días (máxima, mínima y probabilidad de lluvia) para unas coordenadas. Las coordenadas salen de buscar_ciudad: no las inventes. Solo lectura.",
+        "url": "https://api.open-meteo.com/v1/forecast",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "latitude",
+              "value": "={{ $fromAI('latitud', 'Latitud que devolvió buscar_ciudad', 'number') }}"
+            },
+            {
+              "name": "longitude",
+              "value": "={{ $fromAI('longitud', 'Longitud que devolvió buscar_ciudad', 'number') }}"
+            },
+            {
+              "name": "current",
+              "value": "temperature_2m,wind_speed_10m,precipitation"
+            },
+            {
+              "name": "daily",
+              "value": "temperature_2m_max,temperature_2m_min,precipitation_probability_max"
+            },
+            {
+              "name": "timezone",
+              "value": "auto"
+            },
+            {
+              "name": "forecast_days",
+              "value": "3"
+            }
+          ]
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "b39c2aa1-eb85-48ee-a850-bec5793ad909",
+      "name": "Cómo usarlo",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        440,
+        -120
+      ],
+      "parameters": {
+        "width": 460,
+        "height": 470,
+        "color": 6,
+        "content": "## Clima Patagonia · server MCP\n\n**1.** En *MCP Server Trigger* → Credential → crear un **Bearer Auth** con un token tuyo.\n\n**2.** Activá o publicá el workflow (según tu versión: toggle *Active* o botón *Publish*).\n\n**3.** Copiá la **Production URL** del trigger (no la de test: esa solo escucha una llamada y da 404).\n\n**4.** En la terminal:\n```\nclaude mcp add --transport http clima \\\n  <PRODUCTION_URL> \\\n  -H \"Authorization: Bearer <TOKEN>\"\nclaude mcp list\n```\n\n**5.** Preguntá: *¿Cómo está el viento en Bariloche y en Neuquén ahora?*\n\nLas tools usan el **nombre del nodo** como nombre de tool: no los renombres a \"HTTP Request\"."
+      }
+    }
+  ],
+  "connections": {
+    "buscar_ciudad": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "clima_actual": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "active": false
+}

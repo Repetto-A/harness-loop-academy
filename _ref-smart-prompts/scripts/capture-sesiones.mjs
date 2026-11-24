@@ -18,8 +18,8 @@ const HEIGHT = 1080;
 const BASE_URL = "http://localhost:8080";
 
 const DECKS = [
-  { route: "/sesion-02", storageKey: "slide-index-sesion-02", count: 32, name: "sesion-02" },
-  { route: "/sesion-03", storageKey: "slide-index-sesion-03", count: 33, name: "sesion-03" },
+  { route: "/sesion-02", storageKey: "slide-index-sesion-02", count: 30, name: "sesion-02" },
+  { route: "/sesion-03", storageKey: "slide-index-sesion-03", count: 32, name: "sesion-03" },
   { route: "/sesion-05", storageKey: "slide-index-sesion-05", count: 35, name: "sesion-05" },
   { route: "/frisvy-03", storageKey: "slide-index-frisvy-03", count: 24, name: "frisvy-03" },
 ];

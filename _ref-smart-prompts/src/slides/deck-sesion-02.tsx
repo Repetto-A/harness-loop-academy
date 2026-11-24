@@ -119,11 +119,6 @@ const Cover = () => (
     <RevealStack className="flex h-full items-center">
       <div>
         <RevealItem>
-          <div className="mb-8 font-mono text-lg uppercase tracking-[0.3em] text-ember">
-            Sesión 2 · Claude Certified Architect
-          </div>
-        </RevealItem>
-        <RevealItem>
           <h1 className="font-display text-[clamp(4rem,9vw,7rem)] font-bold leading-[0.92] text-balance">
             Varios agentes,
             <br />
@@ -138,66 +133,6 @@ const Cover = () => (
         </RevealItem>
       </div>
     </RevealStack>
-  </Shell>
-);
-
-const Recap = () => (
-  <Shell>
-    <ContentSlide>
-      <RevealItem>
-        <SlideTitle>Lo que quedó de la sesión 1</SlideTitle>
-      </RevealItem>
-      <CardGrid
-        cols={3}
-        items={[
-          ["Agente", "Modelo + herramientas + loop. Decide qué paso sigue."],
-          ["Workflow vs agente", "Si el flujo es fijo y conocido, no necesitás un agente."],
-          ["Human-in-the-loop", "Checkpoints humanos donde el error duele."],
-        ]}
-        render={(item) => {
-          const [title, body] = item as [string, string];
-          return (
-            <DeckCard className="flex h-full min-h-[140px] flex-col">
-              <div className="font-mono text-sm text-ember mb-2">{title}</div>
-              <div className="font-display text-lg leading-snug flex-1">{body}</div>
-            </DeckCard>
-          );
-        }}
-      />
-      <RevealItem>
-        <SlideLead>
-          Hoy: qué pasa cuando <span className="text-foreground font-bold">un solo agente no alcanza</span>.
-        </SlideLead>
-      </RevealItem>
-    </ContentSlide>
-  </Shell>
-);
-
-const Agenda = () => (
-  <Shell>
-    <ContentSlide>
-      <RevealItem>
-        <SlideTitle>Hoy</SlideTitle>
-      </RevealItem>
-      <CardGrid
-        cols={3}
-        items={[
-          ["01", "Multi-agent", "Patrones para coordinar varios agentes sin que se pisen"],
-          ["02", "Agentic RAG", "El retrieval deja de ser una búsqueda fija"],
-          ["03", "Sesiones y estado", "El modelo es stateless: quién sostiene la conversación"],
-        ]}
-        render={(item) => {
-          const [num, title, body] = item as [string, string, string];
-          return (
-            <DeckCard className="flex h-full min-h-[160px] flex-col p-8">
-              <div className="font-mono text-lg text-ember/70 mb-3">{num}</div>
-              <div className="font-display text-2xl font-bold mb-2">{title}</div>
-              <div className="text-lg text-muted-foreground leading-snug flex-1">{body}</div>
-            </DeckCard>
-          );
-        }}
-      />
-    </ContentSlide>
   </Shell>
 );
 
@@ -283,31 +218,65 @@ const PatternOrchestrator = () => (
   </Shell>
 );
 
-const PatternPipeline = () => (
-  <Shell>
-    <ContentSlide>
-      <RevealItem>
-        <SlideTitle>Patrón 2: pipeline</SlideTitle>
-      </RevealItem>
-      <FlowChain
-        items={[
-          { title: "Entrada" },
-          { title: "Extraer", sub: "agente 1" },
-          { title: "Clasificar", sub: "agente 2" },
-          { title: "Redactar", sub: "agente 3" },
-          { title: "Validar", sub: "agente 4", accent: true },
-        ]}
-      />
-      <RevealItem>
-        <SlideLead>
-          La salida de uno es la entrada del siguiente. Orden fijo,{" "}
-          <span className="text-foreground font-bold">fácil de debuggear</span>: sabés en qué paso
-          se rompió.
-        </SlideLead>
-      </RevealItem>
-    </ContentSlide>
-  </Shell>
-);
+const PatternPipeline = () => {
+  const steps = [
+    { title: "Entrada", sub: "ticket o documento" },
+    { title: "Extraer", sub: "agente 1" },
+    { title: "Clasificar", sub: "agente 2" },
+    { title: "Redactar", sub: "agente 3" },
+    { title: "Validar", sub: "agente 4", accent: true },
+  ];
+
+  return (
+    <Shell>
+      <ContentSlide>
+        <RevealItem>
+          <SlideTitle>Patrón 2: pipeline</SlideTitle>
+        </RevealItem>
+        <RevealItem className="flex min-h-0 flex-1 flex-col items-center justify-center gap-8">
+          <RevealItem className="flex w-full max-w-[1400px] items-stretch justify-center gap-2 mx-auto">
+            {steps.map((step, i) => (
+              <div key={step.title} className="flex flex-1 items-center gap-2 min-w-0">
+                {i > 0 && (
+                  <span aria-hidden className="shrink-0 font-mono text-2xl text-ember">
+                    →
+                  </span>
+                )}
+                <FlowBox
+                  title={step.title}
+                  sub={step.sub}
+                  accent={step.accent}
+                  className="h-full min-h-[140px] w-full flex flex-col justify-center py-6 px-4 [&_.font-display]:text-2xl [&_.text-sm]:text-lg"
+                />
+              </div>
+            ))}
+          </RevealItem>
+          <RevealItem className="grid w-full max-w-[1400px] grid-cols-3 gap-5 mx-auto">
+            {[
+              [
+                "Cuándo brilla",
+                "Proceso conocido de punta a punta. Mismo recorrido en cada request.",
+              ],
+              [
+                "Por qué funciona",
+                "La salida de un paso es la entrada del siguiente.",
+              ],
+              [
+                "Trade-off",
+                "Rígido si el flujo cambia; fácil de debuggear paso a paso.",
+              ],
+            ].map(([title, body]) => (
+              <DeckCard key={title} className="flex min-h-[140px] flex-col p-8">
+                <div className="font-mono text-base uppercase tracking-widest text-ember mb-3">{title}</div>
+                <div className="font-display text-[clamp(1.35rem,2vw,1.75rem)] leading-snug">{body}</div>
+              </DeckCard>
+            ))}
+          </RevealItem>
+        </RevealItem>
+      </ContentSlide>
+    </Shell>
+  );
+};
 
 const PatternPeer = () => (
   <Shell>
@@ -315,24 +284,48 @@ const PatternPeer = () => (
       <RevealItem>
         <SlideTitle>Patrón 3: peer-to-peer</SlideTitle>
       </RevealItem>
-      <RevealStack className="flex flex-wrap items-center gap-4">
-        <RevealItem className="flex items-center gap-4">
-          <FlowBox title="Agente A" sub="propone" className="px-8 py-5" />
-          <span aria-hidden className="font-mono text-2xl text-ember">↔</span>
+      <RevealItem className="flex min-h-0 flex-1 flex-col items-center justify-center gap-8">
+        <RevealStack className="flex w-full max-w-[1200px] items-center justify-center gap-4 mx-auto">
+          <RevealItem className="flex items-center gap-4">
+            <FlowBox
+              title="Agente A"
+              sub="propone"
+              className="min-w-[220px] px-8 py-6 [&_.font-display]:text-2xl [&_.text-sm]:text-lg"
+            />
+            <span aria-hidden className="font-mono text-3xl text-ember">
+              ↔
+            </span>
+          </RevealItem>
+          <RevealItem className="flex items-center gap-4">
+            <FlowBox
+              title="Agente B"
+              sub="critica"
+              className="min-w-[220px] px-8 py-6 [&_.font-display]:text-2xl [&_.text-sm]:text-lg"
+            />
+            <span aria-hidden className="font-mono text-3xl text-ember">
+              ↔
+            </span>
+          </RevealItem>
+          <RevealItem>
+            <FlowBox
+              title="Agente C"
+              sub="decide"
+              className="min-w-[220px] px-8 py-6 [&_.font-display]:text-2xl [&_.text-sm]:text-lg"
+            />
+          </RevealItem>
+        </RevealStack>
+        <RevealItem className="grid w-full max-w-[1200px] grid-cols-3 gap-5 mx-auto">
+          {[
+            ["Sin jefe", "Ningún agente orquesta: todos pueden iniciar y responder."],
+            ["Negociación", "Proponen, critican y convergen entre sí."],
+            ["Costo real", "El más flexible y el más difícil de acotar y debuggear."],
+          ].map(([title, body]) => (
+            <DeckCard key={title} className="flex min-h-[130px] flex-col p-7">
+              <div className="font-mono text-base uppercase tracking-widest text-ember mb-2">{title}</div>
+              <div className="font-display text-2xl leading-snug">{body}</div>
+            </DeckCard>
+          ))}
         </RevealItem>
-        <RevealItem className="flex items-center gap-4">
-          <FlowBox title="Agente B" sub="critica" className="px-8 py-5" />
-          <span aria-hidden className="font-mono text-2xl text-ember">↔</span>
-        </RevealItem>
-        <RevealItem>
-          <FlowBox title="Agente C" sub="decide" className="px-8 py-5" />
-        </RevealItem>
-      </RevealStack>
-      <RevealItem>
-        <SlideLead>
-          Sin jerarquía fija: cualquiera le habla a cualquiera. El más flexible y{" "}
-          <span className="text-foreground font-bold">el más difícil de controlar</span>.
-        </SlideLead>
       </RevealItem>
     </ContentSlide>
   </Shell>
@@ -360,7 +353,7 @@ const PatternsTable = () => (
                 "Tareas variadas que hay que repartir",
                 "El orquestador es cuello de botella",
               ],
-              ["Pipeline", "Proceso conocido, pasos fijos", "Rígido: un paso malo arrastra al resto"],
+              ["Pipeline", "Proceso conocido, pasos fijos", "Se arrastra el error"],
               ["Peer-to-peer", "Problemas abiertos, agentes que negocian", "Difícil de debuggear y de acotar"],
             ].map(([a, b, c]) => (
               <tr key={a} className="border-b border-border">
@@ -399,7 +392,7 @@ No puede: responder al cliente, escribir en la DB`}
       </RevealItem>
       <RevealItem>
         <SlideLead>
-          Si no podés escribir esto en cinco líneas,{" "}
+          Si no podés definir rol, entrada, salida y límites,{" "}
           <span className="text-foreground font-bold">el agente está mal recortado</span>.
         </SlideLead>
       </RevealItem>
@@ -538,7 +531,7 @@ const CaseMulti = () => (
       </RevealStack>
       <RevealItem>
         <SlideLead>
-          Arquitectura real, simplificada. Cada worker con su contrato de cinco líneas y{" "}
+          Arquitectura real, simplificada. Cada worker con contrato claro y{" "}
           <span className="text-foreground font-bold">sin acceso a lo que no necesita</span>.
         </SlideLead>
       </RevealItem>
@@ -588,38 +581,60 @@ const AgenticIntro = () => (
   <SectionIntro question="¿Qué es Agentic RAG?" sub="El agente decide qué, cuándo y dónde buscar" />
 );
 
-const AgenticFlow = () => (
-  <Shell>
-    <ContentSlide>
-      <RevealItem>
-        <SlideTitle>El flujo agéntico</SlideTitle>
-      </RevealItem>
-      <FlowChain
-        items={[
-          { title: "Pregunta" },
-          { title: "¿Qué me falta saber?", sub: "el agente decide" },
-          { title: "Buscar", sub: "wiki · DB · API" },
-          { title: "Evaluar", sub: "¿alcanza?", accent: true },
-          { title: "Responder", sub: "con fuentes" },
-        ]}
-      />
-      <RevealItem>
-        <div className="inline-flex items-center gap-3 rounded-full border border-ember/50 bg-ember/5 px-6 py-3">
-          <span aria-hidden className="font-mono text-xl text-ember">↺</span>
-          <span className="font-mono text-base text-ember">
-            no alcanza: reformular la query o cambiar de fuente
-          </span>
-        </div>
-      </RevealItem>
-      <RevealItem>
-        <SlideLead>
-          El retrieval deja de ser un paso fijo y pasa a ser{" "}
-          <span className="text-foreground font-bold">una herramienta más del agente</span>.
-        </SlideLead>
-      </RevealItem>
-    </ContentSlide>
-  </Shell>
-);
+const AgenticFlow = () => {
+  const steps = [
+    { title: "Pregunta" },
+    { title: "¿Qué me falta saber?", sub: "el agente decide" },
+    { title: "Buscar", sub: "wiki · DB · API" },
+    { title: "Evaluar", sub: "¿alcanza?", accent: true },
+    { title: "Responder", sub: "con fuentes" },
+  ];
+
+  return (
+    <Shell>
+      <ContentSlide>
+        <RevealItem>
+          <SlideTitle>El flujo agéntico</SlideTitle>
+        </RevealItem>
+        <RevealItem className="flex min-h-0 flex-1 flex-col items-center justify-center gap-8">
+          <RevealItem className="flex w-full max-w-[1400px] items-stretch justify-center gap-2 mx-auto">
+            {steps.map((step, i) => (
+              <div key={step.title} className="flex flex-1 items-center gap-2 min-w-0">
+                {i > 0 && (
+                  <span aria-hidden className="shrink-0 font-mono text-2xl text-ember">
+                    →
+                  </span>
+                )}
+                <FlowBox
+                  title={step.title}
+                  sub={step.sub}
+                  accent={step.accent}
+                  className="h-full min-h-[130px] w-full flex flex-col justify-center py-6 px-3 [&_.font-display]:text-xl [&_.text-sm]:text-base"
+                />
+              </div>
+            ))}
+          </RevealItem>
+          <RevealItem className="flex justify-center w-full">
+            <div className="inline-flex items-center gap-3 rounded-full border border-ember/50 bg-ember/5 px-8 py-4">
+              <span aria-hidden className="font-mono text-2xl text-ember">
+                ↺
+              </span>
+              <span className="font-display text-2xl text-ember">
+                no alcanza: reformular la query o cambiar de fuente
+              </span>
+            </div>
+          </RevealItem>
+          <RevealItem className="w-full max-w-[1200px] mx-auto text-center">
+            <SlideLead>
+              El retrieval deja de ser un paso fijo y pasa a ser{" "}
+              <span className="text-foreground font-bold">una herramienta más del agente</span>.
+            </SlideLead>
+          </RevealItem>
+        </RevealItem>
+      </ContentSlide>
+    </Shell>
+  );
+};
 
 const AgenticPieces = () => (
   <Shell>
@@ -985,21 +1000,7 @@ export const slidesSesion02: SlideDefBase[] = [
     id: "s2-cover",
     title: "Portada",
     Component: Cover,
-    notes:
-      "Presentación breve. Tres bloques hoy: multi-agent, Agentic RAG, sesiones. Es la sesión más densa en conceptos nuevos: avisar que el bloque 3 se puede recortar si venimos justos.",
-  },
-  {
-    id: "s2-recap",
-    title: "Recap sesión 1",
-    Component: Recap,
-    notes:
-      "5 min máximo. No volver a explicar: una frase por card. Preguntar si quedó alguna duda grande de la sesión 1 antes de arrancar.",
-  },
-  {
-    id: "s2-agenda",
-    title: "Agenda",
-    Component: Agenda,
-    notes: "30 seg. Tres bloques. El hilo: coordinar, buscar, recordar.",
+    notes: "Portada. Tres bloques en el subtítulo: multi-agent, Agentic RAG, sesiones.",
   },
   {
     id: "s2-thesis",
@@ -1027,14 +1028,14 @@ export const slidesSesion02: SlideDefBase[] = [
     title: "Pipeline",
     Component: PatternPipeline,
     notes:
-      "Cadena fija. Cuándo brilla: procesos conocidos tipo extraer, clasificar, redactar, validar. Fácil de debuggear porque sabés en qué paso se rompió.",
+      "Cadena horizontal arriba, tres cards abajo. Narrar izquierda a derecha; las cards son el mensaje clave.",
   },
   {
     id: "s2-peer",
     title: "Peer-to-peer",
     Component: PatternPeer,
     notes:
-      "Sin jerarquía: proponen, critican, deciden entre sí. Útil para problemas abiertos (debate, revisión cruzada). Advertir: es el más difícil de acotar y el más caro.",
+      "Diagrama centrado arriba, tres cards abajo. Sin jerarquía: proponen, critican, deciden. Advertir costo y dificultad de acotar.",
   },
   {
     id: "s2-patterns-table",
@@ -1048,7 +1049,7 @@ export const slidesSesion02: SlideDefBase[] = [
     title: "Contrato de agente",
     Component: AgentContract,
     notes:
-      "Un agente se define como una API: recibe, devuelve, puede, no puede. El test de las cinco líneas: si no entra, el recorte está mal hecho.",
+      "Un agente se define como una API: recibe, devuelve, puede, no puede. Si falta alguno de esos cuatro, el recorte está mal hecho.",
   },
   {
     id: "s2-communication",

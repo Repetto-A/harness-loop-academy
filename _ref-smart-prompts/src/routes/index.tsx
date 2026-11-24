@@ -1,198 +1,158 @@
-import { Link, createFileRoute, type LinkProps } from "@tanstack/react-router";
+import { Link, createFileRoute } from "@tanstack/react-router";
+import { useMemo, useState, type ReactNode } from "react";
+import { STATUS_LABEL, TALKS, type Talk, type TalkStatus } from "@/talks/catalog";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Harness & Loop Engineering — Capacitación" },
-      {
-        name: "description",
-        content:
-          "Presentaciones: harness Copilot, sesiones Claude Architect, Frisvy y curso online.",
-      },
+      { title: "Charlas · Alejandro Repetto" },
+      { name: "description", content: "Todas mis charlas, clases y workshops en un solo lugar." },
     ],
   }),
   component: Index,
 });
 
-const CLASSES = [
-  {
-    to: "/harness-01" as const,
-    num: "01",
-    title: "El repo enseña al agente",
-    subtitle: "Context engineering · ~2.5h · Copilot-first",
-  },
-  {
-    to: "/harness-02" as const,
-    num: "02",
-    title: "Spec antes de código",
-    subtitle: "SDD con artefactos · ~2.5h",
-  },
-  {
-    to: "/harness-03" as const,
-    num: "03",
-    title: "Loop engineering (bonus)",
-    subtitle: "Material extra · loops y autonomía",
-  },
-  {
-    to: "/harness-04" as const,
-    num: "04",
-    title: "Open source vs propietarios",
-    subtitle: "Criterio, riesgos y qué encaja mejor",
-  },
-  {
-    to: "/harness-05" as const,
-    num: "05",
-    title: "Que la IA entienda tu codebase",
-    subtitle: "Codebase intelligence + harness · ~1h30",
-  },
-];
+const STATUS_STYLE: Record<TalkStatus, string> = {
+  lista: "border-emerald-500/40 text-emerald-400",
+  "en-progreso": "border-ember/50 text-ember",
+  idea: "border-sky-500/40 text-sky-400",
+  archivada: "border-border text-muted-foreground",
+};
 
-const HACKATHON = [
-  {
-    to: "/hackathon" as const,
-    num: "101",
-    title: "Cómo competir en una hackathon (y sobrevivir en el intento)",
-    subtitle: "Crash course 101 · charla + demo · ~80 min",
-  },
-];
+function matches(talk: Talk, q: string) {
+  if (!q) return true;
+  const hay = [talk.title, talk.subtitle, talk.track, talk.audience, ...(talk.tags ?? [])]
+    .filter(Boolean)
+    .join(" ")
+    .toLowerCase();
+  return q
+    .toLowerCase()
+    .split(/\s+/)
+    .every((w) => hay.includes(w));
+}
 
-const ARCHITECT_SESSIONS = [
-  {
-    to: "/sesion-02" as const,
-    num: "02",
-    title: "Multi-agent, Agentic RAG y sesiones",
-    subtitle: "Claude Architect · Sesión 2",
-  },
-  {
-    to: "/sesion-03" as const,
-    num: "03",
-    title: "Diseño de ruta técnica MCP",
-    subtitle: "Claude Architect · Sesión 3",
-  },
-  {
-    to: "/sesion-05" as const,
-    num: "05",
-    title: "Context management, reliability y simulacro final",
-    subtitle: "Claude Architect · Sesión 5",
-  },
-];
-
-const FRISVY = [
-  {
-    to: "/frisvy-03" as const,
-    num: "03",
-    title: "IA para el trabajo técnico",
-    subtitle: "Brief, Linear, SDD; RAG, grafo, Engram",
-  },
-];
-
-const ONLINE_MODULES = [
-  {
-    to: "/mod-06" as const,
-    num: "06",
-    title: "Modelos open source en tu IDE",
-    subtitle: "Curso online · Ollama + extensión oficial en VS Code",
-  },
-  {
-    to: "/mod-08" as const,
-    num: "08",
-    title: "Cursor AI",
-    subtitle: "Curso online · harness y Agent mode",
-  },
-  {
-    to: "/mod-09" as const,
-    num: "09",
-    title: "Arquitecturas modernas IA",
-    subtitle: "Curso online · MCP + Git + docs",
-  },
-];
-
-function DeckList({
-  items,
-  accent = false,
+function Chip({
+  active,
+  onClick,
+  children,
 }: {
-  items: readonly { to: LinkProps["to"]; num: string; title: string; subtitle: string }[];
-  accent?: boolean;
+  active: boolean;
+  onClick: () => void;
+  children: ReactNode;
 }) {
   return (
-    <ul className="mt-6 space-y-4">
-      {items.map((c) => (
-        <li key={c.to}>
-          <Link
-            to={c.to}
-            className={
-              accent
-                ? "group flex items-center gap-5 rounded-xl border border-ember/30 bg-ember/5 px-5 py-4 transition-colors hover:border-ember/50 hover:bg-ember/10"
-                : "group flex items-center gap-6 rounded-xl border border-border/60 bg-card/40 px-6 py-5 transition-colors hover:border-ember/40 hover:bg-card/80"
-            }
+    <button
+      type="button"
+      onClick={onClick}
+      className={
+        active
+          ? "rounded-full border border-ember bg-ember/15 px-3 py-1 text-sm text-foreground"
+          : "rounded-full border border-border/60 px-3 py-1 text-sm text-muted-foreground transition-colors hover:border-ember/40 hover:text-foreground"
+      }
+    >
+      {children}
+    </button>
+  );
+}
+
+function TalkCard({ talk }: { talk: Talk }) {
+  return (
+    <li className="group relative flex flex-col rounded-xl border border-border/60 bg-card/40 p-5 transition-colors hover:border-ember/50 hover:bg-card/80">
+      <div className="flex items-center justify-between gap-3">
+        <span className="truncate font-mono text-xs uppercase tracking-widest text-ember/80">
+          {talk.track}
+        </span>
+        <span
+          className={`shrink-0 rounded-full border px-2 py-0.5 text-xs ${STATUS_STYLE[talk.status]}`}
+        >
+          {STATUS_LABEL[talk.status]}
+        </span>
+      </div>
+      <Link
+        to={talk.to}
+        className="mt-3 font-display text-xl font-bold leading-snug after:absolute after:inset-0 group-hover:text-ember"
+      >
+        {talk.title}
+      </Link>
+      <p className="mt-1 text-sm text-muted-foreground">{talk.subtitle}</p>
+      <div className="mt-auto flex flex-wrap items-center gap-2 pt-4 text-xs text-muted-foreground">
+        {talk.duration && <span>{talk.duration}</span>}
+        {talk.audience && <span>· {talk.audience}</span>}
+        {talk.tags?.map((t) => (
+          <span key={t} className="rounded bg-surface px-1.5 py-0.5">
+            {t}
+          </span>
+        ))}
+        {talk.pdf && (
+          <a
+            href={talk.pdf}
+            className="relative z-10 ml-auto font-mono font-bold text-ember hover:underline"
           >
-            <span
-              className={
-                accent
-                  ? "font-mono text-xl font-bold text-ember/80 group-hover:text-ember"
-                  : "font-mono text-2xl font-bold text-ember/80 group-hover:text-ember"
-              }
-            >
-              {c.num}
-            </span>
-            <div className="min-w-0">
-              <div className={accent ? "text-lg font-semibold" : "text-xl font-semibold"}>
-                {c.title}
-              </div>
-              <div className="text-sm text-muted-foreground">{c.subtitle}</div>
-            </div>
-          </Link>
-        </li>
-      ))}
-    </ul>
+            PDF
+          </a>
+        )}
+      </div>
+    </li>
   );
 }
 
 function Index() {
+  const [query, setQuery] = useState("");
+  const [track, setTrack] = useState<string | null>(null);
+  const [showArchived, setShowArchived] = useState(false);
+
+  const visible = useMemo(
+    () => TALKS.filter((t) => showArchived || t.status !== "archivada"),
+    [showArchived],
+  );
+  const tracks = useMemo(() => [...new Set(visible.map((t) => t.track))], [visible]);
+  const filtered = visible.filter((t) => (!track || t.track === track) && matches(t, query));
+  const archivedCount = TALKS.filter((t) => t.status === "archivada").length;
+
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <div className="mx-auto min-h-screen max-w-5xl px-8 py-10">
-        <h1 className="font-display text-2xl font-bold leading-tight md:text-3xl">
-          Elegí la clase
-        </h1>
-
-        <a
-          href="/sesion-02.pdf"
-          className="mt-8 flex w-full items-center justify-between gap-4 rounded-xl border-2 border-ember bg-ember/15 px-5 py-5 text-left transition-colors hover:bg-ember/25"
-        >
-          <div className="min-w-0">
-            <div className="font-display text-lg font-bold">Sesión 2 — material previo</div>
-            <div className="text-sm text-muted-foreground">
-              PDF con transiciones ya reveladas · 32 slides · ~9 MB
-            </div>
+      <div className="mx-auto max-w-6xl px-6 py-10 md:px-8">
+        <header className="flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <h1 className="font-display text-3xl font-bold md:text-4xl">Mis charlas</h1>
+            <p className="mt-1 text-muted-foreground">
+              {visible.length} charlas · {tracks.length} programas
+            </p>
           </div>
-          <span className="shrink-0 font-mono text-sm font-bold text-ember">Descargar</span>
-        </a>
+          <input
+            type="search"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Buscá por tema, evento o tag"
+            className="w-full rounded-lg border border-border/60 bg-card/40 px-4 py-2 text-sm outline-none placeholder:text-muted-foreground focus:border-ember md:w-80"
+          />
+        </header>
 
-        <h2 className="mt-12 font-display text-2xl font-bold">Harness & Loop (Copilot)</h2>
-        <DeckList items={CLASSES} />
+        <div className="mt-6 flex flex-wrap gap-2">
+          <Chip active={track === null} onClick={() => setTrack(null)}>
+            Todas
+          </Chip>
+          {tracks.map((t) => (
+            <Chip key={t} active={track === t} onClick={() => setTrack(track === t ? null : t)}>
+              {t}
+            </Chip>
+          ))}
+          {archivedCount > 0 && (
+            <Chip active={showArchived} onClick={() => setShowArchived((v) => !v)}>
+              Archivadas ({archivedCount})
+            </Chip>
+          )}
+        </div>
 
-        <h2 className="mt-14 font-display text-2xl font-bold">Hackathon</h2>
-        <DeckList items={HACKATHON} />
-
-        <h2 className="mt-14 font-display text-2xl font-bold">Claude Architect</h2>
-        <DeckList items={ARCHITECT_SESSIONS} />
-
-        <h2 className="mt-14 font-display text-2xl font-bold">Frisvy</h2>
-        <DeckList items={FRISVY} />
-
-        <h2 className="mt-14 font-display text-3xl font-bold">Curso online (grabación)</h2>
-        <p className="mt-2 text-muted-foreground">
-          Orden de grabación: OSS en IDE → Cursor AI → Arquitecturas modernas IA
-        </p>
-        <DeckList items={ONLINE_MODULES} accent />
-
-        <p className="mt-10 pb-8 text-sm text-muted-foreground/70">
-          Referencia original smart-prompts:{" "}
-          <Link to="/ia-bien-usada" className="text-ember underline-offset-2 hover:underline">
-            IA bien usada (deck-30)
-          </Link>
-        </p>
+        {filtered.length > 0 ? (
+          <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {filtered.map((t) => (
+              <TalkCard key={String(t.to)} talk={t} />
+            ))}
+          </ul>
+        ) : (
+          <p className="mt-12 text-muted-foreground">No hay charlas con ese filtro.</p>
+        )}
       </div>
     </div>
   );

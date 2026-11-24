@@ -1,0 +1,23 @@
+# Corre lunes a viernes 11:00 UTC (8:00 en Argentina, UTC-3).
+# GitHub Actions usa sintaxis cron POSIX en UTC; intervalo mínimo 5 min; puede demorarse en horas pico.
+# Docs: https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows
+name: resumen-diario
+on:
+  schedule:
+    - cron: "0 11 * * 1-5"
+  workflow_dispatch: {}
+jobs:
+  resumen:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Traer dólar, riesgo país e inflación
+        run: |
+          {
+            echo "# Resumen $(date -u +%F)"
+            curl -s https://dolarapi.com/v1/dolares | jq -r '.[] | "- \(.nombre): compra \(.compra) / venta \(.venta)"'
+            echo "- Riesgo país: $(curl -s https://api.argentinadatos.com/v1/finanzas/indices/riesgo-pais/ultimo | jq .valor)"
+            echo "- Última inflación mensual: $(curl -s https://api.argentinadatos.com/v1/finanzas/indices/inflacion | jq -r '.[-1] | "\(.valor)% (\(.fecha))"')"
+          } > resumen.md
+          cat resumen.md
+      - uses: actions/upload-artifact@v4
+        with: { name: resumen, path: resumen.md }

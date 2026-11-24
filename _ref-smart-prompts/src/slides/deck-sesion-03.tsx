@@ -71,23 +71,6 @@ function FlowBox({
   );
 }
 
-function FlowChain({ items }: { items: { title: string; sub?: string; accent?: boolean }[] }) {
-  return (
-    <RevealStack className="flex flex-wrap items-center gap-4">
-      {items.map((item, i) => (
-        <RevealItem key={item.title} className="flex items-center gap-4">
-          <FlowBox title={item.title} sub={item.sub} accent={item.accent} />
-          {i < items.length - 1 && (
-            <span aria-hidden className="shrink-0 font-mono text-2xl text-ember">
-              →
-            </span>
-          )}
-        </RevealItem>
-      ))}
-    </RevealStack>
-  );
-}
-
 function CrossCard({ text }: { text: string }) {
   return (
     <div className="flex h-full items-start gap-4 rounded-2xl border border-border bg-surface/80 p-6">
@@ -115,11 +98,6 @@ const Cover = () => (
     <RevealStack className="flex h-full items-center">
       <div>
         <RevealItem>
-          <div className="mb-8 font-mono text-lg uppercase tracking-[0.3em] text-ember">
-            Sesión 3 · Claude Certified Architect
-          </div>
-        </RevealItem>
-        <RevealItem>
           <h1 className="font-display text-[clamp(4rem,9vw,7rem)] font-bold leading-[0.92] text-balance">
             Diseño de ruta técnica
             <br />
@@ -128,45 +106,12 @@ const Cover = () => (
         </RevealItem>
         <RevealItem>
           <SlideLead className="mt-10 max-w-[1300px]">
-            Qué es el Model Context Protocol, cómo se diseña un server propio y qué mirar antes de
-            llevarlo a producción.
+            Los agentes necesitan herramientas. MCP es cómo conectarlas sin un conector a medida
+            por cada una, y qué mirar antes de llevar el server a producción.
           </SlideLead>
         </RevealItem>
       </div>
     </RevealStack>
-  </Shell>
-);
-
-const Recap = () => (
-  <Shell>
-    <ContentSlide>
-      <RevealItem>
-        <SlideTitle>Dónde estamos parados</SlideTitle>
-      </RevealItem>
-      <CardGrid
-        cols={3}
-        items={[
-          ["Multi-agente", "Orquestador, pipeline, peer-to-peer. Cada agente con su contrato."],
-          ["Agentic RAG", "El agente decide qué buscar y evalúa lo que encuentra."],
-          ["Sesiones", "El estado vive afuera del modelo, con dueño claro."],
-        ]}
-        render={(item) => {
-          const [title, body] = item as [string, string];
-          return (
-            <DeckCard className="flex h-full min-h-[140px] flex-col">
-              <div className="font-mono text-sm text-ember mb-2">{title}</div>
-              <div className="font-display text-lg leading-snug flex-1">{body}</div>
-            </DeckCard>
-          );
-        }}
-      />
-      <RevealItem>
-        <SlideLead>
-          Todos esos agentes usan herramientas. Hoy:{" "}
-          <span className="text-foreground font-bold">cómo conectarlas sin escribir un conector a medida por cada una</span>.
-        </SlideLead>
-      </RevealItem>
-    </ContentSlide>
   </Shell>
 );
 
@@ -709,31 +654,51 @@ tools:
   </Shell>
 );
 
-const RouteToProduction = () => (
-  <Shell>
-    <ContentSlide>
-      <RevealItem>
-        <SlideTitle>De la idea a producción</SlideTitle>
-      </RevealItem>
-      <FlowChain
-        items={[
-          { title: "Diseñar tools", sub: "nombres, params" },
-          { title: "Server local", sub: "stdio" },
-          { title: "Inspector", sub: "probar a mano" },
-          { title: "HTTP + auth", sub: "transporte prod" },
-          { title: "Deploy" },
-          { title: "Logs y métricas", accent: true },
-        ]}
-      />
-      <RevealItem>
-        <SlideLead>
-          El orden importa: las tools primero,{" "}
-          <span className="text-foreground font-bold">el transporte y el hosting al final</span>.
-        </SlideLead>
-      </RevealItem>
-    </ContentSlide>
-  </Shell>
-);
+const RouteToProduction = () => {
+  const steps = [
+    { title: "Diseñar tools", sub: "nombres, params" },
+    { title: "Server local", sub: "stdio" },
+    { title: "Inspector", sub: "probar a mano" },
+    { title: "HTTP + auth", sub: "transporte prod" },
+    { title: "Deploy" },
+    { title: "Logs y métricas", accent: true },
+  ];
+
+  return (
+    <Shell>
+      <ContentSlide>
+        <RevealItem>
+          <SlideTitle>De la idea a producción</SlideTitle>
+        </RevealItem>
+        <RevealItem className="flex min-h-0 flex-1 flex-col items-center justify-center gap-8">
+          <RevealItem className="flex w-full max-w-[1400px] items-stretch justify-center gap-2 mx-auto">
+            {steps.map((step, i) => (
+              <div key={step.title} className="flex flex-1 items-center gap-2 min-w-0">
+                {i > 0 && (
+                  <span aria-hidden className="shrink-0 font-mono text-2xl text-ember">
+                    →
+                  </span>
+                )}
+                <FlowBox
+                  title={step.title}
+                  sub={step.sub}
+                  accent={step.accent}
+                  className="h-full min-h-[130px] w-full flex flex-col justify-center py-6 px-3 [&_.font-display]:text-xl [&_.text-sm]:text-base"
+                />
+              </div>
+            ))}
+          </RevealItem>
+          <RevealItem className="w-full max-w-[1200px] mx-auto text-center">
+            <SlideLead>
+              El orden importa: las tools primero,{" "}
+              <span className="text-foreground font-bold">el transporte y el hosting al final</span>.
+            </SlideLead>
+          </RevealItem>
+        </RevealItem>
+      </ContentSlide>
+    </Shell>
+  );
+};
 
 const Hosting = () => (
   <Shell>
@@ -879,19 +844,17 @@ const RouteChecklist = () => (
   </Shell>
 );
 
-const Exercise = () => (
+const DemoLive = () => (
   <Shell bg="panel">
     <StatementSlide>
       <div className="flex flex-col gap-8">
-        <p className="font-mono text-base uppercase tracking-[0.4em] text-ember">
-          ejercicio · en grupos
-        </p>
+        <p className="font-mono text-base uppercase tracking-[0.4em] text-ember">demo en vivo</p>
         <h2 className="font-display text-[clamp(3rem,7vw,6rem)] font-bold leading-[0.98]">
-          Diseñen el server.
+          Un server, un host, una tool.
         </h2>
         <SlideLead className="max-w-[1300px]">
-          Un caso de negocio, 15 minutos: qué tools expone, qué va como resource, qué transporte y
-          qué permisos.
+          Claude Code (o Claude Desktop) + un server MCP. Listar tools, llamar una, mirar el
+          transporte. Si hay tiempo: el mismo server desde n8n.
         </SlideLead>
       </div>
     </StatementSlide>
@@ -1047,21 +1010,14 @@ export const slidesSesion03: SlideDefBase[] = [
     title: "Portada",
     Component: Cover,
     notes:
-      "Hoy: qué es MCP, cómo se diseña un server y la ruta a producción. Bloque 2 es el más técnico: si el grupo viene junior, versionado y testing se pasan rápido.",
-  },
-  {
-    id: "s3-recap",
-    title: "Recap sesión 2",
-    Component: Recap,
-    notes:
-      "3 min. Una frase por card. El puente: los agentes de la sesión pasada usan herramientas, hoy vemos cómo conectarlas bien.",
+      "Portada. El lead ya hace el puente con sesión 2: agentes + herramientas → MCP. Si el grupo viene junior, versionado y testing se pasan rápido.",
   },
   {
     id: "s3-thesis",
     title: "Tesis",
     Component: Thesis,
     notes:
-      "Pausa 3 seg. Quien haya integrado una API con function calling a mano sabe de qué hablamos. Preguntar quién lo sufrió.",
+      "Pausa corta. Quien haya integrado una API con function calling a mano sabe de qué hablamos. Preguntar quién lo sufrió.",
   },
   {
     id: "s3-problem",
@@ -1223,11 +1179,11 @@ export const slidesSesion03: SlideDefBase[] = [
     notes: "Recorrer rápido. Es la síntesis operativa de toda la sesión, se la llevan como checklist.",
   },
   {
-    id: "s3-exercise",
-    title: "Ejercicio",
-    Component: Exercise,
+    id: "s3-demo",
+    title: "Demo en vivo",
+    Component: DemoLive,
     notes:
-      "15 a 20 min. Dar un caso de negocio concreto (elegir según el grupo). Cada grupo define tools, resources, transporte, permisos. Puesta en común corta: comparar granularidades.",
+      "Demo instructor en Claude Code o Desktop: conectar un server, listar tools, llamar una. Opcional: mismo server desde n8n. No ejercicio grupal.",
   },
   {
     id: "s3-integration",

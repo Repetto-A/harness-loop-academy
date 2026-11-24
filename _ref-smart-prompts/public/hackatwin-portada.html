@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <title>Cómo sobrevivir una hackathon</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&family=Space+Grotesk:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      html, body { width: 1920px; height: 1080px; overflow: hidden; background: #1a1a1a; }
+      .poster {
+        width: 1920px;
+        height: 1080px;
+        background: #1a1a1a;
+        color: #f4f1ec;
+        position: relative;
+        padding: 96px 120px 88px 128px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .poster::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 16px;
+        background: #e85d3a;
+      }
+      .eyebrow {
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 28px;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        color: #e85d3a;
+      }
+      h1 {
+        font-family: "Space Grotesk", system-ui, sans-serif;
+        font-weight: 700;
+        font-size: 148px;
+        line-height: 0.9;
+        letter-spacing: -0.035em;
+        max-width: 1600px;
+      }
+      .accent { color: #e85d3a; }
+      .sub {
+        margin-top: 40px;
+        font-family: "Space Grotesk", system-ui, sans-serif;
+        font-weight: 500;
+        font-size: 40px;
+        line-height: 1.25;
+        color: #c8c2ba;
+        max-width: 1200px;
+      }
+      .foot {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 26px;
+        letter-spacing: 0.04em;
+        color: #9a948c;
+      }
+      .name {
+        color: #f4f1ec;
+        font-family: "Space Grotesk", system-ui, sans-serif;
+        font-weight: 700;
+        font-size: 36px;
+        letter-spacing: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="poster">
+      <p class="eyebrow">HackaTwin · Workshop</p>
+      <div>
+        <h1>Cómo sobrevivir<br /><span class="accent">una hackathon.</span></h1>
+        <p class="sub">Llegás sin idea. Salís con la frase, el pitch y el repo.</p>
+      </div>
+      <footer class="foot">
+        <div class="name">Alejandro Repetto</div>
+        <div>Exclusivo para participantes · antes del 7 de noviembre</div>
+      </footer>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,25 @@
+{
+  "name": "mcp-portales-ar",
+  "version": "0.1.0",
+  "type": "module",
+  "bin": {
+    "mcp-portales-ar": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "start:http": "node dist/index.js --http",
+    "test": "node dist/test-client.js",
+    "inspector": "npx @modelcontextprotocol/inspector node dist/index.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.32.1",
+    "express": "^5.3.0",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "^26.6.5",
+    "typescript": "^7.0.2"
+  }
+}

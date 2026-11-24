@@ -15,7 +15,8 @@
     "export:pdf:frisvy-03": "node scripts/export-deck-pdf-frisvy-03.mjs",
     "export:pdf:mod06": "node scripts/export-mod-06-pdf.mjs",
     "export:pdf:mod08": "node scripts/export-mod-08-pdf.mjs",
-    "export:pdf:mod09": "node scripts/export-mod-09-pdf.mjs"
+    "export:pdf:mod09": "node scripts/export-mod-09-pdf.mjs",
+    "new:talk": "node scripts/new-talk.mjs"
   },
   "dependencies": {
     "@cloudflare/vite-plugin": "^1.25.5",

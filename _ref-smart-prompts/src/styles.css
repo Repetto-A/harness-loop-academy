@@ -1,6 +1,7 @@
 @import "tailwindcss" source(none);
 @source "../src";
 @import "tw-animate-css";
+@import url("https://fonts.googleapis.com/css2?family=Encode+Sans:wght@400;500;600;700&family=Roboto:wght@300;400;500&display=swap");
 
 @custom-variant dark (&:is(.dark *));
 
@@ -70,6 +71,27 @@
     -webkit-font-smoothing: antialiased;
     overflow: hidden;
   }
+}
+
+/* IT Patagonia deck theme (scoped) */
+.itp-deck {
+  --font-display: "Encode Sans", system-ui, sans-serif;
+  --font-sans: "Roboto", system-ui, sans-serif;
+  --font-itp-display: "Encode Sans", system-ui, sans-serif;
+  --font-itp-body: "Roboto", system-ui, sans-serif;
+  --ember: #ff00bf;
+  --ember-soft: rgb(255 0 191 / 0.15);
+  --accent: #ff00bf;
+  --background: #0a0a0a;
+  --surface: #1a1a1a;
+  --surface-2: #2a2a2a;
+  --border: rgb(255 255 255 / 0.15);
+  --muted-foreground: #a3a3a3;
+  font-family: var(--font-itp-body);
+}
+
+.itp-deck .font-display {
+  font-family: var(--font-itp-display);
 }
 
 /* Slide content typography scaling — slides render at 1920x1080 */
