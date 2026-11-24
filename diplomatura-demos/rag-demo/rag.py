@@ -38,12 +38,12 @@ def indexar():
     for f in sorted(DOCS.glob("*.md")) + sorted(DOCS.glob("*.txt")):
         t = f.read_text(encoding="utf-8")
         for i, c in enumerate(trocear(t)):
-            ids.append(f"{f.stem}-{i}"); textos.append(c)
+            ids.append(f"{f.name}-{i}"); textos.append(c)
             metas.append({"archivo": f.name, "fuente": fuente(t, f.name), "chunk": i})
     viejos = set(col.get(include=[])["ids"]) - set(ids)
+    col.upsert(ids=ids, documents=textos, metadatas=metas)
     if viejos:
         col.delete(ids=list(viejos))
-    col.upsert(ids=ids, documents=textos, metadatas=metas)
     print(f"Indexados {len(ids)} fragmentos de {len({m['archivo'] for m in metas})} archivos.")
 
 def llm(pregunta, frags):
