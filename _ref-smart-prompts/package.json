@@ -11,6 +11,7 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "export:pdf:05": "node scripts/export-deck-pdf-harness-05.mjs",
+    "export:pdf:sesion-02": "node scripts/export-deck-pdf-sesion-02.mjs",
     "export:pdf:frisvy-03": "node scripts/export-deck-pdf-frisvy-03.mjs",
     "export:pdf:mod06": "node scripts/export-mod-06-pdf.mjs",
     "export:pdf:mod08": "node scripts/export-mod-08-pdf.mjs",
